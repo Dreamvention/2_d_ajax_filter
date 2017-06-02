@@ -1,0 +1,40 @@
+<modification>
+    <name>d_ajax_filter</name>
+    <code>d_ajax_filter</code>
+    <version>1.1.6</version>
+    <author>Dreamvention.com</author>
+    <file path="catalog/model/catalog/product.php">
+        <operation>
+            <search><![CDATA[$query = $this->db->query($sql);]]></search>
+            <add position="before">
+                <![CDATA[
+                if(in_array(__FUNCTION__, array('getProducts'))){
+                    //d_ajax_filter
+                    $this->load->model('extension/module/d_ajax_filter');
+                    $sql = $this->model_extension_module_d_ajax_filter->prepareAjaxFilter($data, $sql);
+                    //d_ajax_filter
+                }
+                if(in_array(__FUNCTION__, array('getTotalProducts'))){
+                    //d_ajax_filter
+                    $this->load->model('extension/module/d_ajax_filter');
+                    $sql = $this->model_extension_module_d_ajax_filter->prepareAjaxFilterForTotal($data, $sql);
+                    //d_ajax_filter
+                }
+                ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="catalog/model/catalog/isearch.php">
+        <operation>
+            <search><![CDATA[$sql .= ' GROUP BY pd.product_id';]]></search>
+            <add position="before">
+                <![CDATA[
+                //d_ajax_filter
+                $this->load->model('extension/module/d_ajax_filter');
+                $sql = $this->model_extension_module_d_ajax_filter->prepareAjaxFilter(array('filter_name' => $keywords, 'filter_description' => '1'), $sql);
+                //d_ajax_filter
+                ]]>
+            </add>
+        </operation>
+    </file>
+</modification>

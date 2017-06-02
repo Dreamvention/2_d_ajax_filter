@@ -1,0 +1,162 @@
+{
+    "codename": "d_ajax_filter",
+    "version": "1.2.0",
+    "name": "Ajax Filter",
+    "description": "Ajax Fitler",
+    "index": "module/d_ajax_filter",
+    "author": {
+        "name": "Dreamvention",
+        "email": "info@dreamvention.com",
+        "url": "https://dreamvention.com/"
+    },
+    "opencart_version": [
+        "2.0.1.1",
+        "2.0.1.1",
+        "2.0.2.0",
+        "2.0.3.1",
+        "2.1.0.1",
+        "2.1.0.2",
+        "2.2.0.0"
+    ],
+    "mbooth_version": "^4.0.0",
+    "type": "module",
+    "license": {
+        "type": "commercial",
+        "url": "https://shopunity.net/licenses/commercial"
+    },
+    "install": {
+        "url": "extension/module/install&extension=d_ajax_filter",
+        "xml": "system/mbooth/install/d_ajax_filter.xml"
+    },
+    "support": {
+        "email": "support@dreamvention.com",
+        "url": "https://dreamvention.com/support"
+    },
+    "required": {
+        "d_shopunity": ">= 3.0.41",
+        "d_event_manager": ">=1.1.0",
+        "d_twig_manager": ">= 1.3.0",
+        "d_twig": ">=1.29.0",
+        "d_elfinder": ">= 1.0.0",
+        "d_riot": ">= 3.5.0",
+        "d_bootstrap_rating": "1.0.0"
+    },
+    "files": [
+        "system/mbooth/extension/d_ajax_filter.json",
+        "system/mbooth/install/d_ajax_filter.xml",
+        "system/config/d_ajax_filter.php",
+        "system/config/d_ajax_filter_translit.php",
+
+        "admin/controller/module/d_ajax_filter.php",
+        "admin/controller/extension/module/d_ajax_filter.php",
+        "admin/language/english/module/d_ajax_filter.php",
+        "admin/language/english/extension/module/d_ajax_filter.php",
+        "admin/model/extension/module/d_ajax_filter.php",
+        "admin/view/javascript/d_ajax_filter/filter.js",
+        "admin/view/javascript/d_ajax_filter/layout.js",
+        "admin/view/stylesheet/d_ajax_filter/filter.css",
+        "admin/view/stylesheet/d_ajax_filter/filter.css.map",
+        "admin/view/stylesheet/d_ajax_filter/filter.scss",
+        "admin/view/stylesheet/d_ajax_filter/layout.css",
+        "admin/view/stylesheet/d_ajax_filter/layout.css.map",
+        "admin/view/stylesheet/d_ajax_filter/layout.scss",
+        "admin/view/stylesheet/d_ajax_filter/setting.css",
+        "admin/view/stylesheet/d_ajax_filter/setting.css.map",
+        "admin/view/stylesheet/d_ajax_filter/setting.scss",
+        "catalog/controller/module/d_ajax_filter.php",
+        "catalog/controller/extension/module/d_ajax_filter.php",
+        "catalog/controller/extension/event/d_ajax_filter.php",
+        "catalog/model/extension/module/d_ajax_filter.php",
+        "catalog/language/english/extension/module/d_ajax_filter.php",
+
+        "system/config/d_ajax_filter/filter.php",
+        "system/config/d_ajax_filter/search.php",
+
+        "admin/controller/extension/d_ajax_filter_module/filter.php",
+
+        "admin/model/extension/d_ajax_filter_module/filter.php",
+
+        "admin/view/template/extension/d_ajax_filter/layout_partial/filter.tpl",
+        "admin/view/template/extension/d_ajax_filter/partials/tabs.tpl",
+
+        "admin/controller/extension/d_ajax_filter/cache.php",
+        "admin/controller/extension/d_ajax_filter/filter.php",
+        "admin/controller/extension/d_ajax_filter/layout.php",
+        "admin/controller/extension/d_ajax_filter/setting.php",
+        
+        "admin/language/english/extension/d_ajax_filter/cache.php",
+        "admin/language/english/extension/d_ajax_filter/filter.php",
+        "admin/language/english/extension/d_ajax_filter/layout.php",
+        "admin/language/english/extension/d_ajax_filter/setting.php",
+
+        "admin/model/extension/d_ajax_filter/cache.php",
+        "admin/model/extension/d_ajax_filter/filter.php",
+        "admin/model/extension/d_ajax_filter/layout.php",
+
+        "admin/view/template/extension/d_ajax_filter/cache.tpl",
+        "admin/view/template/extension/d_ajax_filter/filter.tpl",
+        "admin/view/template/extension/d_ajax_filter/layout.tpl",
+        "admin/view/template/extension/d_ajax_filter/setting.tpl",
+
+        "catalog/controller/extension/d_ajax_filter/filter.php",
+        "catalog/controller/extension/d_ajax_filter/search.php",
+
+        "catalog/model/extension/d_ajax_filter/filter.php",
+        "catalog/model/extension/d_ajax_filter/search.php"
+
+    ],
+    "dirs": [
+        "admin/view/javascript/d_ajax_filter/library",
+        "catalog/view/javascript/d_ajax_filter",
+        "catalog/view/theme/default/stylesheet/d_ajax_filter",
+        "catalog/view/theme/default/javascript/d_ajax_filter",
+        "catalog/view/theme/default/image/d_ajax_filter",
+        "catalog/view/theme/default/template/extension/d_ajax_filter"
+    ],
+    "changelog": [
+        {
+            "version": "1.2.0",
+            "change": "1.Re-design."
+        },
+        {
+            "version": "1.1.8",
+            "change": "1.Fix bugs"
+        },
+        {
+            "version": "1.1.7",
+            "change": "1.Added sorting attribute values when creating a cache. /r/n2.Moved the save button. /r/n3.Added reset button for sorting and images. /r/n4.Fixed the filtering for the price with the selected filter - available /r/n5.Remove duplicate attribute values."
+        },
+        {
+            "version": "1.1.6",
+            "change": "1.Handlebars replaced to Twig. /r/n2. Added custom style. /r/n3. Added custom script. /r/n4.Added update in cron. /r/n5.Category selection added."
+        },
+        {
+            "version": "1.1.5",
+            "change": "1.Правки."
+        },
+        {
+            "version": "1.1.3",
+            "change": "1.Правки. /r/n2.Оптимизация производительности."
+        },
+        {
+            "version": "1.1.2",
+            "change": "1.Правки. /r/n2.Добавлено отключение автоматического сохранения URLs."
+        },
+        {
+            "version": "1.1.1",
+            "change": "1.Добавлена поддержка фильтров Opencart."
+        },
+        {
+            "version": "1.1.0",
+            "change": "1.Добавлены темы. /r/n2.Переделана работа ajax запроса. /r/n3.Добавлен автоматический пересчет количества./r/n4.Extension./r/n5.Fix work with Seo URL."
+        },
+        {
+            "version": "1.0.1",
+            "change": " 1.Правки"
+        },
+        {
+            "version": "1.0.0",
+            "change": "1.Первая версия"
+        }
+    ]
+}

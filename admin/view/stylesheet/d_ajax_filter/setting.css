@@ -1,0 +1,15 @@
+.well-link {
+  cursor: pointer; }
+
+.s-nav-stacked li {
+  width: 100%;
+  display: block;
+  margin-left: 0px !important;
+  margin-bottom: 2px; }
+  .s-nav-stacked li a {
+    width: 100%;
+    display: block;
+    margin-left: 0px !important;
+    margin-bottom: 2px; }
+
+/*# sourceMappingURL=setting.css.map */

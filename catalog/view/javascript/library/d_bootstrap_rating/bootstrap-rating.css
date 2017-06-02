@@ -1,0 +1,31 @@
+/*opencart fix*/
+.bootstrap-rating {
+  margin-top: 4px; 
+  display: inline-block;}
+  .bootstrap-rating .fa-stack {
+    font-size: inherit; }
+  .bootstrap-rating .fa {
+    cursor: pointer;
+    padding-right: 4px; }
+  .bootstrap-rating .fa-2x,
+  .bootstrap-rating .fa-stack-2x {
+    font-size: 2em; }
+
+/*custom symbols add here */
+/*
+.symbol {
+  display: inline-block;
+  border-radius: 50%;
+  border: 5px double white;
+  width: 30px;
+  height: 30px;
+}
+
+.symbol-empty {
+  background-color: #ccc;
+}
+
+.symbol-filled {
+  background-color: black;
+}
+*/
