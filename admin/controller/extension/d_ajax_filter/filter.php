@@ -106,6 +106,7 @@ class ControllerExtensionDAjaxFilterFilter extends Controller
         $data['text_warning_image_filter'] = $this->language->get('text_warning_image_filter');
         $data['text_file_manager'] = $this->language->get('text_file_manager');
         $data['text_filter_setting'] = $this->language->get('text_filter_setting');
+        $data['text_general_filter_setting'] = $this->language->get('text_general_filter_setting');
         $data['text_individual_setting'] = $this->language->get('text_individual_setting');
         $data['text_default_setting'] = $this->language->get('text_default_setting');
         $data['text_on'] = $this->language->get('text_on');

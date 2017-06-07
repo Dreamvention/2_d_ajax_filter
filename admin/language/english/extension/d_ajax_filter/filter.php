@@ -23,6 +23,7 @@ $_['text_image']                        = 'Image';
 $_['text_file_manager']                 = 'File Manager';
 $_['text_default_filter_settings']      = 'Default Filter settings';
 $_['text_filter_setting']               = "This Module Filter settings";
+$_['text_general_filter_setting']       = "Filter settings";
 $_['text_individual_setting']           = 'Individual Filter settings';
 $_['text_on']                           = 'On';
 $_['text_off']                          = 'Off';

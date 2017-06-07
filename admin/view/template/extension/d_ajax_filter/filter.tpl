@@ -49,7 +49,7 @@
                     <div class="col-sm-10">
                         <div class="tab-content">
                             <div id="d_list_filter" class="tab-pane active">
-                                <div class="h2 header-title"><?php echo $text_filter_setting; ?></div>
+                                <div class="h2 header-title"><?php echo $text_general_filter_setting; ?></div>
                                 <div class="bs-callout bs-callout-info">
                                     <?php echo $text_filter_default_general; ?>
                                 </div>
