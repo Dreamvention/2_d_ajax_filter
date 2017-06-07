@@ -70,7 +70,7 @@ class ModelExtensionDAjaxFilterlayout extends Model {
             $result = array();
         }
 
-        $result = array_merge($result, array('setting', 'base_attributes','configuration', 'design'));
+        $result = array_merge($result, array('setting', 'base_attributes','configuration', 'af_design'));
 
         foreach($files as $file){
             $result[] = basename($file, '.tpl');
@@ -82,7 +82,7 @@ class ModelExtensionDAjaxFilterlayout extends Model {
     public function prepareTabs($tabs){
         $results = array();
         $this->load->language('extension/'.$this->codename.'/layout');
-        $icons = array('home' => 'fa fa-home','setting'=> 'fa fa-cog', 'base_attributes' => 'fa fa-list', 'configuration' => 'fa fa-wrench', 'design' => 'fa fa-adjust');
+        $icons = array('home' => 'fa fa-home','setting'=> 'fa fa-cog', 'base_attributes' => 'fa fa-list', 'configuration' => 'fa fa-wrench', 'af_design' => 'fa fa-adjust');
         foreach ($tabs as $tab) {
             $module_setting = $this->getModuleSetting($tab);
 

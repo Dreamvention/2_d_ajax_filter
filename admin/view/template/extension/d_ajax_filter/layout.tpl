@@ -417,7 +417,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div id="design" class="tab-pane">
+                                <div id="af_design" class="tab-pane">
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label" for="input_theme"><?php echo $entry_theme; ?></label>
                                         <div class="col-sm-10">
