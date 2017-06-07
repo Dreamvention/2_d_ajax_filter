@@ -144,6 +144,7 @@ class ControllerExtensionModuleDAjaxFilter extends Controller
         $base_attribs =  array_filter($setting['base_attribs'], function($base_attrib) {
             return $base_attrib['status'];
         });
+
         if(empty($base_attribs)){
             return ;
         }
@@ -171,8 +172,6 @@ class ControllerExtensionModuleDAjaxFilter extends Controller
         $data['current_manufacturer_id'] = isset($this->request->get['manufacturer_id']) ? $this->request->get['manufacturer_id'] : '';
         $data['current_route'] = isset($this->request->get['route'])?$this->request->get['route']:'';
         
-        
-        
         $url = $this->{'model_extension_module_'.$this->codename}->getURLQuery();
         
         $json['url'] = array(
@@ -182,7 +181,7 @@ class ControllerExtensionModuleDAjaxFilter extends Controller
         
         $data['json'] = $json;
         $data['groups'] = json_encode($data['groups']);
-        
+
         if (VERSION >= '2.2.0.0'){
             return $this->load->view('extension/d_ajax_filter/d_ajax_filter.tpl', $data);
         } elseif (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/extension/d_ajax_filter/d_ajax_filter.tpl')) {
@@ -383,6 +382,8 @@ class ControllerExtensionModuleDAjaxFilter extends Controller
             $json['success'] = 'success';
             $json['get'] = $this->request->get;
             $json['url'] = $this->{'model_extension_module_'.$this->codename}->getUrl($route);
+
+            $this->config->set('config_product_count', false);
             
             $this->{'model_extension_module_'.$this->codename}->prepareTable($data, true);
             

@@ -5,52 +5,80 @@
 {% endif %}
 <div id="{{id}}" data-is="d_ajax_filter" class="ajax-filter {% if setting.layout_position and setting.layout_position in ['content_top', 'content_bottom'] %} af-horizontal {% endif %} {{id}} {% if mobile %} modal fade {% endif %}" {% if mobile %} role="dialog" style="display:none" {% endif %}></div>
 <style>
-    {% if setting.header %}
+    {% if setting.design.header %}
     .ajax-filter.{{id}} > div > div.panel-heading{
-        color: {{setting.header.text}}!important;
-        background:{{setting.header.background}}!important;
+        color: {{setting.design.header.text}}!important;
+        background:{{setting.design.header.background}}!important;
     }
     {% endif %}
-    {% if setting.product_quantity %}
+    {% if setting.design.product_quantity %}
     .ajax-filter.{{id}} span.quantity{
-        color:{{setting.product_quantity.text}}!important;
-        background:{{setting.product_quantity.background}}!important;
+        color:{{setting.design.product_quantity.text}}!important;
+        background:{{setting.design.product_quantity.background}}!important;
     }
     {% endif %}
-    {% if setting.price_slider %}
-    .ajax-filter.{{id}} .noUi-connect {
-        background: {{setting.price_slider.area_active}}!important;
+    {% if setting.design.price_slider %}
+    .ajax-filter.{{id}} .irs-bar {
+        background: {{setting.design.price_slider.area_active}}!important;
     }
-    .ajax-filter.{{id}} .noUi-base {
-        background: {{setting.price_slider.background}}!important;
+    .ajax-filter.{{id}} .irs-line {
+        background: {{setting.design.price_slider.background}}!important;
+        border: 1px solid {{setting.design.price_slider.background}}!important;
     }
-    .ajax-filter.{{id}} .noUi-handle{
-        background: {{setting.price_slider.handle_background}}!important;
-        border: 1px solid  {{setting.price_slider.handle_border}}!important;
+    .ajax-filter.{{id}} .irs-slider{
+        background: {{setting.design.price_slider.handle_background}}!important;
+        border: 1px solid  {{setting.design.price_slider.handle_border}}!important;
     }
     {% endif %}
-    {% if setting.group_header %}
+    {% if setting.design.group_header %}
     .ajax-filter.{{id}} > .title{
-        color:{{setting.group_header.text}}!important;
-        background:{{setting.group_header.background}}!important;
+        color:{{setting.design.group_header.text}}!important;
+        background:{{setting.design.group_header.background}}!important;
     }
     .ajax-filter.{{id}} .af-heading,.af-heading:hover{
-        color:{{setting.group_header.text}}!important;
-        background:{{setting.group_header.background}}!important;
+        color:{{setting.design.group_header.text}}!important;
+        background:{{setting.design.group_header.background}}!important;
     }
     {% endif %}
-    {% if setting.button %}
-    .ajax-filter.{{id}} #resetFilter:hover{
-        color:{{setting.button.button_reset}}!important;
+    {% if setting.design.button %}
+    .ajax-filter.{{id}} #resetFilter:hover > p{
+        color:{{setting.design.button.button_reset}}!important;
     }
     .ajax-filter.{{id}} a#fitlers{
-        background:{{setting.button.button_filter}}!important;
-        border:1px solid {{setting.button.button_filter}}!important;
+        background:{{setting.design.button.button_filter}}!important;
+        border:1px solid {{setting.design.button.button_filter}}!important;
     }
-    .ajax-filter.{{id}} .af-container#selected:hover{
-        color:{{setting.button.button_selected}}!important;
+    .ajax-filter.{{id}} #label_radio_and_image > input:checked+img{
+        border:2px solid {{setting.design.button.border_image}}!important;
+    }
+    .ajax-filter.{{id}} #label_radio_and_image > input+img{
+        border-radius:{{setting.design.button.border_radius_image}}!important;
+    }
+    .ajax-filter.{{id}} #label_checbox_and_image > input:checked+img{
+        border:2px solid {{setting.design.button.border_image}}!important;
+        border-radius:{{setting.design.button.border_radius_image}}!important;
+    }
+
+    .ajax-filter.{{id}} #label_checbox_and_image > input+img{
+        border-radius:{{setting.design.button.border_radius_image}}!important;
+    }
+    .ajax-filter.{{id}} #label_image_checkbox input:checked+img{
+        border:1px solid {{setting.design.button.border_image}}!important;
+    }
+
+    .ajax-filter.{{id}} #label_image_checkbox input+img{
+        border-radius:{{setting.design.button.border_radius_image}}!important;
+    }
+
+    .ajax-filter.{{id}} #label_image_radio input:checked+img{
+        border:1px solid {{setting.design.button.border_image}}!important;
+    }
+
+    .ajax-filter.{{id}} #label_image_radio input+img{
+        border-radius:{{setting.design.button.border_radius_image}}!important;
     }
     {% endif %}
+
     .ajax-filter.{{id}} .af-container > div
     {
         overflow-x: hidden;
@@ -60,37 +88,8 @@
         overflow-y: hidden
         {% endif %}
     }
-    input[data-mode=radio_and_image]+img{
-        border:2px solid #fff!important;
-        border-radius:{{design.button.border_radius_image}}!important;
-    }
-    input[data-mode=checkbox_and_image]+img{
-        border:2px solid #fff!important;
-        border-radius:{{design.button.border_radius_image}}!important;
-    }
-    input[data-mode=image_checkbox]+img{
-        border-radius:{{design.button.border_radius_image}}!important;
-    }
-    input[data-mode=image_radio]+img{
-        border-radius:{{design.button.border_radius_image}}!important;
-    }
 
-    input[data-mode=radio_and_image]:checked+img{
-        border:2px solid {{design.button.border_image}}!important;
-        border-radius:{{design.button.border_radius_image}}!important;
-    }
-    input[data-mode=checkbox_and_image]:checked+img{
-        border:2px solid {{design.button.border_image}}!important;
-        border-radius:{{design.button.border_radius_image}}!important;
-    }
-    input[data-mode=image_checkbox]:checked+img{
-        border:2px solid {{design.button.border_image}}!important;
-        border-radius:{{design.button.border_radius_image}}!important;
-    }
-    input[data-mode=image_radio]:checked+img{
-        border:2px solid {{design.button.border_image}}!important;
-        border-radius:{{design.button.border_radius_image}}!important;
-    }
+    
 
     {{custom_style}}
 </style>
@@ -99,6 +98,12 @@
 <script src="{{riot_tag}}" type="riot/tag"></script>
 {% endfor %}
 <script  type="text/javascript">
+
+    {% if mobile %}
+        $('#{{id}}').detach().appendTo('body');
+        $('a[data-target="#{{id}}"]').detach().appendTo('body');
+    {% endif %}
+
     riot.mixin({ store : d_ajax_filter.createStore({{ json|json_encode(constant('JSON_FORCE_OBJECT')) }}) })
     d_ajax_filter.setGroups('{{id}}',{{ groups }});
     d_ajax_filter.setSetting('{{id}}',{{ setting|json_encode(constant('JSON_FORCE_OBJECT'))}});
@@ -110,12 +115,12 @@
     {% endif %}
 
     {{custom_script}}
-    // $("body").touchwipe({
-    //     wipeLeft: function() { $('#{{id}}').modal('toggle') },
-    //     wipeRight: function() { $('#{{id}}').modal('toggle') },
-    //     min_move_x: 20,
-    //     min_move_y: 20,
-    //     preventDefaultEvents: true
-    // });
-  
+    $('{{json.common_setting.content_path}}').touchwipe({
+        wipeLeft: function() { $('#{{id}}').modal('toggle') },
+        wipeRight: function() { $('#{{id}}').modal('toggle') },
+        min_move_x: 20,
+        min_move_y: 20,
+        preventDefaultEvents: true
+    });
+
 </script>

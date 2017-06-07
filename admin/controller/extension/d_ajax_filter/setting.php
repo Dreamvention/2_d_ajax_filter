@@ -163,7 +163,13 @@ class ControllerExtensionDAjaxFilterSetting extends Controller
 
         $data['stock_statuses'] = $this->model_localisation_stock_status->getStockStatuses();
 
-        $data['recreate_cache'] = $this->url->link('extension/'.$this->codename.'/cache', 'token='.$this->session->data['token'], 'SSL');
+        $url = '';
+
+        if(isset($this->request->get['module_id'])){
+            $url .= '&module_id='.$this->request->get['module_id'];
+        }
+
+        $data['recreate_cache'] = $this->url->link('extension/'.$this->codename.'/cache'.$url, 'token='.$this->session->data['token'], 'SSL');
 
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');

@@ -5,14 +5,14 @@ $_['text_form']                         = 'Layout setting';
 $_['text_success']                      = 'Success: You have modified Ajax Filter!';
 $_['text_title']                        = 'Layout';
 
-$_['text_tab_home']                     = 'Home';
-$_['text_tab_setting']                  = 'Settings';
+$_['text_tab_home']                     = 'Modules';
+$_['text_tab_setting']                  = 'Module setting';
 $_['text_tab_layout']                   = 'Layout';
 $_['text_tab_options']                  = 'Options';
 $_['text_tab_filter']                   = 'Filters';
 $_['text_tab_attributes']               = 'Attributes';
 $_['text_tab_configuration']            = 'Configuration';
-$_['text_tab_base_attributes']          = 'Base Attributes';
+$_['text_tab_base_attributes']          = 'Module sections';
 $_['text_tab_design']                   = 'Design';
 $_['text_header']                       = 'Header';
 $_['text_product_quantity']             = 'Product Quantity';
@@ -39,6 +39,7 @@ $_['text_status']                       = 'Status:';
 $_['text_new_setting']                  = 'Create a new setting';
 $_['text_create_setting']               = 'Create setting';
 $_['text_module']                       = 'Modules';
+$_['text_not_positioned']               = 'Not yet positioned';
 
 $_['text_base_attrib_price']            = 'Price filter';
 $_['text_base_attrib_manufacturer']     = 'Manufacturers';

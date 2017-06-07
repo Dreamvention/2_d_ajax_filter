@@ -43,7 +43,7 @@
                         </div>
                         <div class="col-sm-10">
                             <div class="tab-content">
-                                <div id="home" class="tab-pane active">
+                                <div id="home" class="tab-pane">
                                     <div class="row">
                                         <?php if(!empty($modules)) { ?>
                                         <?php foreach ($modules as $module) { ?>
@@ -65,6 +65,8 @@
                                                             <?php foreach ($module['layouts'] as $layout) { ?>
                                                             <li><?php echo $layout['name']; ?></li>
                                                             <?php } ?>
+                                                            <?php } else { ?>
+                                                            <li><?php echo $text_not_positioned; ?></li>
                                                             <?php } ?>
                                                         </ul>
                                                     </div>
@@ -93,20 +95,6 @@
                                                     </div>
                                                 </a>
                                                 <div class="tile-footer"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label"><?php echo $entry_support; ?></label>
-                                                <div class="col-sm-2">
-                                                    <a href="mailto:<?php echo $support_email; ?>?Subject=Request%20Support:<?php echo str_replace(' ', '%20', $heading_title); ?>&body=Shop:%20<?php echo str_replace(' ', '%20', HTTP_SERVER); ?>" class="btn btn-primary btn-block"><i class="fa fa-support"></i> <?php echo $button_support_email; ?></a>
-
-                                                </div>
-                                                <div class="col-sm-8">
-                                                    <label class="form-control-static"><?php echo $support_email; ?></label>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -194,7 +182,7 @@
                                                         <?php foreach ($categories as $key => $value) { ?>
                                                         <div class="checkbox">
                                                             <label>
-                                                                <?php if (!empty($setting['selected_categories'])&&in_array($key, $setting['selected_categories'])) { ?>
+                                                                <?php if (!empty($setting['categories'])&&in_array($key, $setting['categories'])) { ?>
                                                                 <input type="checkbox" name="module_setting[categories][]" value="<?php echo $key; ?>" checked="checked" />
                                                                 <?php echo $value; ?>
                                                                 <?php } else { ?>
@@ -451,7 +439,7 @@
                                                 <div class="form-group">
                                                     <label class="col-sm-2 control-label" for="input_background"><?php echo $entry_background; ?></label>
                                                     <div class="col-sm-10">
-                                                        <input type="text" data-name="module_setting[header][background]" class="form-control color-picker" value="<?php echo $design['header']['background']; ?>" id="input_background">
+                                                        <input type="text" data-name="module_setting[design][header][background]" class="form-control color-picker" value="<?php echo $design['header']['background']; ?>" id="input_background">
                                                     </div>
                                                 </div>
                                             </div>
@@ -459,7 +447,7 @@
                                                 <div class="form-group">
                                                     <label class="col-sm-2 control-label" for="input_text"><?php echo $entry_text; ?></label>
                                                     <div class="col-sm-10">
-                                                        <input type="text" data-name="module_setting[header][text]" class="form-control color-picker" value="<?php echo $design['header']['text']; ?>" id="input_text">
+                                                        <input type="text" data-name="module_setting[design][header][text]" class="form-control color-picker" value="<?php echo $design['header']['text']; ?>" id="input_text">
                                                     </div>
                                                 </div>
                                             </div>
@@ -471,7 +459,7 @@
                                                 <div class="form-group">
                                                     <label class="col-sm-2 control-label" for="input_product_quantity_background"><?php echo $entry_background; ?></label>
                                                     <div class="col-sm-10">
-                                                        <input type="text" data-name="module_setting[product_quantity][background]" class="form-control color-picker" value="<?php echo $design['product_quantity']['background']; ?>" id="input_product_quantity_background">
+                                                        <input type="text" data-name="module_setting[design][product_quantity][background]" class="form-control color-picker" value="<?php echo $design['product_quantity']['background']; ?>" id="input_product_quantity_background">
                                                     </div>
                                                 </div>
                                             </div>
@@ -479,7 +467,7 @@
                                                 <div class="form-group">
                                                     <label class="col-sm-2 control-label" for="input_product_quantity_text"><?php echo $entry_text; ?></label>
                                                     <div class="col-sm-10">
-                                                        <input type="text" data-name="module_setting[product_quantity][text]" class="form-control color-picker" value="<?php echo $design['product_quantity']['text']; ?>" id="input_product_quantity_text">
+                                                        <input type="text" data-name="module_setting[design][product_quantity][text]" class="form-control color-picker" value="<?php echo $design['product_quantity']['text']; ?>" id="input_product_quantity_text">
 
                                                     </div>
                                                 </div>
@@ -491,13 +479,13 @@
                                                 <div class="form-group">
                                                     <label class="col-sm-3 control-label" for="input_price_slider"><?php echo $entry_background; ?></label>
                                                     <div class="col-sm-9">
-                                                        <input type="text" data-name="module_setting[price_slider][background]" class="form-control color-picker" value="<?php echo $design['price_slider']['background']; ?>" id="input_price_slider">
+                                                        <input type="text" data-name="module_setting[design][price_slider][background]" class="form-control color-picker" value="<?php echo $design['price_slider']['background']; ?>" id="input_price_slider">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="col-sm-3 control-label" for="input_area_background"><?php echo $entry_active_area_background; ?></label>
                                                     <div class="col-sm-9">
-                                                        <input type="text" data-name="module_setting[price_slider][area_active]" class="form-control color-picker" value="<?php echo $design['price_slider']['area_active']; ?>" id="input_area_background">
+                                                        <input type="text" data-name="module_setting[design][price_slider][area_active]" class="form-control color-picker" value="<?php echo $design['price_slider']['area_active']; ?>" id="input_area_background">
                                                     </div>
                                                 </div>
 
@@ -506,13 +494,13 @@
                                                 <div class="form-group">
                                                     <label class="col-sm-3 control-label" for="input_handle_background"><?php echo $entry_handle_background; ?></label>
                                                     <div class="col-sm-9">
-                                                        <input type="text" data-name="module_setting[price_slider][handle_background]" class="form-control color-picker" value="<?php echo $design['price_slider']['handle_background']; ?>" id="input_handle_background">
+                                                        <input type="text" data-name="module_setting[design][price_slider][handle_background]" class="form-control color-picker" value="<?php echo $design['price_slider']['handle_background']; ?>" id="input_handle_background">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="col-sm-3 control-label" for="input_handle_border"><?php echo $entry_handle_border; ?></label>
                                                     <div class="col-sm-9">
-                                                        <input type="text" data-name="module_setting[price_slider][handle_border]" class="form-control color-picker" value="<?php echo $design['price_slider']['handle_border']; ?>" id="input_handle_border">
+                                                        <input type="text" data-name="module_setting[design][price_slider][handle_border]" class="form-control color-picker" value="<?php echo $design['price_slider']['handle_border']; ?>" id="input_handle_border">
                                                     </div>
                                                 </div>
                                             </div>
@@ -520,7 +508,7 @@
                                                 <div class="form-group">
                                                     <label class="col-sm-3 control-label" for="input_border"><?php echo $entry_border; ?></label>
                                                     <div class="col-sm-9">
-                                                        <input type="text" data-name="module_setting[price_slider][border]" class="form-control color-picker" value="<?php echo $design['price_slider']['border']; ?>" id="input_border">
+                                                        <input type="text" data-name="module_setting[design][price_slider][border]" class="form-control color-picker" value="<?php echo $design['price_slider']['border']; ?>" id="input_border">
                                                     </div>
                                                 </div>
                                             </div>
@@ -532,7 +520,7 @@
                                                 <div class="form-group">
                                                     <label class="col-sm-2 control-label" for="input_group_header_background"><?php echo $entry_background; ?></label>
                                                     <div class="col-sm-10">
-                                                        <input type="text" data-name="module_setting[group_header][background]" class="form-control color-picker" value="<?php echo $design['group_header']['background']; ?>" id="input_group_header_background">
+                                                        <input type="text" data-name="module_setting[design][group_header][background]" class="form-control color-picker" value="<?php echo $design['group_header']['background']; ?>" id="input_group_header_background">
                                                     </div>
                                                 </div>
                                             </div>
@@ -540,7 +528,7 @@
                                                 <div class="form-group">
                                                     <label class="col-sm-2 control-label" for="input_group_header_text"><?php echo $entry_text; ?></label>
                                                     <div class="col-sm-10">
-                                                        <input type="text" data-name="module_setting[group_header][text]" class="form-control color-picker" value="<?php echo $design['group_header']['text']; ?>" id="input_group_header_text">
+                                                        <input type="text" data-name="module_setting[design][group_header][text]" class="form-control color-picker" value="<?php echo $design['group_header']['text']; ?>" id="input_group_header_text">
                                                     </div>
                                                 </div>
                                             </div>
@@ -552,13 +540,13 @@
                                                 <div class="form-group">
                                                     <label class="col-sm-3 control-label" for="input_button_filter"><?php echo $entry_color_button_filter; ?></label>
                                                     <div class="col-sm-9">
-                                                        <input type="text" data-name="module_setting[button][button_filter]" class="form-control color-picker" value="<?php echo $design['button']['button_filter']; ?>" id="input_button_filter">
+                                                        <input type="text" data-name="module_setting[design][button][button_filter]" class="form-control color-picker" value="<?php echo $design['button']['button_filter']; ?>" id="input_button_filter">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="col-sm-3 control-label" for="input_button_reset"><?php echo $entry_color_button_reset; ?></label>
+                                                    <label class="col-sm-3 control-label" for="input_border_radius_image"><?php echo $entry_border_radius_image; ?></label>
                                                     <div class="col-sm-9">
-                                                        <input type="text" data-name="module_setting[button][button_reset]" class="form-control color-picker" value="<?php echo $design['button']['button_filter']; ?>" id="input_button_reset">
+                                                        <input type="text" data-name="module_setting[design][button][border_radius_image]" class="form-control" value="<?php echo $design['button']['border_radius_image']; ?>" id="input_border_radius_image">
                                                     </div>
                                                 </div>
                                             </div>
@@ -566,21 +554,15 @@
                                                 <div class="form-group">
                                                     <label class="col-sm-3 control-label" for="input_border_image"><?php echo $entry_color_border_image; ?></label>
                                                     <div class="col-sm-9">
-                                                        <input type="text" data-name="module_setting[button][border_image]" class="form-control color-picker" value="<?php echo $design['button']['border_image']; ?>" id="input_border_image">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-sm-3 control-label" for="input_border_radius_image"><?php echo $entry_border_radius_image; ?></label>
-                                                    <div class="col-sm-9">
-                                                        <input type="text" data-name="module_setting[button][border_radius_image]" class="form-control" value="<?php echo $design['button']['border_radius_image']; ?>" id="input_border_radius_image">
+                                                        <input type="text" data-name="module_setting[design][button][border_image]" class="form-control color-picker" value="<?php echo $design['button']['border_image']; ?>" id="input_border_image">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
                                                 <div class="form-group">
-                                                    <label class="col-sm-3 control-label" for="input_button_selected"><?php echo $entry_color_button_selected; ?></label>
+                                                    <label class="col-sm-3 control-label" for="input_button_reset"><?php echo $entry_color_button_reset; ?></label>
                                                     <div class="col-sm-9">
-                                                        <input type="text" data-name="module_setting[button][button_selected]" class="form-control color-picker" value="<?php echo $design['button']['button_selected']; ?>" id="input_button_selected">
+                                                        <input type="text" data-name="module_setting[design][button][button_reset]" class="form-control color-picker" value="<?php echo $design['button']['button_filter']; ?>" id="input_button_reset">
                                                     </div>
                                                 </div>
                                             </div>
@@ -689,6 +671,7 @@
                 $('#list-categories').hide();
             }
         });
+        $('select[name="module_setting[show_mode]"]').trigger('change');
         $(document).on('click', '.well-link-all', function(){
             $(this).parent().find(':checkbox').prop('checked', true);
         });
@@ -697,7 +680,7 @@
         });
         $("input.color-picker").ColorPickerSliders({
             size: 'sm',
-            placement: 'right',
+            placement: 'bottom',
             swatches: false,
             sliders: false,
             hsvpanel: true
@@ -791,6 +774,8 @@
             }
         });
 
+        $('[name="module_setting[theme]"]').trigger('change');
+
         $(document).on('change', '[name="module_setting[option_default][status]"]:radio, [name="module_setting[attribute_default][status]"]:radio, [name="module_setting[filter_default][status]"]:radio, [name^="module_setting[options]"][name$="[status]"]:radio, [name^="module_setting[filters]"][name$="[status]"]:radio, [name^="module_setting[attributes]"][name$="[status]"]:radio', function(){
             var value = $(this).val();
             $(this).closest('td').removeClass('disabled-next');
@@ -800,15 +785,23 @@
 
         });
 
-        var d_shopunity_widget_update = jQuery.extend(true, {}, d_shopunity_widget);
-        d_shopunity_widget_update.init({
-            class: '.d_shopunity_widget_update',
-            token: '<?php echo $token; ?>',
-            action: 'loadUpdate',
-            extension_id: '5'
-        })
+        <?php  if(!isset($module_id)) { ?>
+            $(document).on('change', '[name^=module_setting]', function(){
+                window.onbeforeunload = function(e) {
+                    return true;
+                };
+            });
+            
+            <?php } ?>
 
-    });
+            var d_shopunity_widget_update = jQuery.extend(true, {}, d_shopunity_widget);
+            d_shopunity_widget_update.init({
+                class: '.d_shopunity_widget_update',
+                token: '<?php echo $token; ?>',
+                action: 'loadUpdate',
+                extension_id: '5'
+            })
+        });
 
-</script>
-<?php echo $footer; ?>
+    </script>
+    <?php echo $footer; ?>

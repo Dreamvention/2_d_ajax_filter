@@ -67,6 +67,10 @@ class ModelExtensionModuleDAjaxFilter extends Model {
     public function prepareTabs($tabs, $active){
         $results = array();
         $icons =array('setting'=> 'fa fa-cog', 'layout' => 'fa fa-file');
+        $url = '';
+        if(isset($this->request->get['module_id'])){
+            $url .="&module_id=".$this->request->get['module_id'];
+        }
         foreach ($tabs as $tab) {
             $this->load->language('extension/'.$this->codename.'/'.$tab);
 
@@ -84,7 +88,7 @@ class ModelExtensionModuleDAjaxFilter extends Model {
                 'title' => $this->language->get('text_title'),
                 'active' => ($tab == $active)?true:false,
                 'icon' => $icon,
-                'href' => $this->url->link('extension/'.$this->codename.'/'.$tab, 'token='.$this->session->data['token'], 'SSL')
+                'href' => $this->url->link('extension/'.$this->codename.'/'.$tab, 'token='.$this->session->data['token'].$url, 'SSL')
                 );
         }
 

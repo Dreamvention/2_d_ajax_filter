@@ -8,6 +8,6 @@ $_['default']       = array(
 'sort_order_values' => 'default',
 'type'              => 'checkbox',
 'allowed_types'     => array('radio', 'select', 'checkbox', 'radio_and_image', 'checkbox_and_image', 'image_radio', 'image_checkbox'),
-'status'            => '0',
+'status'            => 'default',
 'collapse'          => 0
 );

@@ -18,14 +18,8 @@ class ControllerExtensionModuleDAjaxFilter extends Controller
         parent::__construct($registry);
         $this->load->model($this->route);
         
-        //extension.json
-        $this->extension = json_decode(file_get_contents(DIR_SYSTEM.'mbooth/extension/'.$this->codename.'.json'), true);
         $this->d_shopunity = (file_exists(DIR_SYSTEM.'mbooth/extension/d_shopunity.json'));
         
-        //Store_id (for multistore)
-        if (isset($this->request->get['store_id'])) { 
-            $this->store_id = $this->request->get['store_id'];
-        }
     }
     
     public function required(){

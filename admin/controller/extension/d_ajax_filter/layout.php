@@ -155,7 +155,11 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
             $this->model_extension_module->deleteModule($this->request->post['module_id']);
 
             $this->session->data['success'] = $this->language->get('text_success');
-            $json['redirect'] = str_replace('&amp;','&',$this->url->link($this->route, 'token='.$this->session->data['token'], 'SSL'));
+            $url = '';
+            if(!empty($this->request->get['module_id'])){
+                $url .= '&module_id='.$this->request->get['module_id'];
+            }
+            $json['redirect'] = str_replace('&amp;','&',$this->url->link($this->route, 'token='.$this->session->data['token'].$url, 'SSL'));
             $json['success'] = 'success';
         }
         else{
@@ -236,6 +240,7 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
 
         if(!empty($this->request->get['module_id'])){
             $module_id = $this->request->get['module_id'];
+            $data['module_id'] = $module_id;
         }
 
         $this->document->setTitle($this->language->get('heading_title_main'));
@@ -276,6 +281,7 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
         $data['text_install_twig_support'] = $this->language->get('text_install_twig_support');
         $data['text_install_event_support'] = $this->language->get('text_install_event_support');
         $data['text_default'] = $this->language->get('text_default');
+        $data['text_not_positioned'] = $this->language->get('text_not_positioned');
 
         $data['column_name'] = $this->language->get('column_name');
         $data['column_type'] = $this->language->get('column_type');
@@ -347,7 +353,7 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
 
         $data['tabs'] = $this->{'model_extension_module_'.$this->codename}->getTabs('layout');
 
-        $data['layout_tabs'] = $this->{'model_extension_'.$this->codename.'_layout'}->getTabs();
+        $data['layout_tabs'] = $this->{'model_extension_'.$this->codename.'_layout'}->getTabs(isset($module_id)?true:false);
 
         if(isset($this->request->get['module_id'])){
             $data['action'] = $this->url->link('extension/'.$this->codename.'/layout/edit', 'token='.$this->session->data['token'].'&module_id='.$this->request->get['module_id'], 'SSL');
@@ -503,7 +509,7 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
                 $data['design'] = $config_setting['theme'];
             }
             else{
-                $data['design'] = $data['setting'];
+                $data['design'] = $data['setting']['design'];
             }
         }
         else{

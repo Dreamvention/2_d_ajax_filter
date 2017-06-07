@@ -27,6 +27,10 @@ class ControllerExtensionDAjaxFilterModuleFilter extends Controller
 
     public function prepare_template($setting){
 
+        $data['entry_type'] = $this->language->get('entry_type');
+        $data['entry_collapse'] = $this->language->get('entry_collapse');
+        $data['entry_sort_order_values'] = $this->language->get('entry_sort_order_values');
+
         $data['column_status'] = $this->language->get('column_status');
         $data['column_type'] = $this->language->get('column_type');
         $data['column_collapse'] = $this->language->get('column_collapse');
@@ -41,6 +45,14 @@ class ControllerExtensionDAjaxFilterModuleFilter extends Controller
         $data['text_enabled'] = $this->language->get('text_enabled');
         $data['text_important'] = $this->language->get('text_important');
         $data['text_warning_filter_individual'] = $this->language->get('text_warning_filter_individual');
+        $data['text_default_filter_settings'] = $this->language->get('text_default_filter_settings');
+        $data['text_filter_setting'] = $this->language->get('text_filter_setting');
+        $data['text_individual_setting'] = $this->language->get('text_individual_setting');
+        $data['text_default_setting'] = $this->language->get('text_default_setting');
+        $data['text_on'] = $this->language->get('text_on');
+        $data['text_off'] = $this->language->get('text_off');
+
+        $data['button_edit_default'] = $this->language->get('button_edit_default');
 
         $data['token'] = $this->session->data['token'];
 
@@ -63,6 +75,14 @@ class ControllerExtensionDAjaxFilterModuleFilter extends Controller
             );
 
         $data['filters'] = !empty($setting['filters'])?$setting['filters']:array();
+
+        $url = '';
+
+        if(isset($this->request->get['module_id'])){
+            $url = '&module_id='.$this->request->get['module_id'];
+        }
+
+        $data['filter_href'] = $this->url->link('extension/'.$this->codename.'/filter', "token=".$this->session->data['token'].$url, 'SSL');
 
         $this->load->model('catalog/filter');
         

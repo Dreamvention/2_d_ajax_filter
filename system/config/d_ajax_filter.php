@@ -56,7 +56,7 @@ $_['d_ajax_filter_setting'] = array(
         ),
     'general' => array(
         'ajax' => 1,
-        'content_path' => '',
+        'content_path' => '#ajax-filter-container',
         'display_out_of_stock' => 1,
         'display_sub_category' => 0,
         'multiple_attributes_value' => 0,

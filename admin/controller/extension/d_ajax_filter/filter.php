@@ -105,6 +105,12 @@ class ControllerExtensionDAjaxFilterFilter extends Controller
         $data['text_warning_default_setting'] = $this->language->get('text_warning_default_setting');
         $data['text_warning_image_filter'] = $this->language->get('text_warning_image_filter');
         $data['text_file_manager'] = $this->language->get('text_file_manager');
+        $data['text_filter_setting'] = $this->language->get('text_filter_setting');
+        $data['text_individual_setting'] = $this->language->get('text_individual_setting');
+        $data['text_default_setting'] = $this->language->get('text_default_setting');
+        $data['text_on'] = $this->language->get('text_on');
+        $data['text_off'] = $this->language->get('text_off');
+        $data['text_filter_default_general'] = $this->language->get('text_filter_default_general');
 
         $data['text_yes'] = $this->language->get('text_yes');
         $data['text_no'] = $this->language->get('text_no');
@@ -119,6 +125,9 @@ class ControllerExtensionDAjaxFilterFilter extends Controller
         $data['entry_filter'] = $this->language->get('entry_filter');
         $data['entry_additional_image'] = $this->language->get('entry_additional_image');
         $data['entry_filter_value'] = $this->language->get('entry_filter_value');
+        $data['entry_type'] = $this->language->get('entry_type');
+        $data['entry_sort_order_values'] = $this->language->get('entry_sort_order_values');
+        $data['entry_collapse'] = $this->language->get('entry_collapse');
 
         $data['button_save'] = $this->language->get('button_save');
         $data['button_cancel'] = $this->language->get('button_cancel');

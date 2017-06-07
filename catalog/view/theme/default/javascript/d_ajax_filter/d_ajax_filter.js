@@ -341,17 +341,13 @@ var af = (function() {
                     if (getState().common_setting.content_path != '') {
                         var top = $(getState().common_setting.content_path).offset().top+150;
                         $(getState().common_setting.content_path).append('<af_loader style="top:'+top+'px;"></af_loader>');
-                    } else {
-                        var top = $('#ajax-filter-container').offset().top+150;
-                        $('#ajax-filter-container').append('<af_loader style="top:'+top+'px;"></af_loader>');
                     }
+
                     riot.mount('af_loader');
                 }
                 if(getState().common_setting.fade_out_product == '1'){
                     if (getState().common_setting.content_path != '') {
                         $(getState().common_setting.content_path + " > :not(af_loader)").fadeTo('slow', 0.5);
-                    } else {
-                        $("#ajax-filter-container > :not(af_loader)").fadeTo('slow', 0.5);
                     }
                     
                 }
@@ -380,8 +376,6 @@ var af = (function() {
 
             if (getState().common_setting.content_path != '') {
                 $(getState().common_setting.content_path).html($(json['products']).find(getState().common_setting.content_path).html());
-            } else {
-                $('#ajax-filter-container').html($(json['products']).find('#ajax-filter-container').html());
             }
 
             if (json['quantity']) {

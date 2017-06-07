@@ -1,4 +1,5 @@
 <d_ajax_filter>
+
 <div class="title"><p class="title">{getSetting(opts.id).heading_title}</p></div>
 <div class="af-body">
     <div class="selected-list clearfix" if={getSetting(opts.id).selected_filters == '1'}>

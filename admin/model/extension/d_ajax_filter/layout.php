@@ -60,21 +60,29 @@ class ModelExtensionDAjaxFilterlayout extends Model {
         return $result;
     }
 
-    public function getTabs(){
+    public function getTabs($home = true){
         $dir = DIR_APPLICATION.'view/template/extension/'.$this->codename.'/layout_partial/*.tpl';
         $files = glob($dir);
-        $result = array('home', 'setting', 'base_attributes');
+        if($home){
+            $result = array('home');
+        }
+        else{
+            $result = array();
+        }
+
+        $result = array_merge($result, array('setting', 'base_attributes','configuration', 'design'));
+
         foreach($files as $file){
             $result[] = basename($file, '.tpl');
         }
-        $result = array_merge($result, array('configuration', 'design'));
 
         return $this->prepareTabs($result);
     }
 
     public function prepareTabs($tabs){
         $results = array();
-        $icons = array('home' => 'fa fa-home','setting'=> 'fa fa-cog', 'base_attributes' => 'fa fa-wrench', 'configuration' => 'fa fa-wrench', 'design' => 'fa fa-adjust');
+        $this->load->language('extension/'.$this->codename.'/layout');
+        $icons = array('home' => 'fa fa-home','setting'=> 'fa fa-cog', 'base_attributes' => 'fa fa-list', 'configuration' => 'fa fa-wrench', 'design' => 'fa fa-adjust');
         foreach ($tabs as $tab) {
             $module_setting = $this->getModuleSetting($tab);
 

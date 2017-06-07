@@ -49,80 +49,77 @@
                     <div class="col-sm-10">
                         <div class="tab-content">
                             <div id="d_list_filter" class="tab-pane active">
+                                <div class="h2 header-title"><?php echo $text_filter_setting; ?></div>
                                 <div class="bs-callout bs-callout-info">
-                                    <h4><?php echo $text_important; ?></h4>
-                                    <?php echo $text_warning_default_setting; ?>
+                                    <?php echo $text_filter_default_general; ?>
                                 </div>
-                                <table class="table table-filter-default">
-                                    <thead>
-                                        <tr>
-                                            <td></td>
-                                            <td class="text-center"><?php echo $column_status; ?></td>
-                                            <td class="text-center"><?php echo $column_type; ?></td>
-                                            <td class="text-center"><?php echo $column_collapse; ?></td>
-                                            <td class="text-center"><?php echo $column_sort_order_values; ?></td>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="fitlers">
-                                        <tr>
-                                            <td style="max-width: 175px;"><?php echo $text_filter_default; ?></td>
-                                            <td class="text-center <?php echo in_array($setting['default']['status'], array('default', '0'))?'disabled-next':''; ?>">
-                                                <div class="btn-group" data-toggle="buttons">
-                                                    <label class="btn btn-success btn-sm <?php echo ($setting['default']['status'] == '1')?'active':''; ?>">
-                                                        <input type="radio" name="<?php echo $codename; ?>_filters[default][status]" value="1"<?php echo ($setting['default']['status'] == 1)?'checked="checked"':''; ?> />
-                                                        <?php echo $text_yes; ?>
-                                                    </label>
-                                                    <label class="btn btn-success btn-sm <?php echo ($setting['default']['status'] == '0')?'active':''; ?>">
-                                                        <input type="radio" name="<?php echo $codename; ?>_filters[default][status]" value="0" <?php echo ($setting['default']['status'] == 0)?'checked="checked"':''; ?> />
-                                                        <?php echo $text_no; ?>
-                                                    </label>
+                                <div class="container-fluid">
+                                    <div class="btn-group" data-toggle="buttons">
+                                        <label class="btn btn-success btn-sm <?php echo ($setting['default']['status'] == '1')?'active':''; ?>">
+                                            <input type="radio" name="<?php echo $codename; ?>_filters[default][status]" value="1"<?php echo ($setting['default']['status'] == 1)?'checked="checked"':''; ?> />
+                                            <?php echo $text_yes; ?>
+                                        </label>
+                                        <label class="btn btn-success btn-sm <?php echo ($setting['default']['status'] == '0')?'active':''; ?>">
+                                            <input type="radio" name="<?php echo $codename; ?>_filters[default][status]" value="0" <?php echo ($setting['default']['status'] == 0)?'checked="checked"':''; ?> />
+                                            <?php echo $text_no; ?>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="container-fluid" id="filter-default-setting" <?php echo in_array($setting['default']['status'], array('default', '0'))?'style="display:none;"':''; ?>>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-2"><?php echo $entry_type; ?></label>
+                                                <div class="col-sm-10">
+                                                    <select class="form-control" name="<?php echo $codename; ?>_filters[default][type]">
+                                                        <?php foreach ($base_types as $base_type_key => $base_type_title) { ?>
+                                                        <?php if($base_type_key == $setting['default']['type']) { ?>
+                                                        <option value="<?php echo $base_type_key; ?>" selected="selected"><?php echo $base_type_title; ?></option>
+                                                        <?php } else { ?>
+                                                        <option value="<?php echo $base_type_key; ?>"><?php echo $base_type_title; ?></option>
+                                                        <?php } ?>
+                                                        <?php } ?>
+                                                    </select>
                                                 </div>
-                                            </td>
-                                            <td class="text-center">
-                                                <select class="form-control" name="<?php echo $codename; ?>_filters[default][type]">
-                                                    <?php foreach ($base_types as $base_type_key => $base_type_title) { ?>
-                                                    <?php if($base_type_key == $setting['default']['type']) { ?>
-                                                    <option value="<?php echo $base_type_key; ?>" selected="selected"><?php echo $base_type_title; ?></option>
-                                                    <?php } else { ?>
-                                                    <option value="<?php echo $base_type_key; ?>"><?php echo $base_type_title; ?></option>
-                                                    <?php } ?>
-                                                    <?php } ?>
-                                                </select>
-                                            </td>
-                                            <td class="text-center">
-                                                <input type="hidden" name="<?php echo $codename; ?>_filters[default][collapse]" value="0" />
-                                                <input type="checkbox" class="form-control switcher" data-label-text="<?php echo $text_enabled; ?>" value="1"  name="<?php echo $codename; ?>_filters[default][collapse]" <?php  echo ($setting['default']['collapse'])? "checked='checked'":'';?>/>
-                                            </td>
-                                            <td class="text-center">
-                                                <select class="form-control" name="<?php echo $codename; ?>_filters[default][sort_order_values]">
-                                                    <?php foreach ($sort_order_types as $sort_order_type_key => $sort_order_type_title) { ?>
-                                                    <?php if($sort_order_type_key == $setting['default']['sort_order_values']) { ?>
-                                                    <option value="<?php echo $sort_order_type_key; ?>" selected="selected"><?php echo $sort_order_type_title; ?></option>
-                                                    <?php } else { ?>
-                                                    <option value="<?php echo $sort_order_type_key; ?>"><?php echo $sort_order_type_title; ?></option>
-                                                    <?php } ?>
-                                                    <?php } ?>
-                                                </select>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-2"><?php echo $entry_collapse; ?></label>
+                                                <div class="col-sm-10">
+                                                    <input type="hidden" name="<?php echo $codename; ?>_filters[default][collapse]" value="0" />
+                                                    <input type="checkbox" class="form-control switcher" data-label-text="<?php echo $text_enabled; ?>" value="1"  name="<?php echo $codename; ?>_filters[default][collapse]" <?php  echo ($setting['default']['collapse'])? "checked='checked'":'';?>/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-2"><?php echo $entry_sort_order_values; ?></label>
+                                                <div class="col-sm-10">
+                                                    <select class="form-control" name="<?php echo $codename; ?>_filters[default][sort_order_values]">
+                                                        <?php foreach ($sort_order_types as $sort_order_type_key => $sort_order_type_title) { ?>
+                                                        <?php if($sort_order_type_key == $setting['default']['sort_order_values']) { ?>
+                                                        <option value="<?php echo $sort_order_type_key; ?>" selected="selected"><?php echo $sort_order_type_title; ?></option>
+                                                        <?php } else { ?>
+                                                        <option value="<?php echo $sort_order_type_key; ?>"><?php echo $sort_order_type_title; ?></option>
+                                                        <?php } ?>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="h2 header-title"><?php echo $text_individual_filter_setting; ?></div>
+                                    <div class="bs-callout bs-callout-info">
+                                        <?php echo $text_warning_filter_individual; ?>
+                                    </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <p><?php echo $text_warning_select_filter; ?></p>
                                         <div class="input-group">
                                             <input type="text" class="form-control" name="select_filter_name"/>
                                             <input type="hidden" name="select_filter_group_id"/>
                                             <span class="input-group-btn">
                                                 <a id="add-filter" class="btn btn-default"><i class="fa fa-plus"></i></a>
                                             </span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="bs-callout bs-callout-info">
-                                            <h4><?php echo $text_important; ?></h4>
-                                            <?php echo $text_warning_filter_individual; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -418,6 +415,14 @@
             d_ajax_filter.resetImageFilter();
         });
         $('select[name="filter_languages"]').trigger('change');
+        $(document).on('change', '[name=\'<?php echo $codename; ?>_filters[default][status]\']', function(e){
+            if($(this).val() != '1'){
+                $('#filter-default-setting').slideUp();
+            }
+            else{
+                $('#filter-default-setting').slideDown();
+            }
+        });
     });
 function addSingleImage(imageName, field, thumb) {
     $.ajax({

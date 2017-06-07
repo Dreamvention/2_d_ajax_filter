@@ -79,6 +79,7 @@ var d_ajax_filter = {
     //Сохранение модуля
     save:function(){
         var that = this;
+        window.onbeforeunload = null;
         $.ajax({
             url:that.setting.form.attr('action'),
             type:'post',
@@ -110,8 +111,12 @@ var d_ajax_filter = {
     //Удаление модуля
     delete:function(module_id){
         var that = this;
+        var url = '';
+        if(this.getURLVar('module_id') != ''){
+            url += '&module_id='+this.getURLVar('module_id');
+        }
         $.ajax({
-            url:that.setting.url+'/delete&token='+that.setting.token,
+            url:that.setting.url+'/delete&token='+that.setting.token+url,
             type:'post',
             dataType:'json',
             data:{module_id:module_id},
@@ -177,5 +182,29 @@ var d_ajax_filter = {
             }
         });
     },
+
+    getURLVar:function(key) {
+        var value = [];
+
+        var query = String(document.location).split('?');
+
+        if (query[1]) {
+            var part = query[1].split('&');
+
+            for (i = 0; i < part.length; i++) {
+                var data = part[i].split('=');
+
+                if (data[0] && data[1]) {
+                    value[data[0]] = data[1];
+                }
+            }
+
+            if (value[key]) {
+                return value[key];
+            } else {
+                return '';
+            }
+        }
+    }
 
 }
