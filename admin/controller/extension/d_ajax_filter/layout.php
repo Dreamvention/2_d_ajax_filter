@@ -612,7 +612,6 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
         $this->model_module_d_event_manager->addEvent($this->codename, 'catalog/view/product/search/before', 'extension/event/d_ajax_filter/view_before');
         $this->model_module_d_event_manager->addEvent($this->codename, 'catalog/model/catalog/product/getProducts/before', 'extension/event/d_ajax_filter/model_getProducts_before');
         $this->model_module_d_event_manager->addEvent($this->codename, 'catalog/model/catalog/product/getTotalProducts/before', 'extension/event/d_ajax_filter/model_getProducts_before');
-        $this->model_module_d_event_manager->addEvent($this->codename, 'catalog/model/catalog/product/getProducts/after', 'extension/event/d_ajax_filter/model_getProducts_after');
     }
     public function uninstallEvents(){
         $this->load->model('module/d_event_manager');
