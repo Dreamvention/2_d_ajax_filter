@@ -117,7 +117,13 @@ class ControllerExtensionDAjaxFilterSetting extends Controller
 
         $data['tabs'] = $this->{'model_extension_module_'.$this->codename}->getTabs('setting');
 
-        $data['action'] = $this->url->link('extension/'.$this->codename.'/setting/save', 'token='.$this->session->data['token'], 'SSL');
+        $url = '';
+
+        if(isset($this->request->get['module_id'])){
+            $url .= '&module_id='.$this->request->get['module_id'];
+        }
+
+        $data['action'] = $this->url->link('extension/'.$this->codename.'/setting/save', 'token='.$this->session->data['token'].$url, 'SSL');
 
         if(VERSION>='2.3.0.0')
         {
@@ -169,7 +175,7 @@ class ControllerExtensionDAjaxFilterSetting extends Controller
             $url .= '&module_id='.$this->request->get['module_id'];
         }
 
-        $data['recreate_cache'] = $this->url->link('extension/'.$this->codename.'/cache'.$url, 'token='.$this->session->data['token'], 'SSL');
+        $data['recreate_cache'] = $this->url->link('extension/'.$this->codename.'/cache', 'token='.$this->session->data['token'].$url, 'SSL');
 
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
@@ -203,7 +209,12 @@ class ControllerExtensionDAjaxFilterSetting extends Controller
             $this->cache->delete('af-total-ean');
             $this->cache->delete('af-translit');
             $this->cache->delete('af-url-params');
-            $json['redirect'] = str_replace('&amp;','&',$this->url->link($this->route, 'token='.$this->session->data['token'], 'SSL'));
+            $url = '';
+
+            if(isset($this->request->get['module_id'])){
+                $url .= '&module_id='.$this->request->get['module_id'];
+            }
+            $json['redirect'] = str_replace('&amp;','&',$this->url->link($this->route, 'token='.$this->session->data['token'].$url, 'SSL'));
             $json['success'] = 'success';
         }
         else{

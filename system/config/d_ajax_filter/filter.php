@@ -1,5 +1,5 @@
 <?php
-$_['status']        = 0;
+$_['status']        = 1;
 $_['sort_order']    = 5;
 $_['cache']         = 1;
 $_['icon']          = 'fa fa-filter';

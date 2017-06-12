@@ -160,11 +160,6 @@ var af = (function() {
             if(typeof this.state.selected[name] != "undefined" && typeof this.state.selected[name][group_id] != "undefined"){
                 this.state.selected[name][group_id] = Object.values(this.state.selected[name][group_id]);
 
-                for(var index in this.state.selected[name][group_id]){
-                    if(this.state.selected[name][group_id][index] == value){
-                        delete this.state.selected[name][group_id][index];
-                    }
-                }
                 var index = this.state.selected[name][group_id].indexOf(value);
                 this.state.selected[name][group_id].splice(index, 1);
             }

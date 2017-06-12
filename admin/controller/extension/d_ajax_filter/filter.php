@@ -135,8 +135,13 @@ class ControllerExtensionDAjaxFilterFilter extends Controller
         $data['button_reset_image'] = $this->language->get('button_reset_image');
 
         $data['tabs'] = $this->{'model_extension_module_'.$this->codename}->getTabs('filter');
+        $url = '';
 
-        $data['action'] = $this->url->link('extension/'.$this->codename.'/filter/save', 'token='.$this->session->data['token'], 'SSL');
+        if(isset($this->request->get['module_id'])){
+            $url .='&module_id='.$this->request->get['module_id'];
+        }
+
+        $data['action'] = $this->url->link('extension/'.$this->codename.'/filter/save', 'token='.$this->session->data['token'].$url, 'SSL');
 
         if(VERSION>='2.3.0.0')
         {
@@ -219,7 +224,12 @@ class ControllerExtensionDAjaxFilterFilter extends Controller
             $this->model_setting_setting->editSetting($this->codename.'_filters', $this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
-            $json['redirect'] = str_replace('&amp;','&',$this->url->link($this->route, 'token='.$this->session->data['token'], 'SSL'));
+            $url = '';
+
+            if(isset($this->request->get['module_id'])){
+                $url .= '&module_id='.$this->request->get['module_id'];
+            }
+            $json['redirect'] = str_replace('&amp;','&',$this->url->link($this->route, 'token='.$this->session->data['token'].$url, 'SSL'));
             $json['success'] = 'success';
         }
         else{
