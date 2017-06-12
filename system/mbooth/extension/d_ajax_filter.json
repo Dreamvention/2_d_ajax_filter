@@ -50,7 +50,7 @@
         "admin/controller/module/d_ajax_filter.php",
         "admin/controller/extension/module/d_ajax_filter.php",
         "admin/language/english/module/d_ajax_filter.php",
-        "admin/language/english/extension/module/d_ajax_filter.php",
+        "admin/language/en-gb/extension/module/d_ajax_filter.php",
         "admin/model/extension/module/d_ajax_filter.php",
         "admin/view/javascript/d_ajax_filter/filter.js",
         "admin/view/javascript/d_ajax_filter/layout.js",
@@ -68,6 +68,7 @@
         "catalog/controller/extension/event/d_ajax_filter.php",
         "catalog/model/extension/module/d_ajax_filter.php",
         "catalog/language/english/extension/module/d_ajax_filter.php",
+        "catalog/language/en-gb/extension/module/d_ajax_filter.php",
 
         "system/config/d_ajax_filter/filter.php",
         "system/config/d_ajax_filter/search.php",
@@ -88,6 +89,10 @@
         "admin/language/english/extension/d_ajax_filter/filter.php",
         "admin/language/english/extension/d_ajax_filter/layout.php",
         "admin/language/english/extension/d_ajax_filter/setting.php",
+        "admin/language/en-gb/extension/d_ajax_filter/cache.php",
+        "admin/language/en-gb/extension/d_ajax_filter/filter.php",
+        "admin/language/en-gb/extension/d_ajax_filter/layout.php",
+        "admin/language/en-gb/extension/d_ajax_filter/setting.php",
 
         "admin/model/extension/d_ajax_filter/cache.php",
         "admin/model/extension/d_ajax_filter/filter.php",
