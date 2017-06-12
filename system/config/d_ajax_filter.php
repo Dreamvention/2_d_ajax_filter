@@ -29,7 +29,7 @@ $_['d_ajax_filter_setting'] = array(
         'default' => array(
             'type' => 'checkbox',
             'status' => '0',
-            'collapse' => 0,
+            'collapse' => 1,
             'sort_order_values' => 'default',
             'sort_order' => 0
             ),
@@ -39,7 +39,7 @@ $_['d_ajax_filter_setting'] = array(
         'default' => array(
             'type' => 'checkbox',
             'status' => '0',
-            'collapse' => 0,
+            'collapse' => 1,
             'sort_order_values' => 'default',
             'sort_order' => 0
             ),
@@ -49,7 +49,7 @@ $_['d_ajax_filter_setting'] = array(
         'default' => array(
             'type' => 'checkbox',
             'status' => '1',
-            'collapse' => 0,
+            'collapse' => 1,
             'sort_order_values' => 'default',
             'sort_order' => 0
             ),
