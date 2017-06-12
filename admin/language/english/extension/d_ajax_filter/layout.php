@@ -101,14 +101,14 @@ $_['entry_color_button_selected']       = 'Selected Color';
 $_['entry_color_button_reset']          = 'Button "Reset" Color';
 $_['entry_border_radius_image']         = 'Image Border Radius';
 $_['entry_any_change']                  = 'Any change';
-$_['entry_apply_button']                = 'Clicking on the button';
-$_['entry_several_filter']              = 'Each time interval';
+$_['entry_apply_button']                = 'Click button';
+$_['entry_several_filter']              = 'Time interval';
 $_['entry_time']                        = 'Time in milliseconds';
 $_['entry_position_button']             = 'Position Button "Filter"';
 $_['entry_event_filter']                = 'At what event to filter?';
 $_['entry_show_selected_filters']       = 'Show Selected Filters';
 $_['entry_button_reset']                = 'Show Button "Reset Filters"';
-$_['entry_display_quantity_product']    = 'Display Quantity Product';
+$_['entry_display_quantity_product']    = 'Display product quantity';
 $_['entry_limit_height']                = 'Limit blocks height';
 $_['entry_height']                      = 'Maximum height';
 $_['entry_limit_block']                 = 'Limit number of attributes shown by default';
@@ -118,9 +118,8 @@ $_['entry_custom_style']                = 'Custom Style';
 $_['entry_theme']                       = 'Theme';
 $_['entry_support']                     = 'Support';
 
-$_['help_twig_support']                 = '<h4>Important! Twig support required</h4><p>Before you can activate the Ajax Filter, you need to install Twig manager and activate Twig compatibility support.</p>';
-$_['help_event_support']                = '<h4>Important! Event support required</h4><p>Before you can activate the Ajax Filter, you need to install Event manager and activate Event compatibility support.</p>';
-
+$_['help_twig_support']                 = '<h4>Activate Twig support</h4><p>Ajax Filter runs on twig that allows you to edit your twig files vertually with Twig manager from your opencart Admin. Click install Twig.</p>';
+$_['help_event_support']                = '<h4>Activate Event support</h4><p>Ajax Filter uses the latest Opencart Events mechanism instead of Vqmod/Ocmod. Old version of Opencart do not support events but you can enable them here. Click install Events. </p>';
 //Button
 $_['button_support_email']              = 'Support';
 

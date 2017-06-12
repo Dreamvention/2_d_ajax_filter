@@ -47,19 +47,7 @@
                         <div class="col-sm-10">
                             <div class="tab-content">
                                 <div id="general" class="tab-pane active">
-
-                                    <div class="row">
-                                        <div class='col-sm-6'>
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label" for="input_recreate_cache"><?php echo $entry_recreate_cache; ?></label>
-                                                <div class="col-sm-10">
-                                                    <div class="bs-callout bs-callout-info">
-                                                        <h4><?php echo $text_important; ?></h4>
-                                                        <?php echo $text_warning_recrate_cache; ?>
-                                                    </div>
-                                                    <a href="<?php echo $recreate_cache; ?>" class="btn btn-primary"><?php echo $button_recreate_cache; ?></a>
-                                                </div>
-                                            </div>
+                                    
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label" for="input_ajax"><?php echo $entry_ajax; ?></label>
                                                 <div class="col-sm-10">
@@ -87,20 +75,11 @@
                                                     <input type="text" class="form-control" name="<?php echo $codename; ?>_setting[content_path]" value="<?php echo $setting['content_path']; ?>" id="input_content_path"/>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class='col-sm-6'>
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label" for="input_display_out_of_stock"><?php echo $entry_display_out_of_stock; ?></label>
                                                 <div class="col-sm-10">
                                                     <input type="hidden" name="<?php echo $codename; ?>_setting[display_out_of_stock]" value="0" />
                                                     <input type="checkbox" class="form-control switcher" data-label-text="<?php echo $text_enabled; ?>"  name="<?php echo $codename; ?>_setting[display_out_of_stock]" <?php if($setting['display_out_of_stock']) { echo "checked='checked'";}; ?> value="1" id="input_display_out_of_stock"/>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label" for="input_display_sub_category"><?php echo $entry_display_sub_category; ?></label>
-                                                <div class="col-sm-10">
-                                                    <input type="hidden" name="<?php echo $codename; ?>_setting[display_sub_category]" value="0" />
-                                                    <input type="checkbox" class="form-control switcher" data-label-text="<?php echo $text_enabled; ?>"  name="<?php echo $codename; ?>_setting[display_sub_category]" <?php if($setting['display_sub_category']) { echo "checked='checked'";}; ?> value="1" id="input_display_sub_category"/>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -117,15 +96,26 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="bs-callout bs-callout-info">
-                                                <h4><?php echo $text_important; ?></h4>
-                                                <?php echo $text_warning_multiple_value; ?>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label" for="input_display_sub_category"><?php echo $entry_display_sub_category; ?></label>
+                                                <div class="col-sm-10">
+                                                    <input type="hidden" name="<?php echo $codename; ?>_setting[display_sub_category]" value="0" />
+                                                    <input type="checkbox" class="form-control switcher" data-label-text="<?php echo $text_enabled; ?>"  name="<?php echo $codename; ?>_setting[display_sub_category]" <?php if($setting['display_sub_category']) { echo "checked='checked'";}; ?> value="1" id="input_display_sub_category"/>
+                                                </div>
                                             </div>
+                                            
+                                            
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label" for="input_multiple_attributes_value"><?php echo $entry_multiple_attributes_value; ?></label>
                                                 <div class="col-sm-10">
                                                     <input type="hidden" name="<?php echo $codename; ?>_setting[multiple_attributes_value]" value="0" />
                                                     <input id="input_multiple_attributes_value" type="checkbox" class="form-control switcher" data-label-text="<?php echo $text_enabled; ?>"  name="<?php echo $codename; ?>_setting[multiple_attributes_value]" <?php if($setting['multiple_attributes_value']) { echo "checked='checked'";}; ?> value="1"/>
+                                                    <br/>
+                                                    <br/>
+                                                    <div class="bs-callout bs-callout-warning">
+                                                        <h4><?php echo $text_important; ?></h4>
+                                                        <?php echo $text_warning_multiple_value; ?>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="form-group" id="separator" <?php echo $setting['multiple_attributes_value']?'':'style="display:none;"'; ?>>
@@ -134,8 +124,21 @@
                                                     <input id="input_separator" type="text" name="<?php echo $codename; ?>_setting[separator]" class="form-control" value = "<?php echo $setting['separator']; ?>"/>
                                                 </div>
                                             </div>
+
+                                            <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="input_recreate_cache"><?php echo $entry_recreate_cache; ?></label>
+                                        <div class="col-sm-10">
+                                            
+                                            <a href="<?php echo $recreate_cache; ?>" class="btn btn-danger"><?php echo $button_recreate_cache; ?></a>
+                                            <br/>
+                                            <br/>
+                                            <div class="bs-callout bs-callout-danger">
+                                                <h4><?php echo $text_important; ?></h4>
+                                                <?php echo $text_warning_recrate_cache; ?>
+                                            </div>
                                         </div>
                                     </div>
+                                      
                                 </div>
                                 <div id="custom_script" class="tab-pane">
                                     <textarea name="<?php echo $codename; ?>_setting[custom_script]" id="input_custom_script" class="form-control" rows="20"><?php echo !empty($setting['custom_script'])?$setting['custom_script']:''; ?></textarea>
@@ -148,7 +151,7 @@
         </div>
     </div>
 </div>
-</div>
+
 <script type="text/javascript">
     $(document).ready(function(){
         $(".switcher").bootstrapSwitch({
@@ -199,3 +202,4 @@
     })
 
 </script>
+<?php echo $footer; ?>

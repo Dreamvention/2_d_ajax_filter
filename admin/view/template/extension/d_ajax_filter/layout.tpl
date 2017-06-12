@@ -100,11 +100,40 @@
                                     </div>
                                 </div>
                                 <div id="setting" class="tab-pane">
-                                    <div class="row">
+                                   
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label"
+                                        for="input_status"><?php echo $entry_status; ?></label>
+                                        <div class="col-sm-10">
+                                            <input type="hidden" name="module_setting[status]" value="0" />
+                                            <?php if ($twig_support && ($event_support || VERSION > '2.3.0.0')) {?>
+                                            <input type="checkbox" class="form-control switcher" data-label-text="<?php echo $text_enabled; ?>"  name="module_setting[status]" <?php if($setting['status']) { echo "checked='checked'";}; ?> value="1" id="input_status"/>
+                                            <?php } ?>
+                                            <?php if(!$twig_support) { ?>
+                                            <div class="alert alert-info" style="overflow: inherit;">
+                                                <div class="row">
+                                                    <div class="col-md-9"><?php echo $help_twig_support; ?> </div>
+                                                    <div class="col-md-3"><a href="<?php echo $install_twig_support; ?>" class="btn btn-info btn-block"><?php echo $text_install_twig_support; ?></a></div>
+                                                </div>
+                                            </div>
+                                            <?php } ?>
+
+
+                                            <?php if(!$event_support && VERSION < '2.3.0.0') { ?>
+                                            <div class="alert alert-info" style="overflow: inherit;">
+                                                <div class="row">
+                                                    <div class="col-md-9"><?php echo $help_event_support; ?> </div>
+                                                    <div class="col-md-3"><a href="<?php echo $install_event_support; ?>" class="btn btn-info btn-block"><?php echo $text_install_event_support; ?></a></div>
+                                                </div>
+                                            </div>
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+                                     <div class="form-group">
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label class="col-sm-2 control-label" for="input_name"><?php echo $entry_name; ?></label>
-                                                <div class="col-sm-10">
+                                                <label class="col-sm-4 control-label" for="input_name"><?php echo $entry_name; ?></label>
+                                                <div class="col-sm-8">
                                                     <input class="form-control" type="text" name="module_setting[name]" value="<?php echo $setting['name']; ?>" id="input_name" data-error="name"/>
                                                     <?php if (!empty($error['name'])) { ?>
                                                     <div class="text-danger"><?php echo $error['name']; ?></div>
@@ -112,8 +141,8 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-2 control-label"><?php echo $entry_title; ?></label>
-                                                <div class="col-sm-10">
+                                                <label class="col-sm-4 control-label"><?php echo $entry_title; ?></label>
+                                                <div class="col-sm-8">
                                                     <?php foreach ($languages as $language) { ?>
                                                     <div class="input-group pull-left" data-error="title<?php echo $language['language_id']; ?>">
                                                         <span class="input-group-addon">
@@ -124,45 +153,11 @@
                                                     <?php } ?>
                                                 </div>
                                             </div>
+                                            
+                                            
                                             <div class="form-group">
-                                                <label class="col-sm-2 control-label"
-                                                for="input_status"><?php echo $entry_status; ?></label>
-                                                <div class="col-sm-10">
-                                                    <input type="hidden" name="module_setting[status]" value="0" />
-                                                    <?php if ($twig_support && ($event_support || VERSION > '2.3.0.0')) {?>
-                                                    <input type="checkbox" class="form-control switcher" data-label-text="<?php echo $text_enabled; ?>"  name="module_setting[status]" <?php if($setting['status']) { echo "checked='checked'";}; ?> value="1" id="input_status"/>
-                                                    <?php } ?>
-                                                    <?php if(!$twig_support) { ?>
-                                                    <div class="alert alert-info" style="overflow: inherit;">
-                                                        <div class="row">
-                                                            <div class="col-md-9"><?php echo $help_twig_support; ?> </div>
-                                                            <div class="col-md-3"><a href="<?php echo $install_twig_support; ?>" class="btn btn-info btn-block"><?php echo $text_install_twig_support; ?></a></div>
-                                                        </div>
-                                                    </div>
-                                                    <?php } ?>
-
-
-                                                    <?php if(!$event_support && VERSION < '2.3.0.0') { ?>
-                                                    <div class="alert alert-info" style="overflow: inherit;">
-                                                        <div class="row">
-                                                            <div class="col-md-9"><?php echo $help_event_support; ?> </div>
-                                                            <div class="col-md-3"><a href="<?php echo $install_event_support; ?>" class="btn btn-info btn-block"><?php echo $text_install_event_support; ?></a></div>
-                                                        </div>
-                                                    </div>
-                                                    <?php } ?>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label"
-                                                for="input_status"><?php echo $entry_show_mobile; ?></label>
-                                                <div class="col-sm-10">
-                                                    <input type="hidden" name="module_setting[show_mobile]" value="0" />
-                                                    <input type="checkbox" class="form-control switcher" data-label-text="<?php echo $text_enabled; ?>"  name="module_setting[show_mobile]" <?php if(!empty($setting['show_mobile'])) { echo "checked='checked'";}; ?> value="1" id="input_status"/>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-2" for="input_show_mode"><?php echo $entry_show_mode; ?></label>
-                                                <div class="col-sm-10">
+                                                <label class="control-label col-sm-4" for="input_show_mode"><?php echo $entry_show_mode; ?></label>
+                                                <div class="col-sm-8">
                                                     <select name="module_setting[show_mode]" class="form-control" id="input_show_mode">
                                                         <?php foreach ($show_modes as $key => $value) { ?>
                                                         <?php if($key == $setting['show_mode']) { ?>
@@ -176,8 +171,8 @@
                                             </div>
 
                                             <div id="list-categories" class="form-group" style="display: none;">
-                                                <label class="control-label col-sm-2" for="input_category"><?php echo $entry_categories; ?></label>
-                                                <div class="col-sm-10">
+                                                <label class="control-label col-sm-4" for="input_category"><?php echo $entry_categories; ?></label>
+                                                <div class="col-sm-8">
                                                     <div class="well well-sm" style="height: 150px; overflow: auto;">
                                                         <?php foreach ($categories as $key => $value) { ?>
                                                         <div class="checkbox">
@@ -199,8 +194,8 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label class="control-label col-sm-2" for="input_category"><?php echo $entry_layouts; ?></label>
-                                                <div class="col-sm-10">
+                                                <label class="control-label col-sm-4" for="input_category"><?php echo $entry_layouts; ?></label>
+                                                <div class="col-sm-8">
                                                     <div class="well well-sm" style="height: 150px; overflow: auto;">
                                                         <?php foreach ($layouts as $key => $value) { ?>
                                                         <div class="checkbox">
@@ -220,8 +215,8 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-sm-2" for="input_position"><?php echo $entry_position; ?></label>
-                                                <div class="col-sm-10">
+                                                <label class="control-label col-sm-4" for="input_position"><?php echo $entry_position; ?></label>
+                                                <div class="col-sm-8">
                                                     <select name="layout[position]" class="form-control" id="input_position" onchange="$(this).next().val($(this).val());">
                                                         <?php foreach ($positions as $key => $value) { ?>
                                                         <?php if($key == $position) { ?>
@@ -235,8 +230,8 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-sm-2" for="input-sort-order"><?php echo $entry_sort_order; ?></label>
-                                                <div class="col-sm-10">
+                                                <label class="control-label col-sm-4" for="input-sort-order"><?php echo $entry_sort_order; ?></label>
+                                                <div class="col-sm-8">
                                                     <input type="text" class="form-control" data-error="sort_order" name="layout[sort_order]" value="<?php echo $sort_order; ?>"/>
                                                 </div>
                                             </div>
@@ -315,8 +310,8 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="control-label col-sm-2"><?php echo $entry_event_filter; ?></label>
-                                                <div class="col-sm-10">
+                                                <label class="control-label col-sm-4"><?php echo $entry_event_filter; ?></label>
+                                                <div class="col-sm-8">
                                                     <div class="btn-group" data-toggle="buttons">
                                                         <label class="btn btn-success <?php echo ($setting['submission'] == 0)?'active':''; ?>">
                                                             <input type="radio" name="module_setting[submission]" value="0" <?php echo ($setting['submission'] == 0)?'checked="checked"':''; ?> />
@@ -334,15 +329,15 @@
                                                 </div>
                                             </div>
                                             <div class="form-group" id="time-interval" <?php echo ($setting['submission'] != 2)?'style="display:none;"':''; ?>>
-                                                <label class="col-sm-2 control-label" for="input_time"><?php echo $entry_time; ?></label>
-                                                <div class="col-sm-3">
+                                                <label class="col-sm-4 control-label" for="input_time"><?php echo $entry_time; ?></label>
+                                                <div class="col-sm-4">
                                                     <input id="input_time" type="text" name="module_setting[time]" class="form-control" value = "<?php echo $setting['time']; ?>"/>
                                                 </div>
 
                                             </div>
                                             <div class="form-group" id="button-position" <?php echo ($setting['submission'] != 1)?'style="display:none;"':''; ?>>
-                                                <label class="col-sm-2 control-label"><?php echo $entry_position_button; ?></label>
-                                                <div class="col-sm-10">
+                                                <label class="col-sm-4 control-label"><?php echo $entry_position_button; ?></label>
+                                                <div class="col-sm-8">
                                                     <div class="btn-group" data-toggle="buttons">
                                                         <label class="btn btn-success <?php if ($setting['button_filter_position'] == 0) { ?> active <?php } ?>">
                                                             <input type="radio" name="module_setting[button_filter_position]" value="0" <?php if ($setting['button_filter_position'] == 0) { ?> checked="checked" <?php } ?> />
@@ -356,64 +351,75 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-2 control-label" for="input_show_selected_filters"><?php echo $entry_show_selected_filters; ?></label>
-                                                <div class="col-sm-10">
+                                                <label class="col-sm-4 control-label" for="input_show_selected_filters"><?php echo $entry_show_selected_filters; ?></label>
+                                                <div class="col-sm-8">
                                                     <input type="hidden" name="module_setting[selected_filters]" value="0" />
                                                     <input id="input_show_selected_filters" type="checkbox" class="form-control switcher" data-label-text="<?php echo $text_enabled; ?>"  name="module_setting[selected_filters]" <?php if($setting['selected_filters']) { echo "checked='checked'";}; ?> value="1"/>
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="col-sm-2 control-label" for="input_button_reset"><?php echo $entry_button_reset; ?></label>
-                                                <div class="col-sm-10">
+                                                <label class="col-sm-4 control-label" for="input_button_reset"><?php echo $entry_button_reset; ?></label>
+                                                <div class="col-sm-8">
                                                     <input type="hidden" name="module_setting[button_reset]" value="0" />
                                                     <input id="input_button_reset" type="checkbox" class="form-control switcher" data-label-text="<?php echo $text_enabled; ?>"  name="module_setting[button_reset]" <?php if($setting['button_reset']) { echo "checked='checked'";}; ?> value="1"/>
                                                 </div>
                                             </div>
+                                            
                                             <div class="form-group">
-                                                <label class="col-sm-2 control-label" for="input_display_quantity_product"><?php echo $entry_display_quantity_product; ?></label>
-                                                <div class="col-sm-10">
-                                                    <input type="hidden" name="module_setting[display_quantity]" value="0" />
-                                                    <input id="input_display_quantity_product" type="checkbox" class="form-control switcher" data-label-text="<?php echo $text_enabled; ?>"  name="module_setting[display_quantity]" <?php if($setting['display_quantity']) { echo "checked='checked'";}; ?> value="1"/>
+                                                <label class="col-sm-4 control-label"
+                                                for="input_status"><?php echo $entry_show_mobile; ?></label>
+                                                <div class="col-sm-8">
+                                                    <input type="hidden" name="module_setting[show_mobile]" value="0" />
+                                                    <input type="checkbox" class="form-control switcher" data-label-text="<?php echo $text_enabled; ?>"  name="module_setting[show_mobile]" <?php if(!empty($setting['show_mobile'])) { echo "checked='checked'";}; ?> value="1" id="input_status"/>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="col-sm-2 control-label" for="input_limit_height"><?php echo $entry_limit_height; ?></label>
-                                                <div class="col-sm-2">
+                                                <label class="col-sm-4 control-label" for="input_display_quantity_product"><?php echo $entry_display_quantity_product; ?></label>
+                                                <div class="col-sm-8">
+                                                    <input type="hidden" name="module_setting[display_quantity]" value="0" />
+                                                    <input id="input_display_quantity_product" type="checkbox" class="form-control switcher" data-label-text="<?php echo $text_enabled; ?>"  name="module_setting[display_quantity]" <?php if($setting['display_quantity']) { echo "checked='checked'";}; ?> value="1"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label" for="input_limit_height"><?php echo $entry_limit_height; ?></label>
+                                                <div class="col-sm-4">
                                                     <input type="hidden" name="module_setting[limit_height]" value="0" />
                                                     <input id="input_limit_height" type="checkbox" class="form-control switcher" data-label-text="<?php echo $text_enabled; ?>"  name="module_setting[limit_height]" <?php if($setting['limit_height']) { echo "checked='checked'";}; ?> value="1"/>
                                                 </div>
 
                                             </div>
                                             <div class="form-group" id="limit-height" <?php echo !empty($setting['limit_height'])?'':'style="display:none;"'; ?>>
-                                                <label class="control-label col-sm-2" for="input_height"><?php echo $entry_height; ?></label>
-                                                <div class="col-sm-3">
+                                                <label class="control-label col-sm-4" for="input_height"><?php echo $entry_height; ?></label>
+                                                <div class="col-sm-4">
                                                     <input id="input_height" type="text" name="module_setting[height]" class="form-control" value = "<?php echo $setting['height']; ?>"/>
                                                 </div>
                                             </div>
+
                                             <div class="form-group">
-                                                <label class="col-sm-2 control-label" for="input_limit_block"><?php echo $entry_limit_block; ?></label>
-                                                <div class="col-sm-10">
+                                                <label class="col-sm-4 control-label" for="input_limit_block"><?php echo $entry_limit_block; ?></label>
+                                                <div class="col-sm-8">
                                                     <input type="hidden" name="module_setting[limit_block]" value="0" />
                                                     <input id="input_limit_block" type="checkbox" class="form-control switcher" data-label-text="<?php echo $text_enabled; ?>"  name="module_setting[limit_block]" <?php if($setting['limit_block']) { echo "checked='checked'";}; ?> value="1"/>
                                                 </div>
                                             </div>
                                             <div id="limit-block" <?php echo !empty($setting['limit_block'])?'':'style="display:none;"'; ?>>
                                                 <div class="form-group">
-                                                    <label class="col-sm-2 control-label" for="input_count_element"><?php echo $entry_count_element; ?></label>
-                                                    <div class="col-sm-10">
+                                                    <label class="col-sm-4 control-label" for="input_count_element"><?php echo $entry_count_element; ?></label>
+                                                    <div class="col-sm-8">
                                                         <input id="input_count_element" type="text" name="module_setting[count_elemnts]" class="form-control" value="<?php echo $setting['count_elemnts']; ?>">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="col-sm-2 control-label" for="input_min_elemnts"><?php echo $entry_min_elemnts; ?></label>
-                                                    <div class="col-sm-10">
+                                                    <label class="col-sm-4 control-label" for="input_min_elemnts"><?php echo $entry_min_elemnts; ?></label>
+                                                    <div class="col-sm-8">
                                                         <input id="input_min_elemnts" type="text" name="module_setting[min_elemnts]" class="form-control" value="<?php echo $setting['min_elemnts']; ?>">
                                                     </div>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>

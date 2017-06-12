@@ -51,6 +51,7 @@ class ControllerExtensionDAjaxFilterModuleFilter extends Controller
         $data['text_default_setting'] = $this->language->get('text_default_setting');
         $data['text_on'] = $this->language->get('text_on');
         $data['text_off'] = $this->language->get('text_off');
+        $data['text_global'] = $this->language->get('text_global');
 
         $data['button_edit_default'] = $this->language->get('button_edit_default');
 
