@@ -57,13 +57,42 @@
 
         min-height: 51px;
         padding-top: 14px;
-        padding-right: 50px;
+        padding-right: 0px;
         padding-left: 23px;
 
         cursor: pointer;
 
         // border-top: 1px solid #d5d5d5;
         // border-bottom: 1px solid #d5d5d5;
+
+        .button-reset
+        {
+            line-height: 13px;
+
+            padding: 4px 10px 0!important;
+
+            cursor: pointer;
+            float:right;
+            > span
+            {
+                display: block;
+                float: left;
+
+                width: 13px;
+                height: 13px;
+                margin-right: 5px;
+
+                background: url('../../image/d_ajax_filter/cross_close.svg');
+            }
+            > p
+            {
+                font-family: 'Open Sans';
+                font-size: 13px;
+                float:left;
+
+                color: rgb(85, 85, 85);
+            }
+        }
         &.collapsed
         {
             > span
@@ -89,6 +118,7 @@
             font-family: 'Open Sans', arial;
             font-size: 17px;
             font-weight: bold;
+            width:100%;
 
             display: inline-block;
         }
@@ -156,32 +186,7 @@
                 }
             }
         }
-        .button-reset
-        {
-            line-height: 13px;
-
-            padding: 10px 25px 0!important;
-
-            cursor: pointer;
-            > span
-            {
-                display: block;
-                float: left;
-
-                width: 13px;
-                height: 13px;
-                margin-right: 10px;
-
-                background: url('../../image/d_ajax_filter/cross_close.svg');
-            }
-            > p
-            {
-                font-family: 'Open Sans';
-                font-size: 13px;
-
-                color: rgb(85, 85, 85);
-            }
-        }
+        
         .af-button-filter
         {
             > a

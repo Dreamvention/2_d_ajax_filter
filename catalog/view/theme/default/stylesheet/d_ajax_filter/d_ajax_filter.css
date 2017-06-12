@@ -33,9 +33,26 @@
     display: block;
     min-height: 51px;
     padding-top: 14px;
-    padding-right: 50px;
+    padding-right: 0px;
     padding-left: 23px;
     cursor: pointer; }
+    .ajax-filter > .title .button-reset {
+      line-height: 13px;
+      padding: 4px 10px 0 !important;
+      cursor: pointer;
+      float: right; }
+      .ajax-filter > .title .button-reset > span {
+        display: block;
+        float: left;
+        width: 13px;
+        height: 13px;
+        margin-right: 5px;
+        background: url("../../image/d_ajax_filter/cross_close.svg"); }
+      .ajax-filter > .title .button-reset > p {
+        font-family: 'Open Sans';
+        font-size: 13px;
+        float: left;
+        color: #555555; }
     .ajax-filter > .title.collapsed > span {
       transform: rotate(-90deg); }
     .ajax-filter > .title > span {
@@ -50,6 +67,7 @@
       font-family: 'Open Sans', arial;
       font-size: 17px;
       font-weight: bold;
+      width: 100%;
       display: inline-block; }
     .ajax-filter > .title:empty {
       display: none; }
@@ -93,21 +111,6 @@
           background-repeat: no-repeat;
           background-position: left center;
           background-size: auto; }
-    .ajax-filter .af-body .button-reset {
-      line-height: 13px;
-      padding: 10px 25px 0 !important;
-      cursor: pointer; }
-      .ajax-filter .af-body .button-reset > span {
-        display: block;
-        float: left;
-        width: 13px;
-        height: 13px;
-        margin-right: 10px;
-        background: url("../../image/d_ajax_filter/cross_close.svg"); }
-      .ajax-filter .af-body .button-reset > p {
-        font-family: 'Open Sans';
-        font-size: 13px;
-        color: #555555; }
     .ajax-filter .af-body .af-button-filter > a {
       line-height: 51px;
       display: block;

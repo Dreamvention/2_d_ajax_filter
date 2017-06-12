@@ -1,6 +1,13 @@
 <d_ajax_filter>
 
-<div class="title"><p class="title">{getSetting(opts.id).heading_title}</p></div>
+<div class="title">
+    <div class="title">
+        <div class="button-reset" if={getSetting(opts.id).button_reset == '1'} id="resetFilter" onclick={click}>
+            <span></span><p>{getState().translate.button_reset}</p>
+        </div>
+        {getSetting(opts.id).heading_title}
+    </div>
+</div>
 <div class="af-body">
     <div class="selected-list clearfix" if={getSetting(opts.id).selected_filters == '1'}>
         <div each={groups, name in getState().selected}>
@@ -11,9 +18,7 @@
         </div>
     </div>
     
-    <div class="button-reset" if={getSetting(opts.id).button_reset == '1'} id="resetFilter" onclick={click}>
-        <span></span><p>{getState().translate.button_reset}</p>
-    </div>
+    
 
     <virtual each={groups, name in getGroups(opts.id)}>
         <af_group each={filter in groups} filter_id="{parent.parent.opts.id}"></af_group>
