@@ -48,7 +48,7 @@ $_['d_ajax_filter_setting'] = array(
         'filters' => array(),
         'default' => array(
             'type' => 'checkbox',
-            'status' => '0',
+            'status' => '1',
             'collapse' => 0,
             'sort_order_values' => 'default',
             'sort_order' => 0
@@ -76,24 +76,20 @@ $_['d_ajax_filter_setting'] = array(
         }'
         ),
     'theme' => array(
-        'header' => array
-        (
+        'header' => array(
             'background' => '#f7f7f7',
             'text' => '#000000',
-            'title' => array
-            (
+            'title' => array (
                 '1' => 'Ajax Filter'
                 )
             ),
 
-        'product_quantity' => array
-        (
+        'product_quantity' => array(
             'background' => 'rgb(244, 98, 52)',
             'text' => 'rgb(255, 255, 255)'
             ),
 
-        'price_slider' => array
-        (
+        'price_slider' => array(
             'background' => '#f3f4f8',
             'area_active' => '#f6a828',
             'border' => 'rgb(213, 213, 213)',
@@ -101,14 +97,12 @@ $_['d_ajax_filter_setting'] = array(
             'handle_border' => '#cccccc'
             ),
 
-        'group_header' => array
-        (
+        'group_header' => array(
             'background' => 'rgb(244, 244, 244)',
             'text' => 'rgb(17, 17, 17)'
             ),
 
-        'button' => array
-        (
+        'button' => array(
             'button_filter' => '#19a3df',
             'button_reset' => '#19a3df',
             'border_image' => '#111',
