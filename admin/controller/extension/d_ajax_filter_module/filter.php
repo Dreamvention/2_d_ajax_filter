@@ -9,7 +9,7 @@ class ControllerExtensionDAjaxFilterModuleFilter extends Controller
     {
         parent::__construct($registry);
         $this->load->model($this->route);
-        $this->load->language($this->route);
+        $this->load->language('extension/'.$this->codename.'/filter');
     }
     public function updateProduct($product_id){
         $new_values = $this->{'model_extension_'.$this->codename.'_module_filter'}->updateProduct($product_id);
@@ -98,7 +98,7 @@ class ControllerExtensionDAjaxFilterModuleFilter extends Controller
         $data['filter_default'] = isset($setting['filter_default'])?$setting['filter_default']:$filter_default['default'];
 
         $data['default'] = $filter_default['default'];
-
+        
         return $this->load->view('extension/'.$this->codename.'/layout_partial/filter.tpl', $data);
     }
 
