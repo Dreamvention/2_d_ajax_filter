@@ -9,7 +9,7 @@
     <div class="form-group">
         <div class="h3 header-title"><?php echo $text_filter_setting; ?></div>
         <p>
-        <?php echo $text_filter_default; ?>
+            <?php echo $text_filter_default; ?>
         </p>
         <div>
             <div class="btn-group" data-toggle="buttons">
@@ -93,7 +93,7 @@
         </div>
         <br/>
         <br/>
-        <table class="table table-filter-select hide">
+        <table class="table table-filter-select <?php echo empty($filters)?'hide':''; ?>">
             <thead>
                 <tr>
                     <td></td>
@@ -174,13 +174,16 @@
             $(document).on('click', '#add-filter', function(){
                 var filter_group_id = $('input[name="select_filter_group_id"]').val();
                 var filter_name = $('input[name="select_filter_name"]').val();
-                d_ajax_filter.addElement(filter_group_id, filter_name, 'filters', '.table-filter-select > tbody', 'tr', <?php echo json_encode($default); ?>, <?php echo json_encode($base_types); ?>);
-                d_ajax_filter.updateSortOrder('table.table-filter-select > tbody','tr');
-                $(".switcher").bootstrapSwitch({
-                    'onColor': 'success',
-                    'onText': '<?php echo $text_yes; ?>',
-                    'offText': '<?php echo $text_no; ?>',
-                });
+                if(filter_group_id !== ''){
+                    $('.table-filter-select').removeClass('hide');
+                    d_ajax_filter.addElement(filter_group_id, filter_name, 'filters', '.table-filter-select > tbody', 'tr', <?php echo json_encode($default); ?>, <?php echo json_encode($base_types); ?>);
+                    d_ajax_filter.updateSortOrder('table.table-filter-select > tbody','tr');
+                    $(".switcher").bootstrapSwitch({
+                        'onColor': 'success',
+                        'onText': '<?php echo $text_yes; ?>',
+                        'offText': '<?php echo $text_no; ?>',
+                    });
+                }
             });
             $('[name="select_filter_name"]').autocomplete({
                 'source': function(request, response) {

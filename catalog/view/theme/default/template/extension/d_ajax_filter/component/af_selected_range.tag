@@ -2,7 +2,7 @@
 <div class="af-selected" onclick={click}><p>{opts.group[0]} - {opts.group[1]}</p></div>
 <script>
     click(e){
-        clearSelected(this.opts.name, this.opts.group_id, true);
+        clearSelected(this.opts.name, this.opts.group_id, true, this.parent.parent.parent.opts.id);
     }
 </script>
 </af_selected_range>

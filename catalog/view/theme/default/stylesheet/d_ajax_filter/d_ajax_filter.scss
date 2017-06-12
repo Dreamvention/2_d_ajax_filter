@@ -39,6 +39,7 @@
     display: block;
 
     border: 1px solid #d5d5d5;
+    margin-bottom: 20px;
     // z-index:100;
     &.modal
     {
@@ -85,8 +86,9 @@
         }
         > .title
         {
-            font-family: 'Open Sans Semibold', arial;
+            font-family: 'Open Sans', arial;
             font-size: 17px;
+            font-weight: bold;
 
             display: inline-block;
         }
@@ -104,7 +106,7 @@
             padding: 10px;
             .af-selected
             {
-                font-family: 'Open Sans Light';
+                font-family: 'Open Sans';
                 font-size: 14px;
                 line-height: 12px;
 
@@ -174,7 +176,7 @@
             }
             > p
             {
-                font-family: 'Open Sans Light';
+                font-family: 'Open Sans';
                 font-size: 13px;
 
                 color: rgb(85, 85, 85);
@@ -282,8 +284,9 @@
                 }
                 > .title
                 {
-                    font-family: 'Open Sans Semibold', arial;
+                    font-family: 'Open Sans', arial;
                     font-size: 17px;
+                    font-weight: bold;
 
                     display: inline-block;
 
@@ -635,7 +638,7 @@
                         }
                         label
                         {
-                            font-family: 'Open Sans Light', arial;
+                            font-family: 'Open Sans', arial;
                             font-size: 13px;
 
                             display: flex;
@@ -800,7 +803,7 @@
                         {
                             > .quantity
                             {
-                                font-family: 'Open Sans Light', arial;
+                                font-family: 'Open Sans', arial;
                                 font-size: 11px;
                                 line-height: 1.6;
 
@@ -815,7 +818,7 @@
                     }
                     .af-show-all
                     {
-                        font-family: 'Open Sans Light';
+                        font-family: 'Open Sans';
                         font-size: 14px;
                         line-height: 34px;
 

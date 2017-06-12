@@ -1,6 +1,6 @@
 <af_group_text>
 <div class="af-element input-field">
-    <input type="text" name="{opts.filter.name}[{opts.filter.group_id}][]"  value="{opts.filter.value}" onchange={change}>
+    <input type="text" name="{opts.filter.name}[{opts.filter.group_id}][]"  value="{opts.filter.value}" onchange={change} placeholder="{getState().translate.text_search}">
 </div>
 <script>
     change(e){

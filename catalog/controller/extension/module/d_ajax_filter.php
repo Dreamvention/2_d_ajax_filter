@@ -107,6 +107,7 @@ class ControllerExtensionModuleDAjaxFilter extends Controller
         
         $data['setting']['heading_title'] = $setting['title'][$this->config->get('config_language_id')];
         $json['translate']['text_none'] = $this->language->get('text_none');
+        $json['translate']['text_search'] = $this->language->get('text_search_placeholder');
         
         $json['translate']['text_price'] = $this->language->get('text_price');
         

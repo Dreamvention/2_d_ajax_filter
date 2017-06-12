@@ -42,7 +42,7 @@ class ControllerExtensionDAjaxFilterSearch extends Controller
         preg_match('/search,([^&><]*)\\/?/', $query, $matches);
 
         if(!empty($matches[1])){
-            $groups[0] = $matches[1];
+            $groups[0][0] = $matches[1];
         }
         
         return $groups;
