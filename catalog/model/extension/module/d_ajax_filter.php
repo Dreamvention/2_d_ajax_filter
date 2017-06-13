@@ -748,11 +748,14 @@ class ModelExtensionModuleDAjaxFilter extends Model
 
     public function prepareAjaxFilterForTotal($data, $sql){
         $filter_data = $this->getFitlerData();
-
+        
         if(isset($filter_data['filter_category_id']) && isset($data['filter_category_id'])){
             if($filter_data['filter_category_id'] != $data['filter_category_id']){
                 return $sql;
             }
+        }
+        elseif(isset($data['filter_category_id']) && !isset($this->request->get['path'])){
+            return $sql;
         }
         $this->prepareTable($data);
         $total_query = $this->getProductsQuery(true);
@@ -780,14 +783,12 @@ class ModelExtensionModuleDAjaxFilter extends Model
         $result = array();
         $files = glob(DIR_APPLICATION . 'view/theme/default/template/extension/d_ajax_filter/component/*.tag', GLOB_BRACE);
         foreach($files as $file){
-            // $result[] = 'catalog/view/theme/default/template/extension/d_ajax_filter/component/'.basename($file).'?'.rand();
-            $result[] = 'catalog/view/theme/default/template/extension/d_ajax_filter/component/'.basename($file);
+            $result[] = 'catalog/view/theme/default/template/extension/d_ajax_filter/component/'.basename($file).'?'.rand();
         }
         
         $files = glob(DIR_APPLICATION . 'view/theme/default/template/extension/d_ajax_filter/group/*.tag', GLOB_BRACE);
         foreach($files as $file){
-            // $result[] = 'catalog/view/theme/default/template/extension/d_ajax_filter/group/'.basename($file).'?'.rand();
-            $result[] = 'catalog/view/theme/default/template/extension/d_ajax_filter/group/'.basename($file);
+            $result[] = 'catalog/view/theme/default/template/extension/d_ajax_filter/group/'.basename($file).'?'.rand();
         }
         return $result;
     }
