@@ -47,6 +47,10 @@ class ControllerExtensionModuleDAjaxFilter extends Controller
         $this->load->model('d_shopunity/mbooth');
         $this->model_d_shopunity_mbooth->validateDependencies($this->codename);
 
+        $this->load->model('extension/'.$this->codename.'/cache');
+
+        $this->{'model_extension_'.$this->codename.'_cache'}->checkCache();
+
         $cache_status = $this->{'model_extension_module_'.$this->codename}->checkCache();
 
         if($cache_status){
