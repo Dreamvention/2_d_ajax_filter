@@ -8,6 +8,9 @@ $_['heading_title']                   = '<span style="color:#449DD0; font-weight
 $_['heading_title_main']              = 'Ajax Filter';
 $_['text_file_manager']               = 'File Manager';
 
+$_['help_cache_support']              = 'Tou need to re-create your cache for the filter to wrok correctly';
+$_['text_install_cache']              = 'Re-create';
+
 $_['text_not_found'] = '<div class="jumbotron">
           <h1>Please install Shopunity</h1>
           <p>Before you can use this module you will need to install Shopunity. Simply download the archive for your version of opencart and install it view Extension Installer or unzip the archive and upload all the files into your root folder from the UPLOAD folder.</p>

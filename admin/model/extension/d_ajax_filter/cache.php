@@ -172,7 +172,7 @@ class ModelExtensionDAjaxFilterCache extends Model {
 
             $this->load->model('setting/setting');
 
-            $this->model_setting_setting->editSetting($this->codename.'_cache', array($this->codename.'_cache' => array('status' => true)));
+            $this->model_setting_setting->editSetting($this->codename.'_cache', array($this->codename.'_cache' => array('status' => true, 'steps' => $steps)));
             $return['step'] = $return['steps'];
             $return['success'] = true;
         } else {

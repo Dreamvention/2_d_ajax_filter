@@ -32,7 +32,7 @@
             <div class="panel-body">
                 <div class="d_shopunity_widget_update"></div>
                 <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-layout" class="form-horizontal">
-                    <?php include DIR_APPLICATION.'view/template/extension/d_ajax_filter/partials/tabs.tpl'; ?>
+                    <?php echo $tabs; ?>
                     <div class="row">
                         <div class="col-sm-2">
                             <ul class="nav nav-pills s-nav-stacked" id="vertical-tabs">
@@ -117,7 +117,6 @@
                                                 </div>
                                             </div>
                                             <?php } ?>
-
 
                                             <?php if(!$event_support && VERSION < '2.3.0.0') { ?>
                                             <div class="alert alert-info" style="overflow: inherit;">

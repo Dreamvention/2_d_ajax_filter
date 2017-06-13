@@ -31,7 +31,7 @@
             </div>
             <div class="panel-body">
                 <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-filters" class="form-horizontal">
-                    <?php include DIR_APPLICATION.'view/template/extension/d_ajax_filter/partials/tabs.tpl'; ?>
+                    <?php echo $tabs; ?>
                     <div class="col-sm-2">
                         <ul class="nav nav-pills s-nav-stacked">
                             <li class="active">

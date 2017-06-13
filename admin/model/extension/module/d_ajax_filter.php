@@ -28,9 +28,28 @@ class ModelExtensionModuleDAjaxFilter extends Model {
     public function checkCache(){
         $this->load->model('setting/setting');
         $setting = $this->model_setting_setting->getSetting($this->codename.'_cache');
-
+        
         if(!empty($setting)){
-            return true;
+
+            $this->load->model('extension/'.$this->codename.'/cache');
+
+            $steps = $this->{'model_extension_'.$this->codename.'_cache'}->getModulesForCache();
+
+            $steps[] = 'product';
+            
+            if(!empty($setting['steps'])){
+                $results = array_diff($steps, $setting['steps']);
+                if(!empty($results)){
+                    return false;
+                }
+                else{
+                    return true;
+                }
+            }
+            else{
+                return true;
+            }
+            
         }
         else{
             return false;
@@ -65,7 +84,8 @@ class ModelExtensionModuleDAjaxFilter extends Model {
     }
 
     public function prepareTabs($tabs, $active){
-        $results = array();
+        $this->load->language('extension/module/'.$this->codename);
+        $data['tabs'] = array();
         $icons =array('setting'=> 'fa fa-cog', 'layout' => 'fa fa-file');
         $url = '';
         if(isset($this->request->get['module_id'])){
@@ -84,7 +104,7 @@ class ModelExtensionModuleDAjaxFilter extends Model {
                 $icon = 'fa fa-list';
             }
 
-            $results[] = array(
+            $data['tabs'][] = array(
                 'title' => $this->language->get('text_title'),
                 'active' => ($tab == $active)?true:false,
                 'icon' => $icon,
@@ -92,7 +112,15 @@ class ModelExtensionModuleDAjaxFilter extends Model {
                 );
         }
 
-        return $results;
+        $data['status_cache'] = $this->checkCache();
+
+        $data['help_cache_support'] = $this->language->get('help_cache_support');
+        $data['install_cache'] = $this->language->get('install_cache');
+        $data['text_install_cache'] = $this->language->get('text_install_cache');
+
+        $data['install_cache'] = $this->url->link('extension/'.$this->codename.'/cache', 'token='.$this->session->data['token'], 'SSL');
+
+        return $this->load->view('extension/'.$this->codename.'/partials/tabs.tpl', $data);
     }
 
     public function getModuleSetting($type){

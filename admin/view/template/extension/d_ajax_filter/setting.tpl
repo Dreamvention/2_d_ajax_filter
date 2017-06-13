@@ -31,7 +31,7 @@
             </div>
             <div class="panel-body">
                 <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-setting" class="form-horizontal">
-                    <?php include DIR_APPLICATION.'view/template/extension/d_ajax_filter/partials/tabs.tpl'; ?>
+                    <?php echo $tabs; ?>
                     <div class="bs-callout bs-callout-info">
                         <h4><?php echo $text_important; ?></h4>
                         <?php echo $text_warning_genaral_setting; ?>
