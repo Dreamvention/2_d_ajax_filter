@@ -631,7 +631,7 @@ class ModelExtensionModuleDAjaxFilter extends Model
         $customerGroupId = ($this->customer->isLogged()) ? $this->customer->getGroupId() : $this->config->get('config_customer_group_id');
         $sql = "SELECT aft.*  ";
         if(isset($params['price']) || $price_status){
-            $sql .= " , ((IFNULL(aft.special, IFNULL(aft.discount, p2.price)))*(1+aft.tax_precent/100)+aft.tax_fixed) as af_price ";
+            $sql .= " , ((IFNULL(aft.special, IFNULL(aft.discount, p2.price)))*(1+IFNULL(aft.tax_precent,0)/100)+IFNULL(aft.tax_fixed, 0)) as af_price ";
         }
         if(!empty($params)){
             $sql .= " , p2.af_values ";
