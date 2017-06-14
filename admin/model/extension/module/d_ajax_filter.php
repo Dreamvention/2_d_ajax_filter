@@ -25,10 +25,10 @@ class ModelExtensionModuleDAjaxFilter extends Model {
         $this->{'model_extension_'.$this->codename.'_cache'}->disableCache();
     }
     
-    public function checkCache(){
+    public function checkCache($redirect = true){
         $this->load->model('setting/setting');
         $setting = $this->model_setting_setting->getSetting($this->codename.'_cache');
-        
+
         if(!empty($setting)){
 
             $this->load->model('extension/'.$this->codename.'/cache');
@@ -37,8 +37,9 @@ class ModelExtensionModuleDAjaxFilter extends Model {
 
             $steps[] = 'product';
             
-            if(!empty($setting['steps'])){
-                $results = array_diff($steps, $setting['steps']);
+            if(!empty($setting[$this->codename.'_cache']['steps']) && !$redirect){
+
+                $results = array_diff($steps, $setting[$this->codename.'_cache']['steps']);
                 if(!empty($results)){
                     return false;
                 }
@@ -112,7 +113,7 @@ class ModelExtensionModuleDAjaxFilter extends Model {
                 );
         }
 
-        $data['status_cache'] = $this->checkCache();
+        $data['status_cache'] = $this->checkCache(false);
 
         $data['help_cache_support'] = $this->language->get('help_cache_support');
         $data['install_cache'] = $this->language->get('install_cache');
