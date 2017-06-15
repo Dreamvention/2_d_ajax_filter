@@ -1,8 +1,8 @@
 <?php if(!$status_cache) { ?>
-<div class="alert alert-info" style="overflow: inherit;">
+<div class="alert alert-danger" style="overflow: inherit;">
     <div class="row">
     <div class="col-md-9"><?php echo $help_cache_support; ?> </div>
-        <div class="col-md-3"><a href="<?php echo $install_cache; ?>" class="btn btn-info btn-block"><?php echo $text_install_cache; ?></a></div>
+        <div class="col-md-3"><a href="<?php echo $install_cache; ?>" class="btn btn-danger pull-right"><?php echo $text_install_cache; ?></a></div>
     </div>
 </div>
 <?php } ?>

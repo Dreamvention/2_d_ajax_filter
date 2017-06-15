@@ -8,7 +8,7 @@ $_['heading_title']                   = '<span style="color:#449DD0; font-weight
 $_['heading_title_main']              = 'Ajax Filter';
 $_['text_file_manager']               = 'File Manager';
 
-$_['help_cache_support']              = 'Tou need to re-create your cache for the filter to wrok correctly';
+$_['help_cache_support']              = '<h4>Recreate cache</h4><p>It seems you have made a serious update to the Filter. You will need to re-create your cache for the filter to wrok correctly.</p>';
 $_['text_install_cache']              = 'Re-create';
 
 $_['text_not_found'] = '<div class="jumbotron">
