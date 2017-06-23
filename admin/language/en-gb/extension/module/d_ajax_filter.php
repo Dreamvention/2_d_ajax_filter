@@ -1,6 +1,6 @@
 <?php
 /*
-*   location:                             admin/language
+*	location:                             admin/language
 */
 
 //heading

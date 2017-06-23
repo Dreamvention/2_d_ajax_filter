@@ -9,7 +9,7 @@ class ModelExtensionModuleDAjaxFilter extends Model {
 
     public function CreateDatabase(){
 
-        $this->db->query("CREATE TABLE `".DB_PREFIX."af_translit` (
+        $this->db->query("CREATE TABLE IF NOT EXISTS `".DB_PREFIX."af_translit` (
            `type` VARCHAR(64) NOT NULL,
            `group_id` INT(11) NOT NULL,
            `value` INT(11) NOT NULL,
