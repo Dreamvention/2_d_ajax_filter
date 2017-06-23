@@ -27,7 +27,7 @@
     },
     "install": {
         "url": "extension/module/install&extension=d_ajax_filter",
-        "xml": "system/mbooth/install/d_ajax_filter.xml"
+        "xml": "system/library/d_shopunity/install/d_ajax_filter.xml"
     },
     "support": {
         "email": "support@dreamvention.com",
@@ -43,8 +43,8 @@
         "d_bootstrap_rating": "1.0.0"
     },
     "files": [
-        "system/mbooth/extension/d_ajax_filter.json",
-        "system/mbooth/install/d_ajax_filter.xml",
+        "system/library/d_shopunity/extension/d_ajax_filter.json",
+        "system/library/d_shopunity/install/d_ajax_filter.xml",
         "system/config/d_ajax_filter.php",
         "system/config/d_ajax_filter_translit.php",
 
