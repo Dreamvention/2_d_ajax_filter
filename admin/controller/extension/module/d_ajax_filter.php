@@ -18,7 +18,7 @@ class ControllerExtensionModuleDAjaxFilter extends Controller
         parent::__construct($registry);
         $this->load->model($this->route);
         
-        $this->d_shopunity = (file_exists(DIR_SYSTEM.'mbooth/extension/d_shopunity.json'));
+        $this->d_shopunity = (file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_shopunity.json'));
         
     }
     

@@ -60,7 +60,7 @@ class ModelExtensionModuleDAjaxFilter extends Model
                 if(!empty($data['filter_name'])){
                     $implode[] = " pd2.name, pd2.description ";
                 }
-                if(!empty($data['filter_taf'])){
+                if(!empty($data['filter_tag'])){
                     $implode[] = "pd2.tag";
                 }
                 if(count($implode) > 0){

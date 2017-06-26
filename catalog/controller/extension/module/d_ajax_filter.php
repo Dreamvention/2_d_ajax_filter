@@ -46,7 +46,7 @@ class ControllerExtensionModuleDAjaxFilter extends Controller
         
         $this->common_setting = $common_setting;
         
-        $this->extension = json_decode(file_get_contents(DIR_SYSTEM.'mbooth/extension/'.$this->codename.'.json'), true);
+        $this->extension = json_decode(file_get_contents(DIR_SYSTEM.'library/d_shopunity/extension/'.$this->codename.'.json'), true);
     }
 
     
