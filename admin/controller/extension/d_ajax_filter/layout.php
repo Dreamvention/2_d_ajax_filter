@@ -336,6 +336,7 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
         $data['event_support'] = $this->language->get('event_support');
 
         $data['button_support_email'] = $this->language->get('button_support_email');
+        $data['button_edit'] = $this->language->get('button_edit');
         $data['button_save'] = $this->language->get('button_save');
         $data['button_cancel'] = $this->language->get('button_cancel');
         $data['button_delete'] = $this->language->get('button_delete');

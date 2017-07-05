@@ -59,7 +59,7 @@
                                                 <div class="tile-body">
                                                     <a href="#" class="view-setting " data-module-id="<?php echo $module['module_id']; ?>">
                                                     </a>
-                                                    <a href="<?php echo $module['link']; ?>" class="view-setting " data-setting-id="1" data-toggle="tooltip" title="" data-original-title="Edit checkout setting"><i class="fa fa-pencil"></i></a>
+                                                    <a href="<?php echo $module['link']; ?>" class="view-setting " data-setting-id="1" data-toggle="tooltip" title="" data-original-title="<?php echo $button_edit; ?>"><i class="fa fa-pencil"></i></a>
                                                     <div class="pull-right">
                                                         <ul class="layout-list">
                                                             <?php if(!empty($module['layouts'])) { ?>

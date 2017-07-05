@@ -122,6 +122,7 @@ $_['entry_support']                     = 'Support';
 $_['help_twig_support']                 = '<h4>Activate Twig support</h4><p>Ajax Filter runs on twig that allows you to edit your twig files vertually with Twig manager from your opencart Admin. Click install Twig.</p>';
 $_['help_event_support']                = '<h4>Activate Event support</h4><p>Ajax Filter uses the latest Opencart Events mechanism instead of Vqmod/Ocmod. Old version of Opencart do not support events but you can enable them here. Click install Events. </p>';
 //Button
+$_['button_edit']                       = 'Edit setting';
 $_['button_support_email']              = 'Support';
 
 //positions
