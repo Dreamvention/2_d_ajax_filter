@@ -8,7 +8,7 @@ $_['heading_title']         = '<span style="color:#449DD0; font-weight:bold">Aja
 $_['heading_title_main']    = 'Ajax Filter';
 $_['text_file_manager']     = 'File Manager';
 
-$_['text_complete_version'] = 'For filtering with Attributes, Options, Tags, Price and more, please install the full version Ajax Filter SEO';
+$_['text_complete_version'] = '<a href="https://shopunity.net/extension/ajax-filter-seo" target="_blank">For filtering with Attributes, Options, Tags, Price and more, please install the full version Ajax Filter SEO</a>';
 $_['help_cache_support']    = '<h4>Recreate cache</h4><p>It seems you have made a serious update to the Filter. You will need to re-create your cache for the filter to work correctly.</p>';
 $_['text_install_cache']    = 'Re-create';
 

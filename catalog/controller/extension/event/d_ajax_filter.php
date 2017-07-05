@@ -10,9 +10,7 @@ class ControllerExtensionEventDAjaxFilter extends Controller {
     public function __construct($registry)
     {
         parent::__construct($registry);
-        if(!empty($this->request->get['ajax'])){
-            return ;
-        }
+        
         $this->load->model($this->route);
         $this->load->model('setting/setting');
         $common_setting = $this->model_setting_setting->getSetting($this->codename);

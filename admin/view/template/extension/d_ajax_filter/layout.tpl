@@ -48,7 +48,7 @@
                                     <div class="row">
                                         <?php if(!empty($modules)) { ?>
                                         <?php foreach ($modules as $module) { ?>
-                                        <div class="col-lg-3 col-md-4 col-sm-6">
+                                        <div class="<?php echo !$notify?'col-lg-3':''; ?> col-md-4 col-sm-6">
                                             <div class="tile <?php echo $module['active']?'selected':''; ?>">
                                                 <div class="tile-heading clearfix">
                                                     <?php echo $module['name'] ?>
@@ -86,7 +86,7 @@
                                         </div>
                                         <?php } ?>
                                         <?php } ?>
-                                        <div class="col-lg-3 col-md-4 col-sm-6">
+                                        <div class="<?php echo !$notify?'col-lg-3':''; ?> col-md-4 col-sm-6">
                                             <div class="tile">
                                                 <div class="tile-heading"><?php echo $text_new_setting; ?></div>
                                                 <a href="<?php echo $new_module; ?>" id="create_setting" class="create-setting">
