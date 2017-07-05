@@ -507,9 +507,6 @@ class ModelExtensionModuleDAjaxFilter extends Model
         if(isset($this->request->get['order'])){
             $implode[] = 'order='.$this->request->get['order'];
         }
-        if(isset($this->request->get['page'])){
-            $implode[] = 'page='.$this->request->get['page'];
-        }
 
         if(count($implode) >0){
             $result = implode('&',$implode);
@@ -554,9 +551,6 @@ class ModelExtensionModuleDAjaxFilter extends Model
         }
         if(isset($this->request->get['order'])){
             $query[] = 'order='.$this->request->get['order'];
-        }
-        if(isset($this->request->get['page'])){
-            $query[] = 'page='.$this->request->get['page'];
         }
         
         $params = $this->getUrlParams();
