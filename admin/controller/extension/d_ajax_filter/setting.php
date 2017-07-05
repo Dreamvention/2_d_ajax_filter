@@ -21,7 +21,7 @@ class ControllerExtensionDAjaxFilterSetting extends Controller
         
         //extension.json
         $this->extension = json_decode(file_get_contents(DIR_SYSTEM.'library/d_shopunity/extension/'.$this->codename.'.json'), true);
-        $this->d_shopunity = (file_exists(DIR_SYSTEM.'mbooth/extension/d_shopunity.json'));
+        $this->d_shopunity = (file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_shopunity.json'));
         
         //Store_id (for multistore)
         if (isset($this->request->get['store_id'])) { 
