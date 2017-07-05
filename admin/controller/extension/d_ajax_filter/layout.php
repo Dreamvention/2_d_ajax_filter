@@ -354,7 +354,7 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
 
         $data['tabs'] = $this->{'model_extension_module_'.$this->codename}->getTabs('layout');
 
-        $data['layout_tabs'] = $this->{'model_extension_'.$this->codename.'_layout'}->getTabs(isset($module_id)?true:false);
+        $data['layout_tabs'] = $this->{'model_extension_'.$this->codename.'_layout'}->getTabs(true);
 
         if(isset($this->request->get['module_id'])){
             $data['action'] = $this->url->link('extension/'.$this->codename.'/layout/edit', 'token='.$this->session->data['token'].'&module_id='.$this->request->get['module_id'], 'SSL');
