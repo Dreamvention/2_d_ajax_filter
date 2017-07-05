@@ -23,7 +23,7 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
         
         //extension.json
         $this->extension = json_decode(file_get_contents(DIR_SYSTEM.'library/d_shopunity/extension/'.$this->codename.'.json'), true);
-        $this->d_shopunity = (file_exists(DIR_SYSTEM.'mbooth/extension/d_shopunity.json'));
+        $this->d_shopunity = (file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_shopunity.json'));
         
         //Store_id (for multistore)
         if (isset($this->request->get['store_id'])) { 
@@ -37,9 +37,9 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
         $this->load->model('extension/module');
 
         if($this->d_shopunity){
-            $this->load->model('d_shopunity/ocmod');
-            $this->model_d_shopunity_ocmod->setOcmod('d_ajax_filter.xml', 0);
-            $this->model_d_shopunity_ocmod->refreshCache();
+            $this->load->model('extension/d_shopunity/ocmod');
+            $this->model_extension_d_shopunity_ocmod->setOcmod('d_ajax_filter.xml', 0);
+            $this->model_extension_d_shopunity_ocmod->refreshCache();
             $this->uninstallEvents();
         }
 
@@ -68,9 +68,9 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
             }
 
             if($global_status && $this->d_shopunity){
-                $this->load->model('d_shopunity/ocmod');
-                $this->model_d_shopunity_ocmod->setOcmod($this->codename.'.xml', 1);
-                $this->model_d_shopunity_ocmod->refreshCache();
+                $this->load->model('extension/d_shopunity/ocmod');
+                $this->model_extension_d_shopunity_ocmod->setOcmod($this->codename.'.xml', 1);
+                $this->model_extension_d_shopunity_ocmod->refreshCache();
                 $this->installEvents();
             }
 
@@ -99,9 +99,9 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
             $this->{'model_extension_'.$this->codename.'_layout'}->clearLayoutsByModule($this->request->get['module_id']);
 
             if($this->d_shopunity){
-                $this->load->model('d_shopunity/ocmod');
-                $this->model_d_shopunity_ocmod->setOcmod('d_ajax_filter.xml', 0);
-                $this->model_d_shopunity_ocmod->refreshCache();
+                $this->load->model('extension/d_shopunity/ocmod');
+                $this->model_extension_d_shopunity_ocmod->setOcmod('d_ajax_filter.xml', 0);
+                $this->model_extension_d_shopunity_ocmod->refreshCache();
                 $this->uninstallEvents();
             }
 
@@ -117,9 +117,9 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
             }
 
             if($global_status && $this->d_shopunity){
-                $this->load->model('d_shopunity/ocmod');
-                $this->model_d_shopunity_ocmod->setOcmod($this->codename.'.xml', 1);
-                $this->model_d_shopunity_ocmod->refreshCache();
+                $this->load->model('extension/d_shopunity/ocmod');
+                $this->model_extension_d_shopunity_ocmod->setOcmod($this->codename.'.xml', 1);
+                $this->model_extension_d_shopunity_ocmod->refreshCache();
                 $this->installEvents();
             }
 
@@ -548,18 +548,20 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
         foreach ($results as $value) {
             $data['templates'][] = $this->load->controller('extension/'.$this->codename.'_module/'.$value.'/prepare_template', $data['setting']);
         }
+
+        $data['notify'] = $this->{'model_extension_'.$this->codename.'_layout'}->checkCompleteVersion();
         
         $twig_support = (file_exists(DIR_SYSTEM.'mbooth/extension/d_twig_manager.json'));
         $data['twig_support'] = false;
         if($twig_support){
-            $this->load->model('d_shopunity/ocmod');
-            $data['twig_support'] = $this->model_d_shopunity_ocmod->getModificationByName('d_twig_manager');
+            $this->load->model('extension/d_shopunity/ocmod');
+            $data['twig_support'] = $this->model_extension_d_shopunity_ocmod->getModificationByName('d_twig_manager');
         }
         $event_support = (file_exists(DIR_SYSTEM.'mbooth/extension/d_event_manager.json'));
         $data['event_support'] = false;
         if($event_support){
-            $this->load->model('d_shopunity/ocmod');
-            $data['event_support'] = $this->model_d_shopunity_ocmod->getModificationByName('d_event_manager');
+            $this->load->model('extension/d_shopunity/ocmod');
+            $data['event_support'] = $this->model_extension_d_shopunity_ocmod->getModificationByName('d_event_manager');
         }
 
         $data['header'] = $this->load->controller('common/header');

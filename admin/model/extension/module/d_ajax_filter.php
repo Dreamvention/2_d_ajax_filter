@@ -119,6 +119,11 @@ class ModelExtensionModuleDAjaxFilter extends Model {
         $data['install_cache'] = $this->language->get('install_cache');
         $data['text_install_cache'] = $this->language->get('text_install_cache');
 
+        $data['text_complete_version'] = $this->language->get('text_complete_version');
+
+        $this->load->model('extension/'.$this->codename.'/layout');
+        $data['notify'] = $this->{'model_extension_'.$this->codename.'_layout'}->checkCompleteVersion();
+
         $data['install_cache'] = $this->url->link('extension/'.$this->codename.'/cache', 'token='.$this->session->data['token'], 'SSL');
 
         return $this->load->view('extension/'.$this->codename.'/partials/tabs.tpl', $data);

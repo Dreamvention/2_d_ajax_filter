@@ -31,6 +31,7 @@
             </div>
             <div class="panel-body">
                 <div class="d_shopunity_widget_update"></div>
+                
                 <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-layout" class="form-horizontal">
                     <?php echo $tabs; ?>
                     <div class="row">
@@ -41,7 +42,7 @@
                                 <?php } ?>
                             </ul>
                         </div>
-                        <div class="col-sm-10">
+                        <div class="col-sm-<?php echo $notify?'7':'10' ?>">
                             <div class="tab-content">
                                 <div id="home" class="tab-pane">
                                     <div class="row">
@@ -100,7 +101,7 @@
                                     </div>
                                 </div>
                                 <div id="setting" class="tab-pane">
-                                   
+
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label"
                                         for="input_status"><?php echo $entry_status; ?></label>
@@ -128,7 +129,7 @@
                                             <?php } ?>
                                         </div>
                                     </div>
-                                     <div class="form-group">
+                                    <div class="form-group">
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label" for="input_name"><?php echo $entry_name; ?></label>
@@ -582,6 +583,11 @@
                                 </div>
                             </div>
                         </div>
+                        <?php if ($notify) { ?>
+                        <div class="col-md-3">
+                            <div class="d_shopunity_widget_1"></div>
+                        </div>
+                        <?php } ?>
                     </div>
                 </form>
             </div>
@@ -805,8 +811,16 @@
                 token: '<?php echo $token; ?>',
                 action: 'loadUpdate',
                 extension_id: '5'
-            })
+            });
+
+           
         });
+     var d_shopunity_widget_1 = jQuery.extend(true, {}, d_shopunity_widget);
+            d_shopunity_widget_1.init({
+                class: '.d_shopunity_widget_1',
+                token: '<?php echo $token; ?>',
+                extension_id: '126'
+            })
 
     </script>
     <?php echo $footer; ?>

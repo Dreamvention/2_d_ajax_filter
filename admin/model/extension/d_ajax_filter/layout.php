@@ -197,4 +197,14 @@ class ModelExtensionDAjaxFilterlayout extends Model {
 
         return $results;
     }
+
+    public function checkCompleteVersion(){
+        $return = false;
+        if(!file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_ajax_filter_seo.json')){
+            $return = true; 
+        }
+
+        return $return;
+    }
+
 }

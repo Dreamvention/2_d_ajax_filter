@@ -41,6 +41,7 @@ $_['text_create_setting']               = 'Create setting';
 $_['text_module']                       = 'Modules';
 $_['text_not_positioned']               = 'Not yet positioned';
 
+
 $_['text_base_attrib_price']            = 'Price filter';
 $_['text_base_attrib_manufacturer']     = 'Manufacturers';
 $_['text_base_attrib_category']         = 'Categories';
