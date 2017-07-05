@@ -405,7 +405,6 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
                     'link' => $this->url->link('extension/'.$this->codename.'/layout', 'token='.$this->session->data['token'].'&module_id='.$value['module_id'])
                     );
             }
-
         }
 
         $data['tabs'] = $this->{'model_extension_module_'.$this->codename}->getTabs('layout');
