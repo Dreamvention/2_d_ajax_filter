@@ -222,6 +222,7 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL')
             );
+        
         if(VERSION >= '2.3.0.0'){
             $breadcrumb_link = $this->url->link('extension/extension', 'token=' . $this->session->data['token'].'&type=module', 'SSL');
         }
