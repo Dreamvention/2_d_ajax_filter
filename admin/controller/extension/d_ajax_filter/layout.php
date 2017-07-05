@@ -222,7 +222,7 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL')
             );
-        
+
         if(VERSION >= '2.3.0.0'){
             $breadcrumb_link = $this->url->link('extension/extension', 'token=' . $this->session->data['token'].'&type=module', 'SSL');
         }
@@ -353,10 +353,6 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
         $data['token'] = $this->session->data['token'];
         $data['support_email'] = $this->extension['support']['email'];
 
-        $data['tabs'] = $this->{'model_extension_module_'.$this->codename}->getTabs('layout');
-
-        $data['layout_tabs'] = $this->{'model_extension_'.$this->codename.'_layout'}->getTabs(true);
-
         if(isset($this->request->get['module_id'])){
             $data['action'] = $this->url->link('extension/'.$this->codename.'/layout/edit', 'token='.$this->session->data['token'].'&module_id='.$this->request->get['module_id'], 'SSL');
         }
@@ -411,6 +407,10 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
             }
 
         }
+
+        $data['tabs'] = $this->{'model_extension_module_'.$this->codename}->getTabs('layout');
+
+        $data['layout_tabs'] = $this->{'model_extension_'.$this->codename.'_layout'}->getTabs(!empty($data['modules'])?true:false);
 
         $data['show_modes'] = array(
             'all' => $this->language->get('text_show_mode_all'),
