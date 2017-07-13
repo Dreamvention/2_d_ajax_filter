@@ -99,25 +99,22 @@
                     $('.price-max-input', this.root).val(current_max);
                 }
 
-                if(values[0] < current_min || values[1] > current_max){
+                user_min = values[0];
+                user_max = values[1];
 
-                    var min_price = $('.price-min-input', this.root).val();
-                    var max_price = $('.price-max-input', this.root).val();
+                if(user_min < current_min){
+                    user_min = current_min;
+                }
 
-                    this.store.clearSelected(opts.filter.name, opts.filter.group_id);
-                    slider.update({
-                        from: min_price,
-                        to: max_price
-                    });
+                if(user_max > current_max){
+                    user_max = current_max;
                 }
-                else{
-                    $('.price-min-input', this.root).val(values[0]);
-                    $('.price-max-input', this.root).val(values[1]);
-                    slider.update({
-                        from: values[0],
-                        to: values[1]
-                    });
-                }
+
+                slider.update({
+                    from: user_min,
+                    to: user_max
+                });
+                
             }
             else{
                 $('.price-min-input', this.root).val(current_min);
