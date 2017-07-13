@@ -78,7 +78,7 @@
             });
 
             if(typeof values == "object"){
-                var length = Object.values(values).length;
+                var length = getValuesFromObject(values).length;
             }
             else{
                 var length = values.length;

@@ -143,7 +143,9 @@ var af = (function() {
         return result;
     }
 
-    this.updateSelected = function(name, group_id, value, checked, filter_id = null, target=null){
+    this.updateSelected = function(name, group_id, value, checked, filter_id, target){
+        filter_id = typeof filter_id !== 'undefined' ? filter_id : null;
+        target = typeof target !== 'undefined' ? target : null;
         if(checked){
             if(typeof this.state.selected[name] == "undefined"){
                 this.state.selected[name] = {};
@@ -152,13 +154,13 @@ var af = (function() {
                 this.state.selected[name][group_id] = [];
             }
             else{
-                this.state.selected[name][group_id] = Object.values(this.state.selected[name][group_id]);
+                this.state.selected[name][group_id] = this.getValuesFromObject(this.state.selected[name][group_id]);
             }
             this.state.selected[name][group_id].push(value);
         }
         else{
             if(typeof this.state.selected[name] != "undefined" && typeof this.state.selected[name][group_id] != "undefined"){
-                this.state.selected[name][group_id] = Object.values(this.state.selected[name][group_id]);
+                this.state.selected[name][group_id] = this.getValuesFromObject(this.state.selected[name][group_id]);
 
                 var index = this.state.selected[name][group_id].indexOf(value);
                 this.state.selected[name][group_id].splice(index, 1);
@@ -177,7 +179,8 @@ var af = (function() {
         }
     }
 
-    this.updateGroupSelected = function(name, group_id, values, filter_id = null){
+    this.updateGroupSelected = function(name, group_id, values, filter_id){
+        filter_id = typeof filter_id !== 'undefined' ? filter_id : null;
         this.clearSelected(name, group_id);
 
         if(typeof this.state.selected[name] == "undefined"){
@@ -196,7 +199,8 @@ var af = (function() {
         }
     }
 
-    this.clearSelected = function(name, group_id, filter_id = null){
+    this.clearSelected = function(name, group_id, filter_id){
+        filter_id = typeof filter_id !== 'undefined' ? filter_id : null;
         if(typeof this.state.selected[name] != "undefined" && typeof this.state.selected[name][group_id] != "undefined"){
             delete this.state.selected[name][group_id];
         }
@@ -231,7 +235,7 @@ var af = (function() {
         if(typeof getState().selected != 'undefined' &&
             typeof getState().selected[name] != 'undefined' &&
             typeof getState().selected[name][group_id] != 'undefined'&&
-            Object.values(getState().selected[name][group_id]).indexOf(value.toString()) != -1)
+            this.getValuesFromObject(getState().selected[name][group_id]).indexOf(value.toString()) != -1)
         {
             selected = true;
         }
@@ -301,7 +305,7 @@ var af = (function() {
     }
 
     this.checkRange = function(name, group_id){
-         var result = false;
+        var result = false;
 
         if(typeof getState().groups != 'undefined' &&
             typeof getState().groups[name] != 'undefined' &&
@@ -311,6 +315,12 @@ var af = (function() {
             result = true;
         }
         return result;
+    }
+
+    this.getValuesFromObject = function(obj){
+        return Object.keys(obj).map(function(key) {
+            return obj[key];
+        });
     }
 
     this.updateContent = function(){

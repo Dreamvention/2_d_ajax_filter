@@ -4,13 +4,13 @@
 </div>
 <script>
     this.on('before-mount', function(){
-        count_hide_elements = Object.values(opts.filter.values).length - getSetting(opts.filter_id).count_elemnts;
+        count_hide_elements = getValuesFromObject(opts.filter.values).length - getSetting(opts.filter_id).count_elemnts;
     });
     this.on('mount', function(){
         $(this.root).parent().find('.af-element:nth-child(n+'+(parseInt(getSetting(opts.filter_id).count_elemnts)+1)+')').css('display','none');
     });
     this.on('update', function(){
-        count_hide_elements = Object.values(opts.filter.values).length - getSetting(opts.filter_id).count_elemnts;
+        count_hide_elements = getValuesFromObject(opts.filter.values).length - getSetting(opts.filter_id).count_elemnts;
     });
     
     click(e){
