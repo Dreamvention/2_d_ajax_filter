@@ -33,13 +33,13 @@
 
         var values = getSelected(opts.filter.name, opts.filter.group_id);
 
-        var range = $('.slider-range', this.root).get(0);
+        var slider = $(".slider-range", this.root).data("ionRangeSlider");
 
         if(typeof quantity_status != 'undefined'){
 
             var min = getQuantity(opts.filter.name, opts.filter.group_id, 0);
             var max = getQuantity(opts.filter.name, opts.filter.group_id, 1);
-            var slider = $(".slider-range", this.root).data("ionRangeSlider");
+            
 
             var current_min = slider.options.min;
             var current_max = slider.options.max;
