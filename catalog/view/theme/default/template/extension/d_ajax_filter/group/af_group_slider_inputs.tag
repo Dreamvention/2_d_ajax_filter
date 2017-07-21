@@ -145,7 +145,7 @@
         var min_price = $('.price-min-input', this.root).val();
         var max_price = $('.price-max-input', this.root).val();
 
-        this.store.updateGroupSelected(opts.filter.name, opts.filter.group_id, [min_price, max_price], filter_id);
+        this.store.updateGroupSelected(opts.filter.name, opts.filter.group_id, [min_price, max_price], opts.filter_id);
     }
 </script>
 </af_group_slider_inputs>
