@@ -39,7 +39,7 @@ class ControllerExtensionDAjaxFilterFilter extends Controller
             $filters = $filter_group_info['filters'];
 
             $filter_setting = $this->{'model_extension_'.$this->codename.'_filter'}->getSetting($filter_group_id, $this->filter_setting, $setting['module_setting']);
-
+            $this->load->model('tool/image');
             $filter_data = array();
             if($filter_setting['status']){
                 
