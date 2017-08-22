@@ -130,12 +130,6 @@
                                         <div class="col-sm-10">
                                             
                                             <a href="<?php echo $recreate_cache; ?>" class="btn btn-danger"><?php echo $button_recreate_cache; ?></a>
-                                            <br/>
-                                            <br/>
-                                            <div class="bs-callout bs-callout-danger">
-                                                <h4><?php echo $text_important; ?></h4>
-                                                <?php echo $text_warning_recrate_cache; ?>
-                                            </div>
                                         </div>
                                     </div>
                                       

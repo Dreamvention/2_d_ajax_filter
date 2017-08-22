@@ -16,8 +16,6 @@ $_['text_tab_design']                 = 'Design';
 $_['text_tab_general']                = 'General';
 $_['text_tab_custom_script']          = 'Custom Script';
 $_['text_important']                  = 'Important!';
-$_['text_warning_recrate_cache']      = 'When you re-create the cache the following data will be deleted: 
-<ul><li>The images of Attribute Values and Filters</li><li>Sort Order of Attribute Values</li></ul>';
 $_['text_warning_multiple_value']     = 'After changing the "Enable multiple attribute values" setting, you need to re-create the cache.';
 $_['text_warning_genaral_setting']    = 'The settings on this page are common to all filters';
 

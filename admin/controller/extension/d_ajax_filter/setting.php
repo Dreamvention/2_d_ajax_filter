@@ -90,7 +90,6 @@ class ControllerExtensionDAjaxFilterSetting extends Controller
         
         $data['text_tab_general'] = $this->language->get('text_tab_general');
         $data['text_tab_custom_script'] = $this->language->get('text_tab_custom_script');
-        $data['text_warning_recrate_cache'] = $this->language->get('text_warning_recrate_cache');
         $data['text_important'] = $this->language->get('text_important');
         $data['text_warning_multiple_value'] = $this->language->get('text_warning_multiple_value');
         $data['text_warning_genaral_setting'] = $this->language->get('text_warning_genaral_setting');
