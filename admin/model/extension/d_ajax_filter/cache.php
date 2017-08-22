@@ -95,6 +95,9 @@ class ModelExtensionDAjaxFilterCache extends Model {
             if(!empty($module_setting['restore_after_cache'])){
                 $results[] = 'save.'.$type;
             }
+            if(!empty($module_setting['cleaning_before'])){
+                $results[] = 'cleaning_before.'.$type;
+            }
             if(!empty($module_setting['cache'])){
                 $results[] = $type;
             }
@@ -141,6 +144,10 @@ class ModelExtensionDAjaxFilterCache extends Model {
             if(strpos($steps[$step],'prepare.') == 0){
                 $type = str_replace('prepare.', '', $steps[$step]);
                 $count = $this->load->controller('extension/'.$this->codename.'_module/'.$steps[$step].'/prepare', $filter_data);
+            }
+            else if(strpos($steps[$step],'cleaning_before.') == 0){
+                $type = str_replace('cleaning_before.', '', $steps[$step]);
+                $count = $this->load->controller('extension/'.$this->codename.'_module/'.$steps[$step].'/cleaning_before', $filter_data);
             }
             else if(strpos($steps[$step],'save.') == 0){
                 $type = str_replace('save.', '', $steps[$step]);

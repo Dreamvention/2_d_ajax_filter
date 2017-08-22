@@ -39,6 +39,10 @@ class ControllerExtensionDAjaxFilterModuleFilter extends Controller
         $this->{'model_extension_'.$this->codename.'_module_filter'}->cleaning();
     }
 
+    public function cleaning_before(){
+        $this->{'model_extension_'.$this->codename.'_module_filter'}->cleaning_before();
+    }
+
     public function prepare_template($setting){
 
         $data['entry_type'] = $this->language->get('entry_type');

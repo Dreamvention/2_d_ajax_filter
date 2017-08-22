@@ -67,7 +67,6 @@ class ModelExtensionDAjaxFilterModuleFilter extends Model {
     }
 
     public function prepare(){
-        $this->db->query('TRUNCATE TABLE '.DB_PREFIX.'af_filter');
         $this->db->query("DROP TABLE IF EXISTS ". DB_PREFIX . "af_filter_backup");
         $this->db->query("CREATE TABLE IF NOT EXISTS " . DB_PREFIX . "af_filter_backup (
             `filter_id` INT(11) NOT NULL,
@@ -75,6 +74,10 @@ class ModelExtensionDAjaxFilterModuleFilter extends Model {
             `image` VARCHAR(255) NOT NULL,
             PRIMARY KEY (`filter_id`, `language_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+    }
+
+    public function cleaning_before(){
+        $this->db->query('TRUNCATE TABLE '.DB_PREFIX.'af_filter');
     }
 
     public function cleaning(){
