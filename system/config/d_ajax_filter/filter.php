@@ -2,6 +2,7 @@
 $_['status']              = 1;
 $_['sort_order']          = 5;
 $_['cache']               = 1;
+$_['prepare']             = 1;
 $_['restore_after_cache'] = 1;
 $_['icon']                = 'fa fa-filter';
 $_['allowed_types']       = array();

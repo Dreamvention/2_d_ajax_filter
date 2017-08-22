@@ -89,6 +89,9 @@ class ModelExtensionDAjaxFilterCache extends Model {
         $modules = $this->{'model_extension_'.$this->codename.'_layout'}->getModules();
         foreach ($modules as $type) {
             $module_setting = $this->{'model_extension_'.$this->codename.'_layout'}->getModuleSetting($type);
+            if(!empty($module_setting['prepare'])){
+                $results[] = 'prepare.'.$type;
+            }
             if(!empty($module_setting['restore_after_cache'])){
                 $results[] = 'save.'.$type;
             }
@@ -120,11 +123,6 @@ class ModelExtensionDAjaxFilterCache extends Model {
                 'step' => 0,
                 'last_step' => 0
                 );
-            foreach($steps as $type){
-                if($type != 'product'){
-                    $this->load->controller('extension/'.$this->codename.'_module/'.$type.'/prepare');
-                }
-            }
             $this->db->query('TRUNCATE TABLE '.DB_PREFIX.'af_values');
             $this->db->query( "UPDATE `" . DB_PREFIX . "product` SET `af_values` = ''");
             $this->db->query( "UPDATE `" . DB_PREFIX . "product` SET `af_tags` = ''");
@@ -140,7 +138,11 @@ class ModelExtensionDAjaxFilterCache extends Model {
                 'limit' => $limit,
                 'last_step' => $last_step
                 );
-            if(strpos($steps[$step],'save.') == 0){
+            if(strpos($steps[$step],'prepare.') == 0){
+                $type = str_replace('prepare.', '', $steps[$step]);
+                $count = $this->load->controller('extension/'.$this->codename.'_module/'.$steps[$step].'/prepare', $filter_data);
+            }
+            else if(strpos($steps[$step],'save.') == 0){
                 $type = str_replace('save.', '', $steps[$step]);
                 $count = $this->load->controller('extension/'.$this->codename.'_module/'.$steps[$step].'/save', $filter_data);
             }
