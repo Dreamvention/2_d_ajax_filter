@@ -89,10 +89,17 @@ class ModelExtensionDAjaxFilterCache extends Model {
         $modules = $this->{'model_extension_'.$this->codename.'_layout'}->getModules();
         foreach ($modules as $type) {
             $module_setting = $this->{'model_extension_'.$this->codename.'_layout'}->getModuleSetting($type);
+            if(!empty($module_setting['restore_after_cache'])){
+                $results[] = 'save.'.$type;
+            }
             if(!empty($module_setting['cache'])){
                 $results[] = $type;
             }
+            if(!empty($module_setting['restore_after_cache'])){
+                $results[] = 'restore.'.$type;
+            }
         }
+
         return $results;
     }
 
@@ -133,8 +140,17 @@ class ModelExtensionDAjaxFilterCache extends Model {
                 'limit' => $limit,
                 'last_step' => $last_step
                 );
-
-            $count = $this->load->controller('extension/'.$this->codename.'_module/'.$steps[$step].'/step', $filter_data);
+            if(strpos($steps[$step],'save.') == 0){
+                $type = str_replace('save.', '', $steps[$step]);
+                $count = $this->load->controller('extension/'.$this->codename.'_module/'.$steps[$step].'/save', $filter_data);
+            }
+            elseif(strpos($steps[$step],'restore.') == 0) {
+                $type = str_replace('restore.', '', $steps[$step]);
+                $count = $this->load->controller('extension/'.$this->codename.'_module/'.$steps[$step].'/restore', $filter_data);
+            }
+            else{
+                $count = $this->load->controller('extension/'.$this->codename.'_module/'.$steps[$step].'/step', $filter_data);
+            }
             $last_step++;
         }
         else{
@@ -168,6 +184,12 @@ class ModelExtensionDAjaxFilterCache extends Model {
 
             if( file_exists( $cache ) ) {
                 unlink( $cache );
+            }
+
+            foreach($steps as $type){
+                if($type != 'product'){
+                    $this->load->controller('extension/'.$this->codename.'_module/'.$type.'/cleaning');
+                }
             }
 
             $this->load->model('setting/setting');

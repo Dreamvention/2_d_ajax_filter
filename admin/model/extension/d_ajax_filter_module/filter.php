@@ -41,8 +41,44 @@ class ModelExtensionDAjaxFilterModuleFilter extends Model {
         return $count->row['c'];
     }
 
+    public function save($data){
+        $query = $this->db->query("SELECT `filter_id`, `language_id`, `image` FROM `".DB_PREFIX."af_filter` WHERE `image` != '' LIMIT ".($data['limit']*$data['last_step']).", ".$data['limit']);
+        if($query->num_rows){
+            foreach ($query->rows as $row) {
+                $this->db->query("INSERT INTO `".DB_PREFIX."af_filter_backup` SET `filter_id` = '".(int)$row['filter_id']."', `language_id` = '".(int)$row['language_id']."', `image` = '".$row['image']."'");
+            }
+        }
+        $count = $this->db->query("SELECT COUNT(*) as c FROM `".DB_PREFIX."af_filter` WHERE `image` != ''");;
+        return $count->row['c'];
+    }
+
+    public function restore($data){
+        $query = $this->db->query("SELECT `filter_id`, `language_id`, `image` FROM `".DB_PREFIX."af_filter_backup` WHERE LIMIT ".($data['limit']*$data['last_step']).", ".$data['limit']);
+        if($query->num_rows){
+            foreach ($query->rows as $row) {
+                $query_res = $this->db->query("SELECT COUNT(*) as c FROM `".DB_PREFIX."filter` WHERE `filter_id` = '".$row['filter_id']."'");
+                if($query_res->row['c']) {
+                    $this->db->query("INSERT INTO `".DB_PREFIX."af_filter_backup` SET `image` = '".$row['image']."', `filter_id` = '".(int)$row['filter_id']."', `language_id` = '".(int)$language_id."'" );
+                }
+            }
+        }
+        $count = $this->db->query("SELECT COUNT(*) as c FROM `".DB_PREFIX."af_filter_backup`");;
+        return $count->row['c'];
+    }
+
     public function prepare(){
         $this->db->query('TRUNCATE TABLE '.DB_PREFIX.'af_filter');
+        $this->db->query("DROP TABLE IF EXISTS ". DB_PREFIX . "af_filter_backup");
+        $this->db->query("CREATE TABLE IF NOT EXISTS " . DB_PREFIX . "af_filter_backup (
+            `filter_id` INT(11) NOT NULL,
+            `language_id` INT(11) NOT NULL,
+            `image` VARCHAR(255) NOT NULL,
+            PRIMARY KEY (`filter_id`, `language_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+    }
+
+    public function cleaning(){
+        $this->db->query("DROP TABLE IF EXISTS ". DB_PREFIX . "af_filter_backup");
     }
 
     public function installModule(){

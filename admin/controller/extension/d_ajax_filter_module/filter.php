@@ -21,8 +21,22 @@ class ControllerExtensionDAjaxFilterModuleFilter extends Controller
         return $count;
     }
 
+    public function save($data){
+        $count = $this->{'model_extension_'.$this->codename.'_module_filter'}->save($data);
+        return $count;
+    }
+
+    public function restore($data){
+        $count = $this->{'model_extension_'.$this->codename.'_module_filter'}->restore($data);
+        return $count;
+    }
+
     public function prepare(){
         $this->{'model_extension_'.$this->codename.'_module_filter'}->prepare();
+    }
+
+    public function cleaning(){
+        $this->{'model_extension_'.$this->codename.'_module_filter'}->cleaning();
     }
 
     public function prepare_template($setting){
