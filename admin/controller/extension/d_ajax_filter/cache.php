@@ -110,6 +110,24 @@ class ControllerExtensionDAjaxFilterCache extends Controller
 
         $this->{'model_extension_'.$this->codename.'_cache'}->checkCache();
 
+        $this->cache->delete('af-category');
+        $this->cache->delete('af-manufacturer');
+        $this->cache->delete('af-price');
+        $this->cache->delete('af-ean');
+        $this->cache->delete('af-filter');
+        $this->cache->delete('af-option');
+        $this->cache->delete('af-option-values');
+        $this->cache->delete('af-total-attribute');
+        $this->cache->delete('af-total-category');
+        $this->cache->delete('af-total-manufacturer');
+        $this->cache->delete('af-total-option');
+        $this->cache->delete('af-total-stock-status');
+        $this->cache->delete('af-total-filter');
+        $this->cache->delete('af-total-rating');
+        $this->cache->delete('af-total-ean');
+        $this->cache->delete('af-translit');
+        $this->cache->delete('af-url-params');
+
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');
