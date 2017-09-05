@@ -19,33 +19,29 @@ class ControllerExtensionModuleDAjaxFilter extends Controller
         $this->load->model($this->route);
         
         $this->d_shopunity = (file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_shopunity.json'));
+        $this->d_opencart_patch = (file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_opencart_patch.json'));
+        $this->d_twig_manager = (file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_twig_manager.json'));
         
-    }
-    
-    public function required(){
-        $this->load->language($this->route);
-        
-        $this->document->setTitle($this->language->get('heading_title_main'));
-        $data['heading_title'] = $this->language->get('heading_title_main');
-        $data['text_not_found'] = $this->language->get('text_not_found');
-        $data['breadcrumbs'] = array();
-        
-        $data['header'] = $this->load->controller('common/header');
-        $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer'] = $this->load->controller('common/footer');
-        
-        $this->response->setOutput($this->load->view('error/not_found.tpl', $data));
     }
     
     public function index()
     {
 
-        if(!$this->d_shopunity){
-            $this->response->redirect($this->url->link($this->route.'/required', 'codename=d_shopunity&token='.$this->session->data['token'], 'SSL'));
-        }
+        $this->load->model('extension/d_opencart_patch/url');
 
-        $this->load->model('d_shopunity/mbooth');
-        $this->model_d_shopunity_mbooth->validateDependencies($this->codename);
+        if($this->d_twig_manager){
+            $this->load->model('extension/module/d_twig_manager');
+            if(!$this->model_extension_module_d_twig_manager->isCompatible()){
+                $this->model_extension_module_d_twig_manager->installCompatibility();
+                $this->load->language('extension/module/d_visual_designer'); 
+                $this->session->data['success'] = $this->language->get('success_twig_compatible');
+                $this->response->redirect($this->model_extension_d_opencart_patch_url->link('marketplace/extension', 'type=module'));
+            } 
+        }
+        if($this->d_shopunity){
+            $this->load->model('extension/d_shopunity/mbooth');
+            $this->model_extension_d_shopunity_mbooth->validateDependencies($this->codename);
+        }
 
         $this->load->model('extension/'.$this->codename.'/cache');
 
@@ -57,26 +53,27 @@ class ControllerExtensionModuleDAjaxFilter extends Controller
             $this->load->controller('extension/'.$this->codename.'/layout');
         }
         else{
-            $this->response->redirect($this->url->link('extension/'.$this->codename.'/cache', 'token='.$this->session->data['token'], 'SSL'));
+            $this->response->redirect($this->model_extension_d_opencart_patch_url->link('extension/'.$this->codename.'/cache'));
         }
     }
 
     public function getFileManager() {
+        $this->load->model('user/user_group');
+        $this->load->model('extension/d_opencart_patch/user');
+        $this->load->model('extension/d_opencart_patch/load');
+        $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'access', 'extension/d_elfinder');
+        $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'modify', 'extension/d_elfinder');
+
         if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
             $data['base'] = HTTPS_CATALOG;
         } else {
             $data['base'] = HTTP_CATALOG;
         }
 
-        $this->load->model('user/user_group');
-        $this->model_user_user_group->addPermission($this->{'model_extension_module_'.$this->codename}->getGroupId(), 'access', 'common/d_elfinder');
-        $this->model_user_user_group->addPermission($this->{'model_extension_module_'.$this->codename}->getGroupId(), 'modify', 'common/d_elfinder');
+        $data['token'] = $this->model_extension_d_opencart_patch_user->getUrlToken();
+        $data['route'] = 'extension/d_elfinder/d_elfinder';
 
-        $data['route'] = 'common/d_elfinder';
-
-        $data['token'] = $this->session->data['token'];
-
-        $this->response->setOutput($this->load->view('common/d_elfinder.tpl', $data));
+        $this->response->setOutput($this->model_extension_d_opencart_patch_load->view('extension/d_elfinder/d_elfinder', $data));
     }
 
     public function getImage() {
@@ -90,8 +87,8 @@ class ControllerExtensionModuleDAjaxFilter extends Controller
     public function install()
     {
         if($this->d_shopunity){
-            $this->load->model('d_shopunity/mbooth');
-            $this->model_d_shopunity_mbooth->installDependencies($this->codename);
+            $this->load->model('extension/d_shopunity/mbooth');
+            $this->model_extension_d_shopunity_mbooth->installDependencies($this->codename);
         }
         
         $this->load->model('user/user_group');

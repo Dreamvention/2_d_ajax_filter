@@ -31,6 +31,10 @@ class ControllerExtensionDAjaxFilterCache extends Controller
     public function index()
     {
 
+        $this->load->model('extension/d_opencart_patch/url');
+        $this->load->model('extension/d_opencart_patch/load');
+        $this->load->model('extension/d_opencart_patch/user');
+
         // Add more styles, links or scripts to the project is necessary
         $url_params = array();
         $url = '';
@@ -51,22 +55,17 @@ class ControllerExtensionDAjaxFilterCache extends Controller
         $data['breadcrumbs'] = array();
         $data['breadcrumbs'][] = array(
             'text' => $this->language->get('text_home'),
-            'href' => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL')
+            'href' => $this->model_extension_d_opencart_patch_url->link('common/home')
             );
-        if(VERSION >= '2.3.0.0'){
-            $breadcrumb_link = $this->url->link('extension/extension', 'token=' . $this->session->data['token'].'&type=module', 'SSL');
-        }
-        else{
-            $breadcrumb_link = $this->url->link('extension/module', 'token=' . $this->session->data['token'], 'SSL');
-        }
+
         $data['breadcrumbs'][] = array(
             'text' => $this->language->get('text_module'),
-            'href' => $breadcrumb_link
+            'href' => $this->model_extension_d_opencart_patch_url->link('marketplace/extension', 'type=module')
             );
 
         $data['breadcrumbs'][] = array(
             'text' => $this->language->get('heading_title_main'),
-            'href' => $this->url->link($this->route, 'token=' . $this->session->data['token'] . $url, 'SSL')
+            'href' => $this->model_extension_d_opencart_patch_url->link($this->route)
             );
 
         $this->document->setTitle($this->language->get('heading_title_main'));
@@ -88,7 +87,7 @@ class ControllerExtensionDAjaxFilterCache extends Controller
         $data['config'] = $this->config_file;
 
         $data['version'] = $this->extension['version'];
-        $data['token'] = $this->session->data['token'];
+        $data['token'] = $this->model_extension_d_opencart_patch_user->getToken();
 
         $url = '';
 
@@ -96,42 +95,18 @@ class ControllerExtensionDAjaxFilterCache extends Controller
             $url .= '&module_id='.$this->request->get['module_id'];
         }
 
-        $data['create_cache'] = str_replace('&amp;', '&', $this->url->link('extension/'.$this->codename.'/cache/createCache', 'token='.$this->session->data['token'], 'SSL'));
+        $data['create_cache'] = str_replace('&amp;', '&', $this->model_extension_d_opencart_patch_url->link('extension/'.$this->codename.'/cache/createCache'));
 
-        $data['create_complete'] =  str_replace('&amp;', '&', $this->url->link('extension/module/'.$this->codename, 'token='.$this->session->data['token'].$url, 'SSL'));
+        $data['create_complete'] =  str_replace('&amp;', '&', $this->model_extension_d_opencart_patch_url->link('extension/module/'.$this->codename, $url));
 
-        if(VERSION>='2.3.0.0'){
-            $data['cancel'] = $this->url->link('extension/extension', 'token='.$this->session->data['token'].'&type=module', 'SSL');
-        }
-        else
-        {
-            $data['cancel'] = $this->url->link('extension/module', 'token='.$this->session->data['token'], 'SSL');
-        }
+        $data['cancel'] = $this->model_extension_d_opencart_patch_url->link('marketplace/extension', 'type=module');
 
         $this->{'model_extension_'.$this->codename.'_cache'}->checkCache();
-
-        $this->cache->delete('af-category');
-        $this->cache->delete('af-manufacturer');
-        $this->cache->delete('af-price');
-        $this->cache->delete('af-ean');
-        $this->cache->delete('af-filter');
-        $this->cache->delete('af-option');
-        $this->cache->delete('af-option-values');
-        $this->cache->delete('af-total-attribute');
-        $this->cache->delete('af-total-category');
-        $this->cache->delete('af-total-manufacturer');
-        $this->cache->delete('af-total-option');
-        $this->cache->delete('af-total-stock-status');
-        $this->cache->delete('af-total-filter');
-        $this->cache->delete('af-total-rating');
-        $this->cache->delete('af-total-ean');
-        $this->cache->delete('af-translit');
-        $this->cache->delete('af-url-params');
 
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');
-        $this->response->setOutput($this->load->view($this->route.'.tpl', $data));
+        $this->response->setOutput($this->model_extension_d_opencart_patch_load->view($this->route, $data));
     }
 
     public function createCache(){

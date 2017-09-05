@@ -20,7 +20,6 @@ class ControllerExtensionDAjaxFilterFilter extends Controller
         
 
         $filter_setting = $this->config->get($this->codename.'_filters');
-
         if(empty($filter_setting)){
             $this->config->load('d_ajax_filter');
             $setting = $this->config->get('d_ajax_filter_setting');

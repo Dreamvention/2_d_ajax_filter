@@ -116,7 +116,7 @@ var d_ajax_filter = {
             url += '&module_id='+this.getURLVar('module_id');
         }
         $.ajax({
-            url:that.setting.url+'/delete&token='+that.setting.token+url,
+            url:that.setting.url+'/delete&'+that.setting.token+url,
             type:'post',
             dataType:'json',
             data:{module_id:module_id},
@@ -150,7 +150,7 @@ var d_ajax_filter = {
     //Компиляция шаблона
     templateСompile: function(template, data) {
         var source = template.html();
-        var template = Handlebars.compile(source);
+        var template = _.template(source);
         var html = template(data);
         return html;
     },
@@ -167,7 +167,7 @@ var d_ajax_filter = {
         var that = this;
         $.ajax({
             type:'post',
-            url:that.setting.url+'/getAttributeSettings&token='+that.getURLVar('token')+'&filter_id='+that.setting.filter_id,
+            url:that.setting.url+'/getAttributeSettings&'+this.setting.token+'&filter_id='+that.setting.filter_id,
             data: data,
             dataType: 'json',
             success:function(json){

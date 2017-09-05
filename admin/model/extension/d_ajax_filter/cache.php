@@ -15,8 +15,6 @@ class ModelExtensionDAjaxFilterCache extends Model {
     {
         parent::__construct($registry);
 
-        $this->load->model('d_shopunity/setting');
-
         $this->load->model('setting/setting');
 
         $setting = $this->model_setting_setting->getSetting($this->codename);

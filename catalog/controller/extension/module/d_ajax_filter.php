@@ -183,12 +183,14 @@ class ControllerExtensionModuleDAjaxFilter extends Controller
         $data['json'] = $json;
         $data['groups'] = json_encode($data['groups']);
 
+        $this->load->model('extension/d_opencart_patch/load');
+
         if (VERSION >= '2.2.0.0'){
-            return $this->load->view('extension/d_ajax_filter/d_ajax_filter.tpl', $data);
-        } elseif (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/extension/d_ajax_filter/d_ajax_filter.tpl')) {
-            return $this->load->view($this->config->get('config_template') . '/template/extension/d_ajax_filter/d_ajax_filter.tpl', $data);
+            return $this->model_extension_d_opencart_patch_load->view('extension/d_ajax_filter/d_ajax_filter', $data);
+        } elseif (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/extension/d_ajax_filter/d_ajax_filter')) {
+            return $this->model_extension_d_opencart_patch_load->view($this->config->get('config_template') . '/template/extension/d_ajax_filter/d_ajax_filter', $data);
         } else {
-            return $this->load->view('default/template/extension/d_ajax_filter/d_ajax_filter.tpl', $data);
+            return $this->model_extension_d_opencart_patch_load->view('default/template/extension/d_ajax_filter/d_ajax_filter', $data);
         }
     }
     

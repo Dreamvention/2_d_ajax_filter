@@ -121,7 +121,7 @@ var d_ajax_filter = {
     //Компиляция шаблона
     templateСompile: function(template, data) {
         var source = template.html();
-        var template = Handlebars.compile(source);
+        var template = _.template(source);
         var html = template(data);
         return html;
     },
@@ -131,7 +131,7 @@ var d_ajax_filter = {
         var that = this;
         $.ajax({
             type:'post',
-            url:that.setting.url+'/getFilterGroups&token='+that.setting.token,
+            url:that.setting.url+'/getFilterGroups&'+that.setting.token,
             data: {language_id:language_id},
             dataType: 'json',
             success:function(json){
@@ -147,7 +147,7 @@ var d_ajax_filter = {
         var that = this;
         $.ajax({
           type:'post',
-          url:that.setting.url+'/getFilterImages&token='+that.setting.token,
+          url:that.setting.url+'/getFilterImages&'+that.setting.token,
           data: {filter_group_id:filter_group_id,language_id:language_id},
           dataType: 'json',
           success:function(json){
@@ -179,7 +179,7 @@ var d_ajax_filter = {
         var that = this;
         $.ajax({
             type:'post',
-            url:that.setting.url+'/editFitlerImages&language_id='+language_id+'&token='+that.setting.token,
+            url:that.setting.url+'/editFitlerImages&language_id='+language_id+'&'+that.setting.token,
             data: $("div#filter_images input").serializeJSON(),
             dataType: 'json',
             beforeSend:function(){

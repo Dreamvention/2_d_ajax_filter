@@ -51,17 +51,17 @@ class ModelExtensionDAjaxFilterlayout extends Model {
     }
 
     public function getTemplates(){
-        $dir = DIR_APPLICATION.'view/template/extension/'.$this->codename.'/layout_partial/*.tpl';
+        $dir = DIR_APPLICATION.'view/template/extension/'.$this->codename.'/layout_partial/*.twig';
         $files = glob($dir);
         $result = array();
         foreach($files as $file){
-            $result[] = basename($file, '.tpl');
+            $result[] = basename($file, '.twig');
         }
         return $result;
     }
 
     public function getTabs($home = true){
-        $dir = DIR_APPLICATION.'view/template/extension/'.$this->codename.'/layout_partial/*.tpl';
+        $dir = DIR_APPLICATION.'view/template/extension/'.$this->codename.'/layout_partial/*.twig';
         $files = glob($dir);
         if($home){
             $result = array('home');
@@ -73,7 +73,7 @@ class ModelExtensionDAjaxFilterlayout extends Model {
         $result = array_merge($result, array('setting', 'base_attributes','configuration', 'af_design'));
 
         foreach($files as $file){
-            $result[] = basename($file, '.tpl');
+            $result[] = basename($file, '.twig');
         }
 
         return $this->prepareTabs($result);
@@ -138,10 +138,10 @@ class ModelExtensionDAjaxFilterlayout extends Model {
     }
 
     public function editModuleStatus($module_id, $status){
-        $this->load->model('extension/module');
-        $setting = $this->model_extension_module->getModule($module_id);
+        $this->load->model('extension/d_opencart_patch/module');
+        $setting = $this->model_extension_d_opencart_patch_module->getModule($module_id);
         $setting['status'] = $status;
-        $this->model_extension_module->editModule($module_id, $setting);
+        $this->model_extension_d_opencart_patch_module->editModule($module_id, $setting);
     }
 
     public function getPrositionByModule($module_id){

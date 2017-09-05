@@ -45,6 +45,10 @@ class ControllerExtensionDAjaxFilterModuleFilter extends Controller
 
     public function prepare_template($setting){
 
+        $this->load->model('extension/d_opencart_patch/url');
+        $this->load->model('extension/d_opencart_patch/user');
+        $this->load->model('extension/d_opencart_patch/load');
+
         $data['entry_type'] = $this->language->get('entry_type');
         $data['entry_collapse'] = $this->language->get('entry_collapse');
         $data['entry_sort_order_values'] = $this->language->get('entry_sort_order_values');
@@ -73,7 +77,7 @@ class ControllerExtensionDAjaxFilterModuleFilter extends Controller
 
         $data['button_edit_default'] = $this->language->get('button_edit_default');
 
-        $data['token'] = $this->session->data['token'];
+        $data['token'] = $this->model_extension_d_opencart_patch_user->getUrlToken();
 
         $data['base_types'] = array(
             'radio' => $this->language->get('text_base_type_radio'),
@@ -101,7 +105,7 @@ class ControllerExtensionDAjaxFilterModuleFilter extends Controller
             $url = '&module_id='.$this->request->get['module_id'];
         }
 
-        $data['filter_href'] = $this->url->link('extension/'.$this->codename.'/filter', "token=".$this->session->data['token'].$url, 'SSL');
+        $data['filter_href'] = $this->model_extension_d_opencart_patch_url->link('extension/'.$this->codename.'/filter', $url);
 
         $this->load->model('catalog/filter');
         
@@ -117,7 +121,7 @@ class ControllerExtensionDAjaxFilterModuleFilter extends Controller
 
         $data['default'] = $filter_default['default'];
         
-        return $this->load->view('extension/'.$this->codename.'/layout_partial/filter.tpl', $data);
+        return $this->model_extension_d_opencart_patch_load->view('extension/'.$this->codename.'/layout_partial/filter', $data);
     }
 
     public function install(){

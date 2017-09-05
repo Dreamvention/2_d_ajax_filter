@@ -85,6 +85,10 @@ class ModelExtensionModuleDAjaxFilter extends Model {
     }
 
     public function prepareTabs($tabs, $active){
+
+        $this->load->model('extension/d_opencart_patch/url');
+        $this->load->model('extension/d_opencart_patch/load');
+
         $this->load->language('extension/module/'.$this->codename);
         $data['tabs'] = array();
         $icons =array('setting'=> 'fa fa-cog', 'layout' => 'fa fa-file');
@@ -109,7 +113,7 @@ class ModelExtensionModuleDAjaxFilter extends Model {
                 'title' => $this->language->get('text_title'),
                 'active' => ($tab == $active)?true:false,
                 'icon' => $icon,
-                'href' => $this->url->link('extension/'.$this->codename.'/'.$tab, 'token='.$this->session->data['token'].$url, 'SSL')
+                'href' => $this->model_extension_d_opencart_patch_url->link('extension/'.$this->codename.'/'.$tab, $url)
                 );
         }
 
@@ -124,9 +128,9 @@ class ModelExtensionModuleDAjaxFilter extends Model {
         $this->load->model('extension/'.$this->codename.'/layout');
         $data['notify'] = $this->{'model_extension_'.$this->codename.'_layout'}->checkCompleteVersion();
 
-        $data['install_cache'] = $this->url->link('extension/'.$this->codename.'/cache', 'token='.$this->session->data['token'], 'SSL');
+        $data['install_cache'] = $this->model_extension_d_opencart_patch_url->link('extension/'.$this->codename.'/cache');
 
-        return $this->load->view('extension/'.$this->codename.'/partials/tabs.tpl', $data);
+        return $this->model_extension_d_opencart_patch_load->view('extension/'.$this->codename.'/partials/tabs', $data);
     }
 
     public function getModuleSetting($type){

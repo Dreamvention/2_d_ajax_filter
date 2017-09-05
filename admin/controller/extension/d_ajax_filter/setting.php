@@ -31,6 +31,13 @@ class ControllerExtensionDAjaxFilterSetting extends Controller
     public function index()
     {
 
+        $this->load->model('extension/d_opencart_patch/url');
+        $this->load->model('extension/d_opencart_patch/store');
+        $this->load->model('extension/d_opencart_patch/setting');
+        $this->load->model('extension/d_opencart_patch/load');
+        $this->load->model('extension/d_opencart_patch/module');
+        $this->load->model('extension/d_opencart_patch/user');
+
         $this->document->addStyle('view/stylesheet/shopunity/bootstrap.css');
 
         $this->document->addScript('view/javascript/shopunity/bootstrap-switch/bootstrap-switch.min.js');
@@ -64,22 +71,17 @@ class ControllerExtensionDAjaxFilterSetting extends Controller
         $data['breadcrumbs'] = array();
         $data['breadcrumbs'][] = array(
             'text' => $this->language->get('text_home'),
-            'href' => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL')
+            'href' => $this->model_extension_d_opencart_patch_url->link('common/home')
             );
-        if(VERSION >= '2.3.0.0'){
-            $breadcrumb_link = $this->url->link('extension/extension', 'token=' . $this->session->data['token'].'&type=module', 'SSL');
-        }
-        else{
-            $breadcrumb_link = $this->url->link('extension/module', 'token=' . $this->session->data['token'], 'SSL');
-        }
+
         $data['breadcrumbs'][] = array(
             'text' => $this->language->get('text_module'),
-            'href' => $breadcrumb_link
+            'href' => $this->model_extension_d_opencart_patch_url->link('marketplace/extension', 'type=module')
             );
 
         $data['breadcrumbs'][] = array(
             'text' => $this->language->get('heading_title_main'),
-            'href' => $this->url->link($this->route, 'token=' . $this->session->data['token'] . $url, 'SSL')
+            'href' => $this->model_extension_d_opencart_patch_url->link($this->route, $url)
             );
 
 
@@ -122,16 +124,9 @@ class ControllerExtensionDAjaxFilterSetting extends Controller
             $url .= '&module_id='.$this->request->get['module_id'];
         }
 
-        $data['action'] = $this->url->link('extension/'.$this->codename.'/setting/save', 'token='.$this->session->data['token'].$url, 'SSL');
+        $data['action'] = $this->model_extension_d_opencart_patch_url->link('extension/'.$this->codename.'/setting/save', $url);
 
-        if(VERSION>='2.3.0.0')
-        {
-            $data['cancel'] = $this->url->link('extension/extension', 'token='.$this->session->data['token'].'&type=module', 'SSL');
-        }
-        else
-        {
-            $data['cancel'] = $this->url->link('extension/module', 'token='.$this->session->data['token'], 'SSL');
-        }
+        $data['cancel'] = $this->model_extension_d_opencart_patch_url->link('marketplace/extension', 'type=module');
 
         // Variable
         $data['codename'] = $this->codename;
@@ -140,7 +135,7 @@ class ControllerExtensionDAjaxFilterSetting extends Controller
         $data['extension'] = $this->extension;
         $data['config'] = $this->config_file;
         $data['version'] = $this->extension['version'];
-        $data['token'] = $this->session->data['token'];
+        $data['token'] = $this->model_extension_d_opencart_patch_user->getToken();
 
         $this->load->model('setting/setting');
 
@@ -174,18 +169,19 @@ class ControllerExtensionDAjaxFilterSetting extends Controller
             $url .= '&module_id='.$this->request->get['module_id'];
         }
 
-        $data['recreate_cache'] = $this->url->link('extension/'.$this->codename.'/cache', 'token='.$this->session->data['token'].$url, 'SSL');
+        $data['recreate_cache'] = $this->model_extension_d_opencart_patch_url->link('extension/'.$this->codename.'/cache', $url);
 
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');
-        $this->response->setOutput($this->load->view($this->route.'.tpl', $data));
+        $this->response->setOutput($this->model_extension_d_opencart_patch_load->view($this->route, $data));
     }
 
     public function save(){
         $json = array();
 
         $this->load->model('setting/setting');
+        $this->load->model('extension/d_opencart_patch/url');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             $this->model_setting_setting->editSetting($this->codename, $this->request->post);
@@ -213,7 +209,7 @@ class ControllerExtensionDAjaxFilterSetting extends Controller
             if(isset($this->request->get['module_id'])){
                 $url .= '&module_id='.$this->request->get['module_id'];
             }
-            $json['redirect'] = str_replace('&amp;','&',$this->url->link($this->route, 'token='.$this->session->data['token'].$url, 'SSL'));
+            $json['redirect'] = str_replace('&amp;','&',$this->model_extension_d_opencart_patch_url->link($this->route, $url));
             $json['success'] = 'success';
         }
         else{
