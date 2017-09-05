@@ -9,4 +9,4 @@ $_['text_complete_version']   = '<a href="https://shopunity.net/extension/ajax-f
 $_['help_cache_support']      = '<h4>Recreate cache</h4><p>It seems you have made a serious update to the Filter. You will need to re-create your cache for the filter to work correctly.</p>';
 $_['text_install_cache']      = 'Re-create';
 
-$_['success_twig_compatible'] = 'Success: Twig support enabled. Please go to Visual Designer!';
+$_['success_twig_compatible'] = 'Success: Twig support enabled. Please go to Ajax Filter!';
