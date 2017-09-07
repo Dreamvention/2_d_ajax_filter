@@ -165,7 +165,7 @@
                                                                     {% if key in setting.categories %}
                                                                         <input type="checkbox" name="module_setting[categories][]" value="{{key}}" checked="checked" /> {{value}}
                                                                     {% else %}
-                                                                        <input type="checkbox" name="module_setting[categories][]" value="{{key}}" />
+                                                                        <input type="checkbox" name="module_setting[categories][]" value="{{key}}" /> {{value}}
                                                                     {% endif %}
                                                                 </label>
                                                             </div>
@@ -200,7 +200,7 @@
                                                 <div class="col-sm-8">
                                                     <select name="layout[position]" class="form-control" id="input_position" onchange="$(this).next().val($(this).val());">
                                                         {% for key, value in positions %}
-                                                            {% if key == positions %}
+                                                            {% if key == position %}
                                                                 <option value="{{key}}" selected="selected">{{value}}</option>
                                                             {% else %}
                                                                 <option value="{{key}}">{{value}}</option>

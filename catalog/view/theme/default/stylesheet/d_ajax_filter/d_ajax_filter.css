@@ -97,7 +97,6 @@
         border-radius: 2px;
         background-color: #f2f5f7; }
         .ajax-filter .af-body .selected-list .af-selected > p {
-          overflow: hidden;
           height: 12px; }
         .ajax-filter .af-body .selected-list .af-selected:after {
           position: absolute;
@@ -417,6 +416,10 @@
                   opacity: 0;
                   border-radius: 50%;
                   background-color: #111; }
+              .ajax-filter .af-body .af-container > .af-elements > .af-wrapper .af-element label > input[type='radio']:checked + img {
+                width: 25px;
+                height: 25px;
+                border: 2px solid #111; }
               .ajax-filter .af-body .af-container > .af-elements > .af-wrapper .af-element label > input[type='radio']:checked + span::after {
                 opacity: 1; }
             .ajax-filter .af-body .af-container > .af-elements > .af-wrapper .af-element label > input[type='checkbox'] {

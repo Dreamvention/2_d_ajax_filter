@@ -199,16 +199,23 @@ var af = (function() {
         }
     }
 
-    this.clearSelected = function(name, group_id, filter_id){
+    this.clearSelected = function(name, group_id, filter_id, target){
         filter_id = typeof filter_id !== 'undefined' ? filter_id : null;
+        target = typeof target !== 'undefined' ? target : null;
+
         if(typeof this.state.selected[name] != "undefined" && typeof this.state.selected[name][group_id] != "undefined"){
             delete this.state.selected[name][group_id];
         }
-        
+
         if(filter_id){
             riot.update();
             if(getSetting(filter_id).submission == '0'){
                 this.updateContent();
+            }
+            if(target){
+                var position = $(target).closest('.af-element').get(0).offsetTop;
+                position += $(target).closest('.af-element').get(0).offsetHeight/2;
+                $(target).closest('.ajax-filter').trigger('change-location', Math.round(position));
             }
         }
     }
@@ -344,8 +351,13 @@ var af = (function() {
                 if(getState().common_setting.display_loader == '1'){
 
                     if (getState().common_setting.content_path != '') {
-                        var top = $(getState().common_setting.content_path).offset().top+150;
-                        $(getState().common_setting.content_path).append('<af_loader style="top:'+top+'px;"></af_loader>');
+                        if($(getState().common_setting.content_path).size() > 0){
+                            var top = $(getState().common_setting.content_path).offset().top+150;
+                            $(getState().common_setting.content_path).append('<af_loader style="top:'+top+'px;"></af_loader>');
+                        }
+                        else{
+                            console.log('Ajax Filter: content path not found');
+                        }
                     }
 
                     riot.mount('af_loader');
@@ -432,4 +444,4 @@ var af = (function() {
 /**
  *  Alias for d_ajax_filter
  */
-var d_ajax_filter = af;
+ var d_ajax_filter = af;

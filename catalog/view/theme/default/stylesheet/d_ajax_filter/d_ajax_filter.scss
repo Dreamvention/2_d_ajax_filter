@@ -162,7 +162,7 @@
                 background-color: rgb(242, 245, 247);
                 > p
                 {
-                    overflow: hidden;
+                    // overflow: hidden;
 
                     height: 12px;
                 }
@@ -729,6 +729,13 @@
                                     }
                                     &:checked
                                     {
+                                        + img
+                                        {
+                                            width: 25px;
+                                            height: 25px;
+
+                                            border: 2px solid #111;
+                                        }
                                         & + span
                                         {
                                             &::after

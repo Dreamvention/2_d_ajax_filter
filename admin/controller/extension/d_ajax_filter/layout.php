@@ -435,11 +435,10 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
         else {
             $results = $this->model_catalog_category->getCategories(array());
         }
-
+        
         foreach ($results as $value) {
             $data['categories'][$value['category_id']] = $value['name'];
         }
-
         $this->load->model('design/layout');
 
         $results = $this->model_design_layout->getLayouts();

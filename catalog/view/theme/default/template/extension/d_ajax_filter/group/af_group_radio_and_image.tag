@@ -1,7 +1,7 @@
 <af_group_radio_and_image>
 <div each={element in opts.filter.values}  class="af-element {checkDisabled(parent.opts.filter.name, parent.opts.filter.group_id, element.value, parent.opts.filter_id)?'disabled':''}">
     <label id="label_radio_and_image">
-        <input type="radio" name="{parent.opts.filter.name}[{parent.opts.filter.group_id}]" checked={element.selected == 1} value="{element.value}">
+        <input type="radio" name="{parent.opts.filter.name}[{parent.opts.filter.group_id}]" checked={element.selected == 1} value="{element.value}" onchange={change}>
         <img src="{element.thumb}"> 
         <div class="title">{element.name} <af_quantity if={displayQuantity(parent.opts.filter.name, parent.opts.filter.group_id, element.value, parent.opts.filter_id)} quantity={getQuantity(parent.opts.filter.name, parent.opts.filter.group_id, element.value)}></af_quantity></div>
     </label>
