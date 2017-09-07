@@ -22,6 +22,7 @@ class ControllerExtensionModuleDAjaxFilter extends Controller
         if(!empty($this->request->get['ajax'])){
             return ;
         }
+
         $this->load->model($this->route);
         $this->load->language($this->route);
         
@@ -52,6 +53,10 @@ class ControllerExtensionModuleDAjaxFilter extends Controller
     
     public function index($setting)
     {
+
+        if(!empty($this->request->get['ajax'])){
+            return ;
+        }
 
         if (preg_match('/(iPhone|iPod|iPad|Android|Windows Phone)/', $this->request->server['HTTP_USER_AGENT'])) {
             $mobile = $data['mobile'] = 1;
