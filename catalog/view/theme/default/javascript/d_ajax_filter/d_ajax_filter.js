@@ -220,9 +220,30 @@ var af = (function() {
         }
     }
 
-    this.clearSelectedAll = function(){
+    this.clearSelectedAll = function(filter_id, target){
+        filter_id = typeof filter_id !== 'undefined' ? filter_id : null;
+        target = typeof target !== 'undefined' ? target : null;
+        
         this.state.selected = {};
-        riot.update();
+
+        if(filter_id){
+            riot.update();
+            if(getSetting(filter_id).submission == '0'){
+                this.updateContent();
+            }
+            if(target){
+                var position = 0;
+                if($(target).closest('.af-element') > 0){
+                    position = $(target).closest('.af-element').get(0).offsetTop;
+                    position += $(target).closest('.af-element').get(0).offsetHeight/2;
+                }
+                else{
+                    position = $(target).closest('.title').get(0).offsetTop;
+                    position += $(target).closest('.title').get(0).offsetHeight/2;
+                }
+                $(target).closest('.ajax-filter').trigger('change-location', Math.round(position));
+            }
+        }
     }
 
     this.getSelected = function(name, group_id){

@@ -32,10 +32,7 @@
 </div>
 <script>
     click(e){
-        this.store.clearSelectedAll();
-        if(getSetting(opts.id).submission == '0'){
-            this.store.updateContent();
-        }
+        this.store.clearSelectedAll(opts.id, e.target);
     }
 
     filter_click(e){
