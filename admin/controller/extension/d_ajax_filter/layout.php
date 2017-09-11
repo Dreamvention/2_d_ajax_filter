@@ -555,6 +555,8 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
     }
 
     public function install_event_support(){
+        $this->load->model('extension/d_opencart_patch/url');
+        
         if (!$this->user->hasPermission('modify', $this->route)) {
             $this->session->data['error'] = $this->language->get('error_permission');
             $this->response->redirect($this->model_extension_d_opencart_patch_url->link($this->route));
