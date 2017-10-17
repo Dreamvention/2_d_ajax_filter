@@ -40,6 +40,9 @@ $_['text_new_setting']                  = 'Create a new setting';
 $_['text_create_setting']               = 'Create setting';
 $_['text_module']                       = 'Modules';
 $_['text_not_positioned']               = 'Not yet positioned';
+$_['text_new_module']                   = 'New Module';
+$_['text_quick_setup_title']            = 'Quick Setup';
+$_['text_quick_setup_text']             = 'Create your first filter with one click. The filter will be added to your Category layout. You can customize it to fit your needs.';
 
 
 $_['text_base_attrib_price']            = 'Price filter';
@@ -119,6 +122,7 @@ $_['entry_support']                     = 'Support';
 //Button
 $_['button_edit']                       = 'Edit setting';
 $_['button_support_email']              = 'Support';
+$_['button_quick_setup']                = 'Quick Setup';
 
 //positions
 $_['text_position_column_left']         = 'Column Left';

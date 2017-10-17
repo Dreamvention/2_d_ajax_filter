@@ -84,7 +84,7 @@
                                         <div class="{{not notify ? 'col-lg-3'}} col-md-4 col-sm-6">
                                             <div class="tile tile-primary">
                                                 <div class="tile-heading">{{text_new_setting}}</div>
-                                                <a href="{{new_module}}" id="create_setting" class="create-setting">
+                                                <a id="create_setting" class="create-setting">
                                                     <div class="tile-body">
                                                         <i class="fa fa-plus"></i>
                                                         <h3 class="pull-right">{{text_create_setting}}</h3>
@@ -96,6 +96,17 @@
                                     </div>
                                 </div>
                                 <div id="setting" class="tab-pane">
+                                    {% if modules|length == 0 %}
+                                    <div class="alert alert-info" style="overflow: inherit;">
+                                        <div class="row vertical-align">
+                                            <div class="col-md-9">
+                                            <h4>{{text_quick_setup_title}}</h4>
+                                            <p>{{text_quick_setup_text}}</p>
+                                             </div>
+                                            <div class="col-md-3"><a id="quick-setup" class="btn btn-info btn-block">{{button_quick_setup}}</a></div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label"
                                         for="input_status">{{entry_status}}</label>
@@ -719,6 +730,14 @@
 
         $(document).on('click', '#save-form', function(){
             d_ajax_filter.save();
+        });
+
+        $(document).on('click', '#create_setting', function(){
+            d_ajax_filter.create();
+        });
+
+        $(document).on('click','#quick-setup', function(){
+            d_ajax_filter.create(true);
         });
 
         $(document).on('click', '[id=delete-module]', function(){

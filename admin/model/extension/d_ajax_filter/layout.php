@@ -3,22 +3,25 @@
 *  location: admin/model
 */
 
-class ModelExtensionDAjaxFilterlayout extends Model {
+class ModelExtensionDAjaxFilterlayout extends Model
+{
     private $codename="d_ajax_filter";
     
-    public function getModules(){
+    public function getModules()
+    {
         $dir = DIR_CONFIG.$this->codename;
         $files = scandir($dir);
         $result = array();
-        foreach($files as $file){
-            if(strlen($file) > 1 && strpos( $file, '.php')){
+        foreach ($files as $file) {
+            if (strlen($file) > 1 && strpos($file, '.php')) {
                 $result[] = substr($file, 0, -4);
             }
         }
         return $result;
     }
     
-    public function getModuleSetting($type){
+    public function getModuleSetting($type)
+    {
         $results = array();
 
         $file = DIR_CONFIG.$this->codename.'/'.$type.'.php';
@@ -34,14 +37,34 @@ class ModelExtensionDAjaxFilterlayout extends Model {
         return $results;
     }
 
-    public function getBaseAttribs(){
+    public function quickInstall()
+    {
+        $this->load->model('extension/d_opencart_patch/module');
+        $this->load->language('extension/'.$this->codename.'_layout');
+
+        $this->load->config($this->codename);
+        $module_setting = $this->config->get($this->codename.'_setting');
+
+        $module_setting =  $module_setting['default'];
+
+        $this->model_extension_d_opencart_patch_module->addModule($this->codename, $module_setting);
+ 
+        $module_id = $this->db->getLastId();
+        $module_setting['name'] = $this->language->get('text_new_module').' '.$module_id;
+        $this->model_extension_d_opencart_patch_module->editModule($module_id, $module_setting);
+
+        return $module_id;
+    }
+
+    public function getBaseAttribs()
+    {
         $results = array();
         $modules = $this->getModules();
 
         foreach ($modules as $type) {
             $results[$type] = $this->getModuleSetting($type);
         }
-        uasort($results, function($a, $b){
+        uasort($results, function ($a, $b) {
             if ($a['sort_order'] == $b['sort_order']) {
                 return 0;
             }
@@ -50,52 +73,52 @@ class ModelExtensionDAjaxFilterlayout extends Model {
         return $results;
     }
 
-    public function getTemplates(){
+    public function getTemplates()
+    {
         $dir = DIR_APPLICATION.'view/template/extension/'.$this->codename.'/layout_partial/*.twig';
         $files = glob($dir);
         $result = array();
-        foreach($files as $file){
+        foreach ($files as $file) {
             $result[] = basename($file, '.twig');
         }
         return $result;
     }
 
-    public function getTabs($home = true){
+    public function getTabs($home = true)
+    {
         $dir = DIR_APPLICATION.'view/template/extension/'.$this->codename.'/layout_partial/*.twig';
         $files = glob($dir);
-        if($home){
+        if ($home) {
             $result = array('home');
-        }
-        else{
+        } else {
             $result = array();
         }
 
         $result = array_merge($result, array('setting', 'base_attributes','configuration', 'af_design'));
 
-        foreach($files as $file){
+        foreach ($files as $file) {
             $result[] = basename($file, '.twig');
         }
 
         return $this->prepareTabs($result);
     }
 
-    public function prepareTabs($tabs){
+    public function prepareTabs($tabs)
+    {
         $results = array();
         $this->load->language('extension/'.$this->codename.'/layout');
         $icons = array('home' => 'fa fa-home','setting'=> 'fa fa-cog', 'base_attributes' => 'fa fa-list', 'configuration' => 'fa fa-wrench', 'af_design' => 'fa fa-adjust');
         foreach ($tabs as $tab) {
             $module_setting = $this->getModuleSetting($tab);
 
-            if(isset($icons[$tab])){
+            if (isset($icons[$tab])) {
                 $icon = $icons[$tab];
                 $title = $this->language->get('text_tab_'.$tab);
-            }elseif(isset($module_setting['icon'])){
+            } elseif (isset($module_setting['icon'])) {
                 $this->load->language('extension/'.$this->codename.'/'.$tab);
                 $icon = $module_setting['icon'];
                 $title = $this->language->get('text_title');
-
-            }
-            else{
+            } else {
                 $icon = 'fa fa-list';
                 $title = ucfirst(strtolower($tab));
             }
@@ -110,10 +133,26 @@ class ModelExtensionDAjaxFilterlayout extends Model {
         return $results;
     }
 
-    public function getLayoutsByModules($module_id){
+    public function getLayoutsByRoute($route)
+    {
+        $query = $this->db->query("SELECT * FROM `".DB_PREFIX."layout_route` lr LEFT JOIN `".DB_PREFIX."layout` l ON (l.layout_id = lr.layout_id)  WHERE lr.`route`='".$route."'");
+        $layout_data = array();
+        if ($query->num_rows) {
+            foreach ($query->rows as $row) {
+                $layout_data[] = array(
+                    'layout_id' => $row['layout_id'],
+                    'name' => $row['name']
+                    );
+            }
+        }
+        return $layout_data;
+    }
+
+    public function getLayoutsByModules($module_id)
+    {
         $query = $this->db->query("SELECT * FROM `".DB_PREFIX."layout_module` lm LEFT JOIN `".DB_PREFIX."layout` l ON (l.layout_id = lm.layout_id)  WHERE lm.`code`='d_ajax_filter.".(int)$module_id."'");
         $layout_data = array();
-        if($query->num_rows){
+        if ($query->num_rows) {
             foreach ($query->rows as $row) {
                 $layout_data[] = array(
                     'layout_id' => $row['layout_id'],
@@ -125,11 +164,13 @@ class ModelExtensionDAjaxFilterlayout extends Model {
         return $layout_data;
     }
 
-    public function clearLayoutsByModule($module_id){
+    public function clearLayoutsByModule($module_id)
+    {
         $this->db->query("DELETE FROM `".DB_PREFIX."layout_module` WHERE `code` = '".$this->codename.".".(int)$module_id."'");
     }
 
-    public function addModuleToLayout($module_id, $layout_id, $position, $sort_order){
+    public function addModuleToLayout($module_id, $layout_id, $position, $sort_order)
+    {
         $this->db->query(sprintf("INSERT INTO `".DB_PREFIX."layout_module` SET 
             layout_id = '%s', 
             code = '%s', 
@@ -137,40 +178,43 @@ class ModelExtensionDAjaxFilterlayout extends Model {
             sort_order = '%s'", (int)$layout_id, $this->codename.'.'.(int)$module_id, $position, (int)$sort_order));
     }
 
-    public function editModuleStatus($module_id, $status){
+    public function editModuleStatus($module_id, $status)
+    {
         $this->load->model('extension/d_opencart_patch/module');
         $setting = $this->model_extension_d_opencart_patch_module->getModule($module_id);
         $setting['status'] = $status;
         $this->model_extension_d_opencart_patch_module->editModule($module_id, $setting);
     }
 
-    public function getPrositionByModule($module_id){
+    public function getPrositionByModule($module_id)
+    {
         $query = $this->db->query("SELECT `position` FROM `".DB_PREFIX."layout_module` WHERE `code`='".$this->codename.".".(int)$module_id."' GROUP BY `position`");
-        if($query->num_rows > 0){
+        if ($query->num_rows > 0) {
             return $query->row['position'];
-        }
-        else{
+        } else {
             return 'column_left';
         }
-        
     }
 
-    public function getSortOrderByModule($module_id){
+    public function getSortOrderByModule($module_id)
+    {
         $query = $this->db->query("SELECT `sort_order` FROM `".DB_PREFIX."layout_module` WHERE `code`='".$this->codename.".".(int)$module_id."' GROUP BY `sort_order`");
-        if($query->num_rows > 0){
+        if ($query->num_rows > 0) {
             return $query->row['sort_order'];
-        }
-        else{
+        } else {
             return '0';
         }
     }
 
-    public function getThemes(){
+    public function getThemes()
+    {
         $dir = DIR_CATALOG.'view/theme/default/stylesheet/'.$this->codename.'/themes/*.css';
         $folders = glob($dir);
         $result = array();
         foreach ($folders as $folder) {
-            if ($folder === '.' or $folder === '..') continue;
+            if ($folder === '.' or $folder === '..') {
+                continue;
+            }
             $filename = basename($folder);
             $theme = str_replace('.css', '', $filename);
             $result[] = $theme;
@@ -181,8 +225,8 @@ class ModelExtensionDAjaxFilterlayout extends Model {
         return $result;
     }
 
-    public function getTheme($theme){
-
+    public function getTheme($theme)
+    {
         $results = array();
 
         $file = DIR_CONFIG.'d_ajax_filter_theme/'.$theme.'.php';
@@ -198,13 +242,13 @@ class ModelExtensionDAjaxFilterlayout extends Model {
         return $results;
     }
 
-    public function checkCompleteVersion(){
+    public function checkCompleteVersion()
+    {
         $return = false;
-        if(!file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_ajax_filter_seo.json')){
-            $return = true; 
+        if (!file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_ajax_filter_seo.json')) {
+            $return = true;
         }
 
         return $return;
     }
-
 }

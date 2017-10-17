@@ -1,3 +1,7 @@
+.vertical-align {
+  display: flex;
+  align-items: center; }
+
 .tile.selected {
   background: #7aae50; }
   .tile.selected .tile-heading {
@@ -9,6 +13,8 @@
     background: linear-gradient("to bottom", rgba(255, 255, 255, 0), #7aae50 100%, #7aae50 10%, #7aae50); }
   .tile.selected .tile-footer {
     background: #8fbb6c; }
+.tile > .create-setting > .tile-body > i {
+  cursor: pointer; }
 .tile .tile-heading {
   white-space: nowrap; }
   .tile .tile-heading a {

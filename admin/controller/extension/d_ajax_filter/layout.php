@@ -195,7 +195,7 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
         $this->document->addScript('view/javascript/d_ajax_filter/layout.js');
 
         $this->document->addStyle('view/stylesheet/d_ajax_filter/layout.css');
-        if($this->d_shopunity){
+        if ($this->d_shopunity) {
             $this->document->addScript('view/javascript/d_shopunity/d_shopunity_widget.js');
         }
 
@@ -278,6 +278,9 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
         $data['text_create_setting'] = $this->language->get('text_create_setting');
         $data['text_default'] = $this->language->get('text_default');
         $data['text_not_positioned'] = $this->language->get('text_not_positioned');
+        $data['text_quick_setup_title'] = $this->language->get('text_quick_setup_title');
+        $data['text_quick_setup_text'] = $this->language->get('text_quick_setup_text');
+        
 
         $data['column_name'] = $this->language->get('column_name');
         $data['column_type'] = $this->language->get('column_type');
@@ -328,6 +331,7 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
         $data['event_support'] = $this->language->get('event_support');
 
         $data['button_support_email'] = $this->language->get('button_support_email');
+        $data['button_quick_setup'] = $this->language->get('button_quick_setup');
         $data['button_edit'] = $this->language->get('button_edit');
         $data['button_save'] = $this->language->get('button_save');
         $data['button_cancel'] = $this->language->get('button_cancel');
@@ -355,8 +359,6 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
         $data['cancel'] = $this->model_extension_d_opencart_patch_url->link('marketplace/extension', 'type=module');
 
         $data['delete_module'] = str_replace('&amp;', '&', $this->model_extension_d_opencart_patch_url->link('extension/'.$this->codename.'/layout/delete'));
-
-        $data['new_module'] = $this->model_extension_d_opencart_patch_url->link('extension/'.$this->codename.'/layout');
 
         $modules = $this->model_extension_d_opencart_patch_module->getModulesByCode($this->codename);
 
@@ -524,6 +526,35 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
         $this->response->setOutput($this->model_extension_d_opencart_patch_load->view($this->route, $data));
     }
 
+    public function quickInstall()
+    {
+        $json = array();
+        
+        $this->load->model('extension/d_opencart_patch/url');
+
+        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateQuickInstall()) {
+            $module_id = $this->{'model_extension_'.$this->codename.'_layout'}->quickInstall();
+
+            if (!empty($this->request->get['layout_setting'])) {
+                $layouts = $this->{'model_extension_'.$this->codename.'_layout'}->getLayoutsByRoute('product/category');
+                if (!empty($layouts)) {
+                    $layout_info = $layouts[0];
+                    $this->{'model_extension_'.$this->codename.'_layout'}->addModuleToLayout($module_id, $layout_info['layout_id'], 'column_left', 0);
+                }
+            }
+
+            $json['redirect'] = str_replace('&amp;', '&', $this->model_extension_d_opencart_patch_url->link($this->route, 'module_id='.$module_id));
+            $json['success'] = 'success';
+        } else {
+            $json['error'] = 'error';
+        }
+        
+        $this->response->addHeader("Content-Type: application/json");
+        $this->response->setOutput(json_encode($json));
+    }
+
+
+
     public function installEvents()
     {
         if ($this->event_manager) {
@@ -545,6 +576,19 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
             $this->load->model('extension/module/d_event_manager');
             $this->model_extension_module_d_event_manager->deleteEvent($this->codename);
         }
+    }
+
+    public function validateQuickInstall($permission = 'modify')
+    {
+        if (!$this->user->hasPermission($permission, $this->route)) {
+            $this->error['warning'] = $this->language->get('error_permission');
+        }
+
+        if (!empty($this->error)) {
+            $this->error['warning'] =$this->language->get('error_warning');
+        }
+
+        return !$this->error;
     }
 
     private function validate($permission = 'modify')

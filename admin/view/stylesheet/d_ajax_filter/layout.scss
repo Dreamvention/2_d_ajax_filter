@@ -4,6 +4,10 @@ $primary-footer-color: #3DA9E3;
 $selected-header-color: #628249;
 $selected-body-color: #7aae50;
 $selected-footer-color: #8fbb6c;
+.vertical-align {
+    display: flex;
+    align-items: center;
+}
 .tile{
     &.selected{
         background: $selected-body-color;
@@ -23,6 +27,13 @@ $selected-footer-color: #8fbb6c;
         .tile-footer{
             background: $selected-footer-color;
             // min-height: 38px;
+        }
+    }
+    > .create-setting{
+        > .tile-body{
+            > i{
+                cursor: pointer;
+            }
         }
     }
     .tile-heading{

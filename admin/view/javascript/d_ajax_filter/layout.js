@@ -76,6 +76,54 @@ var d_ajax_filter = {
             $(row).find('.sort-value').val(i)
         });
     },
+    //Создание модуля
+    create: function(layoutSetup){
+        layoutSetup = typeof layoutSetup === 'undefined'? false: layoutSetup
+        var that = this;
+        window.onbeforeunload = null;
+        var url = '';
+        if(layoutSetup){
+            var url = '&layout_setting=1';
+        }
+        $.ajax({
+            url:that.setting.url+'/quickInstall&'+that.setting.token+url,
+            type:'post',
+            dataType:'json',
+            data:that.setting.form.serializeJSON(),
+            beforeSend:function(){
+                that.setting.form.fadeTo('slow', 0.5);
+            },
+            success:function(json){
+                that.setting.form.find('.form-group.has-error').removeClass('has-error');
+                that.setting.form.find('.form-group .text-danger').remove();
+
+                
+
+                if(json['success']){
+                    location.href = json['redirect'];
+                }
+                if(json['error']){
+                    for (var key in json['errors']){
+                        that.setting.form.find('[data-error="'+key+'"]').after('<div class="text-danger">'+json['errors'][key]+'</div>');
+                        that.setting.form.find('[data-error="'+key+'"]').closest('.form-group').addClass('has-error');
+                    }
+                    if($('#content > .container-fluid > .alert').size() > 0){
+                        $('#content > .container-fluid > .alert').html('<i class="fa fa-exclamation-circle"></i> '+json['error']+'<button type="button" class="close" data-dismiss="alert">&times;</button>')
+                    } 
+                    else{
+                        $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> '+json['error']+'<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                    }
+                    
+                }
+                else{
+                    $('#content > .container-fluid > .alert').remove();
+                }
+            },
+            complete:function(){
+                that.setting.form.fadeTo('slow', 1);
+            }
+        });
+    },
     //Сохранение модуля
     save:function(){
         var that = this;
@@ -100,7 +148,16 @@ var d_ajax_filter = {
                         that.setting.form.find('[data-error="'+key+'"]').after('<div class="text-danger">'+json['errors'][key]+'</div>');
                         that.setting.form.find('[data-error="'+key+'"]').closest('.form-group').addClass('has-error');
                     }
-                    $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> '+json['error']+'<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                    if($('#content > .container-fluid > .alert').size() > 0){
+                        $('#content > .container-fluid > .alert').html('<i class="fa fa-exclamation-circle"></i> '+json['error']+'<button type="button" class="close" data-dismiss="alert">&times;</button>')
+                    } 
+                    else{
+                        $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> '+json['error']+'<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                    }
+                    
+                }
+                else{
+                    $('#content > .container-fluid > .alert').remove();
                 }
             },
             complete:function(){
