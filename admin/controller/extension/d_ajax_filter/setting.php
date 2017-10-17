@@ -43,7 +43,6 @@ class ControllerExtensionDAjaxFilterSetting extends Controller
         $this->document->addStyle('view/javascript/d_bootstrap_switch/css/bootstrap-switch.css');
 
         $this->document->addStyle('view/stylesheet/d_ajax_filter/setting.css');
-
         $this->document->addScript('view/javascript/d_ajax_filter/library/jquery.serializejson.js');
 
         
