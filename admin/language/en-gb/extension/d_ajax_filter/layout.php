@@ -72,9 +72,6 @@ $_['text_sort_order_type_string_desc']  = 'String DESC';
 $_['text_sort_order_type_numeric_asc']  = 'Numeric ASC';
 $_['text_sort_order_type_numeric_desc'] = 'Numeric DESC';
 
-$_['text_install_twig_support']         = 'Install twig';
-$_['text_install_event_support']        = 'Install events';
-
 $_['column_name']                       = 'Attribute Name';
 $_['column_type']                       = 'Display a list of items';
 $_['column_status']                     = 'Status';
@@ -119,8 +116,6 @@ $_['entry_custom_style']                = 'Custom Style';
 $_['entry_theme']                       = 'Theme';
 $_['entry_support']                     = 'Support';
 
-$_['help_twig_support']                 = '<h4>Activate Twig support</h4><p>Ajax Filter runs on twig that allows you to edit your twig files vertually with Twig manager from your opencart Admin. Click install Twig.</p>';
-$_['help_event_support']                = '<h4>Activate Event support</h4><p>Ajax Filter uses the latest Opencart Events mechanism instead of Vqmod/Ocmod. Old version of Opencart do not support events but you can enable them here. Click install Events. </p>';
 //Button
 $_['button_edit']                       = 'Edit setting';
 $_['button_support_email']              = 'Support';

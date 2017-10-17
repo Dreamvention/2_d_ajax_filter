@@ -38,10 +38,10 @@ class ControllerExtensionDAjaxFilterSetting extends Controller
         $this->load->model('extension/d_opencart_patch/module');
         $this->load->model('extension/d_opencart_patch/user');
 
-        $this->document->addStyle('view/stylesheet/shopunity/bootstrap.css');
+        $this->document->addStyle('view/stylesheet/d_bootstrap_extra/bootstrap.css');
 
-        $this->document->addScript('view/javascript/shopunity/bootstrap-switch/bootstrap-switch.min.js');
-        $this->document->addStyle('view/stylesheet/shopunity/bootstrap-switch/bootstrap-switch.css');
+        $this->document->addScript('view/javascript/d_bootstrap_switch/js/bootstrap-switch.min.js');
+        $this->document->addStyle('view/javascript/d_bootstrap_switch/css/bootstrap-switch.css');
 
         $this->document->addStyle('view/stylesheet/d_ajax_filter/setting.css');
 

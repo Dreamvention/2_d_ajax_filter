@@ -37,7 +37,7 @@
                                 {% endfor %}
                             </ul>
                         </div>
-                        <div class="col-sm-{{notify?'7':'10'}}">
+                        <div class="col-sm-{{notify and shopunity_support?'7':'10'}}">
                             <div class="tab-content">
                                 <div id="home" class="tab-pane">
                                     <div class="row">
@@ -101,17 +101,7 @@
                                         for="input_status">{{entry_status}}</label>
                                         <div class="col-sm-10">
                                             <input type="hidden" name="module_setting[status]" value="0" />
-                                            {% if event_support or constant('VERSION') > '2.3.0.0' %}
-                                                <input type="checkbox" class="form-control switcher" data-label-text="{{text_enabled}}"  name="module_setting[status]" {{setting.status? 'checked="checked"'}} value="1" id="input_status"/>
-                                            {% endif %}
-                                            {% if not event_support and constant('VERSION') < '2.3.0.0' %}
-                                                <div class="alert alert-info" style="overflow: inherit;">
-                                                    <div class="row">
-                                                        <div class="col-md-9">{{help_event_support}} </div>
-                                                        <div class="col-md-3"><a href="{{install_event_support}}" class="btn btn-info btn-block">{{text_install_event_support}}</a></div>
-                                                    </div>
-                                                </div>
-                                            {% endif %}
+                                            <input type="checkbox" class="form-control switcher" data-label-text="{{text_enabled}}"  name="module_setting[status]" {{setting.status? 'checked="checked"'}} value="1" id="input_status"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -564,7 +554,7 @@
                                 </div>
                             </div>
                         </div>
-                        {% if notify %}
+                        {% if notify and shopunity_support %}
                         <div class="col-md-3">
                             <div class="d_shopunity_widget_1"></div>
                         </div>
@@ -770,7 +760,7 @@
             };
         });
         {% endif %}
-
+        {% if shopunity_support %}
         var d_shopunity_widget_update = jQuery.extend(true, {}, d_shopunity_widget);
         d_shopunity_widget_update.init({
             class: '.d_shopunity_widget_update',
@@ -778,15 +768,18 @@
             action: 'loadUpdate',
             extension_id: '5'
         });
+        {% endif %}
 
 
     });
-var d_shopunity_widget_1 = jQuery.extend(true, {}, d_shopunity_widget);
-d_shopunity_widget_1.init({
-    class: '.d_shopunity_widget_1',
-    token: '{{token}}',
-    extension_id: '126'
-})
+    {% if shopunity_support %}
+        var d_shopunity_widget_1 = jQuery.extend(true, {}, d_shopunity_widget);
+        d_shopunity_widget_1.init({
+            class: '.d_shopunity_widget_1',
+            token: '{{token}}',
+            extension_id: '126'
+        })
+    {% endif %}
 
 </script>
 {{footer}}

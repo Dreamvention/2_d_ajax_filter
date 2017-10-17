@@ -11,6 +11,7 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
     private $extension = array();
     private $config_file = '';
     private $store_id = 0;
+    private $ocmod_xml = '';
     private $error = array();
     
     public function __construct($registry)
@@ -24,25 +25,26 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
         //extension.json
         $this->extension = json_decode(file_get_contents(DIR_SYSTEM.'library/d_shopunity/extension/'.$this->codename.'.json'), true);
         $this->d_shopunity = (file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_shopunity.json'));
+        $this->event_manager = (file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_event_manager.json'));
         
         //Store_id (for multistore)
-        if (isset($this->request->get['store_id'])) { 
+        if (isset($this->request->get['store_id'])) {
             $this->store_id = $this->request->get['store_id'];
         }
     }
 
-    public function add(){
+    public function add()
+    {
         $json = array();
 
         $this->load->model('extension/d_opencart_patch/module');
         $this->load->model('extension/d_opencart_patch/url');
+        $this->load->model('extension/d_opencart_patch/modification');
 
-        if($this->d_shopunity){
-            $this->load->model('extension/d_shopunity/ocmod');
-            $this->model_extension_d_shopunity_ocmod->setOcmod('d_ajax_filter.xml', 0);
-            $this->model_extension_d_shopunity_ocmod->refreshCache();
-            $this->uninstallEvents();
-        }
+        $this->model_extension_d_opencart_patch_modification->setModification($this->codename.'.xml', 0);
+        $this->model_extension_d_opencart_patch_modification->refreshCache();
+        $this->uninstallEvents();
+
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             $this->model_extension_d_opencart_patch_module->addModule($this->codename, $this->request->post['module_setting']);
@@ -51,121 +53,111 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
 
             $layout_setting = $this->request->post['layout'];
 
-            if(!empty($layout_setting['layouts'])){
+            if (!empty($layout_setting['layouts'])) {
                 foreach ($layout_setting['layouts'] as $value) {
                     $this->{'model_extension_'.$this->codename.'_layout'}->addModuleToLayout($module_id, $value, $layout_setting['position'], $layout_setting['sort_order']);
                 }
             }
             $global_status = $this->request->post['module_setting']['status'];
 
-            if(!empty($this->request->post['module_status'])){
+            if (!empty($this->request->post['module_status'])) {
                 foreach ($this->request->post['module_status'] as $module_id => $status) {
                     $this->{'model_extension_'.$this->codename.'_layout'}->editModuleStatus($module_id, $status);
-                    if($status)
-                    {
+                    if ($status) {
                         $global_status = true;
                     }
                 }
             }
 
-            if($global_status && $this->d_shopunity){
-                $this->load->model('extension/d_shopunity/ocmod');
-                $this->model_extension_d_shopunity_ocmod->setOcmod($this->codename.'.xml', 1);
-                $this->model_extension_d_shopunity_ocmod->refreshCache();
+            if ($global_status) {
+                $this->model_extension_d_opencart_patch_modification->setModification($this->codename.'.xml', 1);
+                $this->model_extension_d_opencart_patch_modification->refreshCache();
                 $this->installEvents();
             }
 
             $this->session->data['success'] = $this->language->get('text_success');
-            $json['redirect'] = str_replace('&amp;','&',$this->model_extension_d_opencart_patch_url->link($this->route, 'module_id='.$module_id));
+            $json['redirect'] = str_replace('&amp;', '&', $this->model_extension_d_opencart_patch_url->link($this->route, 'module_id='.$module_id));
             $json['success'] = 'success';
-        }
-        else{
+        } else {
             $json['error'] = $this->language->get('error_warning');
             $json['errors'] = $this->error;
         }
 
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
-        
     }
 
-    public function edit(){
+    public function edit()
+    {
         $json = array();
 
         $this->load->model('extension/d_opencart_patch/module');
         $this->load->model('extension/d_opencart_patch/url');
+        $this->load->model('extension/d_opencart_patch/modification');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             $this->model_extension_d_opencart_patch_module->editModule($this->request->get['module_id'], $this->request->post['module_setting']);
 
             $this->{'model_extension_'.$this->codename.'_layout'}->clearLayoutsByModule($this->request->get['module_id']);
 
-            if($this->d_shopunity){
-                $this->load->model('extension/d_shopunity/ocmod');
-                $this->model_extension_d_shopunity_ocmod->setOcmod('d_ajax_filter.xml', 0);
-                $this->model_extension_d_shopunity_ocmod->refreshCache();
-                $this->uninstallEvents();
-            }
+            $this->model_extension_d_opencart_patch_modification->setModification($this->codename.'.xml', 0);
+            $this->model_extension_d_opencart_patch_modification->refreshCache();
+            $this->uninstallEvents();
 
             $global_status = false;
-            if(!empty($this->request->post['module_status'])){
+            if (!empty($this->request->post['module_status'])) {
                 foreach ($this->request->post['module_status'] as $module_id => $status) {
                     $this->{'model_extension_'.$this->codename.'_layout'}->editModuleStatus($module_id, $status);
-                    if($status)
-                    {
+                    if ($status) {
                         $global_status = true;
                     }
                 }
             }
 
-            if($global_status && $this->d_shopunity){
-                $this->load->model('extension/d_shopunity/ocmod');
-                $this->model_extension_d_shopunity_ocmod->setOcmod($this->codename.'.xml', 1);
-                $this->model_extension_d_shopunity_ocmod->refreshCache();
+            if ($global_status) {
+                $this->model_extension_d_opencart_patch_modification->setModification($this->codename.'.xml', 1);
+                $this->model_extension_d_opencart_patch_modification->refreshCache();
                 $this->installEvents();
             }
 
             $layout_setting = $this->request->post['layout'];
 
-            if(!empty($layout_setting['layouts'])){
+            if (!empty($layout_setting['layouts'])) {
                 foreach ($layout_setting['layouts'] as $value) {
                     $this->{'model_extension_'.$this->codename.'_layout'}->addModuleToLayout($this->request->get['module_id'], $value, $layout_setting['position'], $layout_setting['sort_order']);
                 }
             }
 
             $this->session->data['success'] = $this->language->get('text_success');
-            $json['redirect'] = str_replace('&amp;','&',$this->model_extension_d_opencart_patch_url->link($this->route, 'module_id='.$this->request->get['module_id'], 'SSL'));
+            $json['redirect'] = str_replace('&amp;', '&', $this->model_extension_d_opencart_patch_url->link($this->route, 'module_id='.$this->request->get['module_id'], 'SSL'));
             $json['success'] = 'success';
-        }
-        else{
+        } else {
             $json['errors'] = $this->error;
             $json['error'] = $this->error['warning'];
-
         }
         
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
-        
     }
 
-    public function delete(){
+    public function delete()
+    {
         $json = array();
 
         $this->load->model('extension/d_opencart_patch/module');
         $this->load->model('extension/d_opencart_patch/url');
 
-        if(($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateDelete()){
+        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateDelete()) {
             $this->model_extension_d_opencart_patch_module->deleteModule($this->request->post['module_id']);
 
             $this->session->data['success'] = $this->language->get('text_success');
             $url = '';
-            if(!empty($this->request->get['module_id'])){
+            if (!empty($this->request->get['module_id'])) {
                 $url .= '&module_id='.$this->request->get['module_id'];
             }
-            $json['redirect'] = str_replace('&amp;','&',$this->model_extension_d_opencart_patch_url->link($this->route, $url));
+            $json['redirect'] = str_replace('&amp;', '&', $this->model_extension_d_opencart_patch_url->link($this->route, $url));
             $json['success'] = 'success';
-        }
-        else{
+        } else {
             $json['errors'] = $this->error;
             $json['error'] = $this->error['warning'];
         }
@@ -182,19 +174,20 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
         $this->load->model('extension/d_opencart_patch/module');
         $this->load->model('extension/d_opencart_patch/user');
 
-        $this->document->addStyle('view/stylesheet/shopunity/bootstrap.css');
+        $this->document->addStyle('view/stylesheet/d_bootstrap_extra/bootstrap.css');
         // sortable
-        $this->document->addScript('view/javascript/shopunity/rubaxa-sortable/sortable.js');
-        $this->document->addStyle('view/stylesheet/shopunity/rubaxa-sortable/sortable.css');
-        $this->document->addScript('view/javascript/shopunity/tinysort/jquery.tinysort.min.js');
+        $this->document->addScript('view/javascript/d_rubaxa_sortable/sortable.min.js');
+        $this->document->addStyle('view/javascript/d_rubaxa_sortable/sortable.css');
+        $this->document->addScript('view/javascript/d_tinysort/tinysort.min.js');
+        $this->document->addScript('view/javascript/d_tinysort/jquery.tinysort.min.js');
 
         $this->document->addScript('view/javascript/d_ajax_filter/library/tinycolor-min.js');
 
         $this->document->addScript('view/javascript/d_ajax_filter/library/bootstrap.colorpickersliders/bootstrap.colorpickersliders.min.js');
         $this->document->addStyle('view/javascript/d_ajax_filter/library/bootstrap.colorpickersliders/bootstrap.colorpickersliders.min.css');
         
-        $this->document->addScript('view/javascript/shopunity/bootstrap-switch/bootstrap-switch.min.js');
-        $this->document->addStyle('view/stylesheet/shopunity/bootstrap-switch/bootstrap-switch.css');
+        $this->document->addScript('view/javascript/d_bootstrap_switch/js/bootstrap-switch.min.js');
+        $this->document->addStyle('view/javascript/d_bootstrap_switch/css/bootstrap-switch.css');
 
         $this->document->addScript('view/javascript/d_ajax_filter/library/jquery.serializejson.js');
         $this->document->addScript('view/javascript/d_ajax_filter/library/underscore-min.js');
@@ -202,8 +195,9 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
         $this->document->addScript('view/javascript/d_ajax_filter/layout.js');
 
         $this->document->addStyle('view/stylesheet/d_ajax_filter/layout.css');
-
-        $this->document->addScript('view/javascript/d_shopunity/d_shopunity_widget.js');
+        if($this->d_shopunity){
+            $this->document->addScript('view/javascript/d_shopunity/d_shopunity_widget.js');
+        }
 
         $this->load->language($this->route);
         // Add more styles, links or scripts to the project is necessary
@@ -220,7 +214,7 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
 
         $url = ((!empty($url_params)) ? '&' : '') . http_build_query($url_params);
 
-        if(isset($this->session->data['success'])){
+        if (isset($this->session->data['success'])) {
             $data['success'] = $this->session->data['success'];
             unset($this->session->data['success']);
         }
@@ -242,7 +236,7 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
             'href' => $this->model_extension_d_opencart_patch_url->link($this->route, $url)
             );
 
-        if(!empty($this->request->get['module_id'])){
+        if (!empty($this->request->get['module_id'])) {
             $module_id = $this->request->get['module_id'];
             $data['module_id'] = $module_id;
         }
@@ -282,7 +276,6 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
         $data['text_status'] = $this->language->get('text_status');
         $data['text_new_setting'] = $this->language->get('text_new_setting');
         $data['text_create_setting'] = $this->language->get('text_create_setting');
-        $data['text_install_event_support'] = $this->language->get('text_install_event_support');
         $data['text_default'] = $this->language->get('text_default');
         $data['text_not_positioned'] = $this->language->get('text_not_positioned');
 
@@ -332,8 +325,6 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
         $data['entry_event_filter'] = $this->language->get('entry_event_filter');
         $data['entry_custom_style'] = $this->language->get('entry_custom_style');
 
-        $data['help_event_support'] = $this->language->get('help_event_support');
-
         $data['event_support'] = $this->language->get('event_support');
 
         $data['button_support_email'] = $this->language->get('button_support_email');
@@ -348,16 +339,16 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
         $data['store_id'] = $this->store_id;
         $data['extension'] = $this->extension;
         $data['config'] = $this->config_file;
+        $data['shopunity_support'] = $this->d_shopunity;
 
         $data['version'] = $this->extension['version'];
         $data['token'] = $this->model_extension_d_opencart_patch_user->getToken();
         $data['token_url'] = $this->model_extension_d_opencart_patch_user->getUrlToken();
         $data['support_email'] = $this->extension['support']['email'];
 
-        if(isset($this->request->get['module_id'])){
+        if (isset($this->request->get['module_id'])) {
             $data['action'] = $this->model_extension_d_opencart_patch_url->link('extension/'.$this->codename.'/layout/edit', 'module_id='.$this->request->get['module_id']);
-        }
-        else{
+        } else {
             $data['action'] = $this->model_extension_d_opencart_patch_url->link('extension/'.$this->codename.'/layout/add');
         }
 
@@ -367,23 +358,15 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
 
         $data['new_module'] = $this->model_extension_d_opencart_patch_url->link('extension/'.$this->codename.'/layout');
 
-        if(isset($module_id)){
-            $data['install_event_support'] = $this->model_extension_d_opencart_patch_url->link($this->route.'/install_event_support', 'module_id='.$module_id);
-        }
-        else{
-            $data['install_event_support'] = $this->model_extension_d_opencart_patch_url->link($this->route.'/install_event_support');
-        }
-
         $modules = $this->model_extension_d_opencart_patch_module->getModulesByCode($this->codename);
 
         $data['modules'] = array();
 
-        if(!empty($modules)){
+        if (!empty($modules)) {
             foreach ($modules as $value) {
-                if(isset($module_id) && $value['module_id'] == $module_id){
+                if (isset($module_id) && $value['module_id'] == $module_id) {
                     $active = true;
-                }
-                else{
+                } else {
                     $active = false;
                 }
                 $data['modules'][] = array(
@@ -417,10 +400,10 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
         $this->load->model('localisation/language');
 
         $data['languages'] = $this->model_localisation_language->getLanguages();
-        foreach ($data['languages'] as $key =>  $language){
-            if(VERSION >= '2.2.0.0'){
+        foreach ($data['languages'] as $key =>  $language) {
+            if (VERSION >= '2.2.0.0') {
                 $data['languages'][$key]['flag'] = 'language/'.$language['code'].'/'.$language['code'].'.png';
-            }else{
+            } else {
                 $data['languages'][$key]['flag'] = 'view/image/flags/'.$language['image'];
             }
         }
@@ -429,10 +412,9 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
         $this->load->model('catalog/category');
         $data['categories'] = array();
 
-        if(VERSION>='2.2.0.0') {
+        if (VERSION>='2.2.0.0') {
             $results = $this->model_catalog_category->getCategories();
-        }
-        else {
+        } else {
             $results = $this->model_catalog_category->getCategories(array());
         }
         
@@ -451,7 +433,7 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
 
         $data['selected_layouts'] = array();
 
-        if(isset($module_id)){
+        if (isset($module_id)) {
             $results = $this->{'model_extension_'.$this->codename.'_layout'}->getLayoutsByModules($module_id);
 
             foreach ($results as $value) {
@@ -459,34 +441,31 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
             }
         }
 
-        if(isset($module_id)){
+        if (isset($module_id)) {
             $data['position'] = $this->{'model_extension_'.$this->codename.'_layout'}->getPrositionByModule($module_id);
-        }
-        else{
+        } else {
             $data['position'] = 'column_left';
         }
 
-        if(isset($module_id)){
+        if (isset($module_id)) {
             $data['sort_order'] = $this->{'model_extension_'.$this->codename.'_layout'}->getSortOrderByModule($module_id);
-        }
-        else{
+        } else {
             $data['sort_order'] = '0';
         }
         $this->config->load('d_ajax_filter');
         $config_setting = $this->config->get('d_ajax_filter_setting');
-        if(isset($module_id)){
+        if (isset($module_id)) {
             $data['setting'] = $this->model_extension_d_opencart_patch_module->getModule($module_id);
-        }
-        else{
+        } else {
             $data['setting'] = $config_setting['default'];
         }
 
         $data['base_attribs'] = $this->{'model_extension_'.$this->codename.'_layout'}->getBaseAttribs();
 
-        array_walk($data['base_attribs'], function(&$value, $index) use ($data){
+        array_walk($data['base_attribs'], function (&$value, $index) use ($data) {
             $base_attrib_setting = $this->{'model_extension_'.$this->codename.'_layout'}->getModuleSetting($index);
 
-            if(isset($data['setting']['base_attribs'][$index])){
+            if (isset($data['setting']['base_attribs'][$index])) {
                 $value=$data['setting']['base_attribs'][$index];
             }
             
@@ -496,15 +475,13 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
 
         $data['themes'] = $this->{'model_extension_'.$this->codename.'_layout'}->getThemes();
 
-        if(isset($data['setting']['theme'])){
-            if($data['setting']['theme'] != 'custom'){
+        if (isset($data['setting']['theme'])) {
+            if ($data['setting']['theme'] != 'custom') {
                 $data['design'] = $config_setting['theme'];
-            }
-            else{
+            } else {
                 $data['design'] = $data['setting']['design'];
             }
-        }
-        else{
+        } else {
             $data['design'] = $config_setting['default'];
         }
 
@@ -541,59 +518,37 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
 
         $data['notify'] = $this->{'model_extension_'.$this->codename.'_layout'}->checkCompleteVersion();
         
-        $event_support = (file_exists(DIR_SYSTEM.'mbooth/extension/d_event_manager.json'));
-        $data['event_support'] = false;
-        if($event_support){
-            $this->load->model('extension/d_shopunity/ocmod');
-            $data['event_support'] = $this->model_extension_d_shopunity_ocmod->getModificationByName('d_event_manager');
-        }
-
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');
         $this->response->setOutput($this->model_extension_d_opencart_patch_load->view($this->route, $data));
     }
 
-    public function install_event_support(){
-        $this->load->model('extension/d_opencart_patch/url');
-        
-        if (!$this->user->hasPermission('modify', $this->route)) {
-            $this->session->data['error'] = $this->language->get('error_permission');
-            $this->response->redirect($this->model_extension_d_opencart_patch_url->link($this->route));
+    public function installEvents()
+    {
+        if ($this->event_manager) {
+            $this->load->model('extension/module/d_event_manager');
+            $this->model_extension_module_d_event_manager->addEvent($this->codename, 'admin/model/catalog/product/editProduct/after', 'extension/d_ajax_filter/cache/model_updateProduct');
+            $this->model_extension_module_d_event_manager->addEvent($this->codename, 'admin/model/catalog/product/addProduct/after', 'extension/d_ajax_filter/cache/model_updateProduct');
+            $this->model_extension_module_d_event_manager->addEvent($this->codename, 'catalog/view/product/category/before', 'extension/event/d_ajax_filter/view_before');
+            $this->model_extension_module_d_event_manager->addEvent($this->codename, 'catalog/view/product/special/before', 'extension/event/d_ajax_filter/view_before');
+            $this->model_extension_module_d_event_manager->addEvent($this->codename, 'catalog/view/product/manufacturer_info/before', 'extension/event/d_ajax_filter/view_before');
+            $this->model_extension_module_d_event_manager->addEvent($this->codename, 'catalog/view/product/search/before', 'extension/event/d_ajax_filter/view_before');
+            $this->model_extension_module_d_event_manager->addEvent($this->codename, 'catalog/model/catalog/product/getProducts/before', 'extension/event/d_ajax_filter/model_getProducts_before');
+            $this->model_extension_module_d_event_manager->addEvent($this->codename, 'catalog/model/catalog/product/getProductSpecials/before', 'extension/event/d_ajax_filter/model_getProducts_before');
+            $this->model_extension_module_d_event_manager->addEvent($this->codename, 'catalog/model/catalog/product/getTotalProducts/before', 'extension/event/d_ajax_filter/model_getProducts_before');
         }
-        if(file_exists(DIR_SYSTEM.'mbooth/extension/d_event_manager.json')){
-            $this->load->model('module/d_event_manager');
-            $this->model_module_d_event_manager->installCompatibility();
-        }
-        $url = '';
-
-        if(!empty($this->request->get['module_id'])){
-            $url .= "&module_id=".$this->request->get['module_id'];
-        }
-
-        $this->response->redirect($this->model_extension_d_opencart_patch_url->link($this->route, $url));
     }
-
-    public function installEvents(){
-        $this->load->model('extension/module/d_event_manager');
-        $this->model_extension_module_d_event_manager->addEvent($this->codename, 'admin/model/catalog/product/editProduct/after', 'extension/d_ajax_filter/cache/model_updateProduct');
-        $this->model_extension_module_d_event_manager->addEvent($this->codename, 'admin/model/catalog/product/addProduct/after', 'extension/d_ajax_filter/cache/model_updateProduct');
-        $this->model_extension_module_d_event_manager->addEvent($this->codename, 'catalog/view/product/category/before', 'extension/event/d_ajax_filter/view_before');
-        $this->model_extension_module_d_event_manager->addEvent($this->codename, 'catalog/view/product/special/before', 'extension/event/d_ajax_filter/view_before');
-        $this->model_extension_module_d_event_manager->addEvent($this->codename, 'catalog/view/product/manufacturer_info/before', 'extension/event/d_ajax_filter/view_before');
-        $this->model_extension_module_d_event_manager->addEvent($this->codename, 'catalog/view/product/search/before', 'extension/event/d_ajax_filter/view_before');
-        $this->model_extension_module_d_event_manager->addEvent($this->codename, 'catalog/model/catalog/product/getProducts/before', 'extension/event/d_ajax_filter/model_getProducts_before');
-        $this->model_extension_module_d_event_manager->addEvent($this->codename, 'catalog/model/catalog/product/getProductSpecials/before', 'extension/event/d_ajax_filter/model_getProducts_before');
-        $this->model_extension_module_d_event_manager->addEvent($this->codename, 'catalog/model/catalog/product/getTotalProducts/before', 'extension/event/d_ajax_filter/model_getProducts_before');
-    }
-    public function uninstallEvents(){
-        $this->load->model('extension/module/d_event_manager');
-        $this->model_extension_module_d_event_manager->deleteEvent($this->codename);
+    public function uninstallEvents()
+    {
+        if ($this->event_manager) {
+            $this->load->model('extension/module/d_event_manager');
+            $this->model_extension_module_d_event_manager->deleteEvent($this->codename);
+        }
     }
 
     private function validate($permission = 'modify')
     {
-
         if (!$this->user->hasPermission($permission, $this->route)) {
             $this->error['warning'] = $this->language->get('error_permission');
         }
@@ -615,7 +570,7 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
             $this->error['sort_order'] = $this->language->get('error_sort_order');
         }
 
-        if(!empty($this->error)){
+        if (!empty($this->error)) {
             $this->error['warning'] =$this->language->get('error_warning');
         }
 
@@ -624,7 +579,6 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
 
     private function validateDelete($permission = 'modify')
     {
-
         if (!$this->user->hasPermission($permission, $this->route)) {
             $this->error['warning'] = $this->language->get('error_permission');
             return false;
