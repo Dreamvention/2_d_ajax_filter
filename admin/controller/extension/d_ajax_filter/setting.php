@@ -24,13 +24,12 @@ class ControllerExtensionDAjaxFilterSetting extends Controller
         $this->d_shopunity = (file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_shopunity.json'));
         
         //Store_id (for multistore)
-        if (isset($this->request->get['store_id'])) { 
+        if (isset($this->request->get['store_id'])) {
             $this->store_id = $this->request->get['store_id'];
         }
     }
     public function index()
     {
-
         $this->load->model('extension/d_opencart_patch/url');
         $this->load->model('extension/d_opencart_patch/store');
         $this->load->model('extension/d_opencart_patch/setting');
@@ -62,7 +61,7 @@ class ControllerExtensionDAjaxFilterSetting extends Controller
 
         $url = ((!empty($url_params)) ? '&' : '') . http_build_query($url_params);
 
-        if(isset($this->session->data['success'])){
+        if (isset($this->session->data['success'])) {
             $data['success'] = $this->session->data['success'];
             unset($this->session->data['success']);
         }
@@ -120,7 +119,7 @@ class ControllerExtensionDAjaxFilterSetting extends Controller
 
         $url = '';
 
-        if(isset($this->request->get['module_id'])){
+        if (isset($this->request->get['module_id'])) {
             $url .= '&module_id='.$this->request->get['module_id'];
         }
 
@@ -141,17 +140,16 @@ class ControllerExtensionDAjaxFilterSetting extends Controller
 
         $setting = $this->model_setting_setting->getSetting($this->codename);
 
-        if(!empty($setting[$this->codename.'_setting'])){
+        if (!empty($setting[$this->codename.'_setting'])) {
             $data['setting'] = $setting[$this->codename.'_setting'];
-        }
-        else{
+        } else {
             $this->config->load('d_ajax_filter');
             $setting = $this->config->get('d_ajax_filter_setting');
 
             $data['setting'] = $setting['general'];
         }
 
-        if(!empty($data['setting']['attributes'])){
+        if (!empty($data['setting']['attributes'])) {
             $this->load->model('catalog/attribute');
             foreach ($data['setting']['attributes'] as $attribute_id => $value) {
                 $attribute_info = $this->model_catalog_attribute->getAttribute($attribute_id);
@@ -165,7 +163,7 @@ class ControllerExtensionDAjaxFilterSetting extends Controller
 
         $url = '';
 
-        if(isset($this->request->get['module_id'])){
+        if (isset($this->request->get['module_id'])) {
             $url .= '&module_id='.$this->request->get['module_id'];
         }
 
@@ -177,7 +175,8 @@ class ControllerExtensionDAjaxFilterSetting extends Controller
         $this->response->setOutput($this->model_extension_d_opencart_patch_load->view($this->route, $data));
     }
 
-    public function save(){
+    public function save()
+    {
         $json = array();
 
         $this->load->model('setting/setting');
@@ -206,26 +205,22 @@ class ControllerExtensionDAjaxFilterSetting extends Controller
             $this->cache->delete('af-url-params');
             $url = '';
 
-            if(isset($this->request->get['module_id'])){
+            if (isset($this->request->get['module_id'])) {
                 $url .= '&module_id='.$this->request->get['module_id'];
             }
-            $json['redirect'] = str_replace('&amp;','&',$this->model_extension_d_opencart_patch_url->link($this->route, $url));
+            $json['redirect'] = str_replace('&amp;', '&', $this->model_extension_d_opencart_patch_url->link($this->route, $url));
             $json['success'] = 'success';
-        }
-        else{
+        } else {
             $json['errors'] = $this->error;
             $json['error'] = $this->error['warning'];
-
         }
         
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
-        
     }
 
     private function validate($permission = 'modify')
     {
-
         if (!$this->user->hasPermission($permission, $this->route)) {
             $this->error['warning'] = $this->language->get('error_permission');
             return false;
