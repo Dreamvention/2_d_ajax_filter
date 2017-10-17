@@ -14,7 +14,7 @@ class ModelExtensionDAjaxFilterFilter extends Model {
         LEFT JOIN `".DB_PREFIX."af_filter` aff ON aff.filter_id = f.filter_id AND aff.language_id = '".(int)$this->config->get('config_language_id')."'
         INNER JOIN `".DB_PREFIX."filter_description` fd ON fd.filter_id = f.filter_id
         INNER JOIN `".DB_PREFIX."filter_group` fg ON fg.filter_group_id = f.filter_group_id
-        INNER JOIN `".DB_PREFIX."filter_group_description` fgd ON fgd.filter_group_id = f.filter_group_id
+        INNER JOIN `".DB_PREFIX."filter_group_description` fgd ON fgd.filter_group_id = f.filter_group_id AND fgd.language_id = '".(int)$this->config->get('config_language_id')."'
         WHERE f.filter_id IN(
         SELECT pf.filter_id
         FROM `".DB_PREFIX."product_filter` pf
@@ -22,11 +22,10 @@ class ModelExtensionDAjaxFilterFilter extends Model {
         ) GROUP BY f.filter_id ORDER BY fg.sort_order, f.sort_order";
         
         $filter_group_data = array();
-
-        $hash = md5(json_encode($filter_data));
+        $hash = md5(json_encode(array($filter_data, (int)$this->config->get('config_language_id'))));
 
         $result = $this->cache->get('af-filter.' . $hash);
-
+        
         if(!$result){
             $query = $this->db->query($sql);
             $result = $query->rows;

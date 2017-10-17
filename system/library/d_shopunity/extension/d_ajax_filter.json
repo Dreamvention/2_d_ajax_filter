@@ -1,6 +1,6 @@
 {
     "codename": "d_ajax_filter",
-    "version": "2.1.0",
+    "version": "2.1.1",
     "name": "Ajax Filter",
     "description": "Ajax Filter",
     "index": "extension/module/d_ajax_filter",
@@ -123,6 +123,10 @@
         "catalog/view/theme/default/template/extension/d_ajax_filter"
     ],
     "changelog": [
+        {
+            "version": "2.1.1",
+            "change": "1.Fix bugs."
+        },
         {
             "version": "2.1.0",
             "change": "1.Added support opencart 3.x."
