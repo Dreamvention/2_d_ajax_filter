@@ -91,8 +91,8 @@ class ControllerExtensionModuleDAjaxFilter extends Controller
         $this->document->addScript('catalog/view/javascript/d_ajax_filter/library/jquery.touchwipe.min.js');
         
         //Bootstrap Rating
-        $this->document->addStyle('catalog/view/javascript/library/d_bootstrap_rating/bootstrap-rating.css');
-        $this->document->addScript('catalog/view/javascript/library/d_bootstrap_rating/bootstrap-rating.js');
+        $this->document->addStyle('catalog/view/javascript/d_bootstrap_rating/bootstrap-rating.css');
+        $this->document->addScript('catalog/view/javascript/d_bootstrap_rating/bootstrap-rating.js');
         
         if($setting['theme'] != 'custom'){
             if (file_exists(DIR_TEMPLATE . $this->theme . '/stylesheet/d_ajax_filter/themes/'.$setting['theme'].'.css')) {
