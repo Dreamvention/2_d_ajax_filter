@@ -533,7 +533,15 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
         $this->load->model('extension/d_opencart_patch/url');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateQuickInstall()) {
-            $module_id = $this->{'model_extension_'.$this->codename.'_layout'}->quickInstall();
+
+            if(isset($this->request->get['status_setup'])){
+                $status_setup = $this->request->get['status_setup'];
+            }
+            else{
+                $status_setup = false;
+            }
+
+            $module_id = $this->{'model_extension_'.$this->codename.'_layout'}->quickInstall($status_setup);
 
             if (!empty($this->request->get['layout_setting'])) {
                 $layouts = $this->{'model_extension_'.$this->codename.'_layout'}->getLayoutsByRoute('product/category');

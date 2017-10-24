@@ -83,7 +83,7 @@ var d_ajax_filter = {
         window.onbeforeunload = null;
         var url = '';
         if(layoutSetup){
-            var url = '&layout_setting=1';
+            var url = '&layout_setting=1&status_setup=1';
         }
         $.ajax({
             url:that.setting.url+'/quickInstall&'+that.setting.token+url,

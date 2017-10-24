@@ -37,7 +37,7 @@ class ModelExtensionDAjaxFilterlayout extends Model
         return $results;
     }
 
-    public function quickInstall()
+    public function quickInstall($status = false)
     {
         $this->load->model('extension/d_opencart_patch/module');
         $this->load->language('extension/'.$this->codename.'_layout');
@@ -46,6 +46,10 @@ class ModelExtensionDAjaxFilterlayout extends Model
         $module_setting = $this->config->get($this->codename.'_setting');
 
         $module_setting =  $module_setting['default'];
+
+        if($status){
+            $module_setting['status'] = 1;
+        }
 
         $this->model_extension_d_opencart_patch_module->addModule($this->codename, $module_setting);
  
