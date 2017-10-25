@@ -41,14 +41,8 @@ class ModelExtensionDAjaxFilterlayout extends Model
         $setting = $this->getModuleSetting($type);
 
         if(isset($setting['default'])){
-            $setting = array_filter($setting['default'], function($v, $k){
-                if(!is_array($v) && in_array($k, array('status', 'type', 'collapse', 'sort_order_values'))){
-                    return true;
-                }
-                else{
-                    return false;
-                }
-            }, ARRAY_FILTER_USE_BOTH);
+            $setting = array_intersect_key($setting['default'], array_flip(array('status', 'type', 'collapse', 'sort_order_values')));
+
             return $setting;
         }
         return false;
@@ -83,7 +77,7 @@ class ModelExtensionDAjaxFilterlayout extends Model
                 $module_setting[$type.'_default'] = $setting;
             }
         }
-
+        
         $this->model_extension_d_opencart_patch_module->addModule($this->codename, $module_setting);
  
         $module_id = $this->db->getLastId();
@@ -101,14 +95,7 @@ class ModelExtensionDAjaxFilterlayout extends Model
         foreach ($modules as $type) {
             $setting = $this->getModuleSetting($type);
 
-            $setting = array_filter($setting, function($v, $k){
-                if(!is_array($v) && in_array($k, array('status', 'type', 'sort_order', 'collapse', 'sort_order_values'))){
-                    return true;
-                }
-                else{
-                    return false;
-                }
-            }, ARRAY_FILTER_USE_BOTH);
+            $setting = array_intersect_key($setting, array_flip(array('status', 'type', 'sort_order', 'collapse', 'sort_order_values')));
 
             if(isset($setting['status']) && $status_setup){
                 $setting['status'] = 1;
