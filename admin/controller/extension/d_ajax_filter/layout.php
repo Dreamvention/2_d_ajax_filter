@@ -531,8 +531,14 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
         $json = array();
         
         $this->load->model('extension/d_opencart_patch/url');
+        $this->load->model('extension/d_opencart_patch/modification');
+        $this->load->model('extension/d_opencart_patch/module');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateQuickInstall()) {
+
+            $this->model_extension_d_opencart_patch_modification->setModification($this->codename.'.xml', 0);
+            $this->model_extension_d_opencart_patch_modification->refreshCache();
+            $this->uninstallEvents();
 
             if(isset($this->request->get['status_setup'])){
                 $status_setup = $this->request->get['status_setup'];
@@ -549,6 +555,24 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
                     $layout_info = $layouts[0];
                     $this->{'model_extension_'.$this->codename.'_layout'}->addModuleToLayout($module_id, $layout_info['layout_id'], 'column_left', 0);
                 }
+            }
+
+            $global_status = false;
+
+            $modules = $this->model_extension_d_opencart_patch_module->getModulesByCode($this->codename);
+            if (!empty($modules)) {
+                foreach ($modules as $value) {
+                    $setting = $this->model_extension_d_opencart_patch_module->getModule($value['module_id']);
+                    if($setting['status']){
+                        $global_status = true;
+                    }
+                }
+            }
+            
+            if ($global_status) {
+                $this->model_extension_d_opencart_patch_modification->setModification($this->codename.'.xml', 1);
+                $this->model_extension_d_opencart_patch_modification->refreshCache();
+                $this->installEvents();
             }
 
             $json['redirect'] = str_replace('&amp;', '&', $this->model_extension_d_opencart_patch_url->link($this->route, 'module_id='.$module_id));

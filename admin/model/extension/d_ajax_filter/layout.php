@@ -37,7 +37,24 @@ class ModelExtensionDAjaxFilterlayout extends Model
         return $results;
     }
 
-    public function quickInstall($status = false)
+    public function getModuleDefaultSetting($type){
+        $setting = $this->getModuleSetting($type);
+
+        if(isset($setting['default'])){
+            $setting = array_filter($setting['default'], function($v, $k){
+                if(!is_array($v) && in_array($k, array('status', 'type', 'collapse', 'sort_order_values'))){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }, ARRAY_FILTER_USE_BOTH);
+            return $setting;
+        }
+        return false;
+    }
+
+    public function quickInstall($status_setup = false)
     {
         $this->load->model('extension/d_opencart_patch/module');
         $this->load->language('extension/'.$this->codename.'_layout');
@@ -47,8 +64,24 @@ class ModelExtensionDAjaxFilterlayout extends Model
 
         $module_setting =  $module_setting['default'];
 
-        if($status){
+        if($status_setup){
             $module_setting['status'] = 1;
+        }
+
+        $module_setting['base_attribs'] = $this->getBaseAttribsSettings($status_setup);
+
+        $modules = $this->getModules();
+
+        foreach ($modules as $type) {
+            $setting = $this->getModuleDefaultSetting($type);
+
+            if($status_setup && isset($setting['status'])){
+                $setting['status'] = 1;
+            }
+
+            if($setting){
+                $module_setting[$type.'_default'] = $setting;
+            }
         }
 
         $this->model_extension_d_opencart_patch_module->addModule($this->codename, $module_setting);
@@ -58,6 +91,38 @@ class ModelExtensionDAjaxFilterlayout extends Model
         $this->model_extension_d_opencart_patch_module->editModule($module_id, $module_setting);
 
         return $module_id;
+    }
+
+    public function getBaseAttribsSettings($status_setup = false)
+    {
+        $results = array();
+        $modules = $this->getModules();
+
+        foreach ($modules as $type) {
+            $setting = $this->getModuleSetting($type);
+
+            $setting = array_filter($setting, function($v, $k){
+                if(!is_array($v) && in_array($k, array('status', 'type', 'sort_order', 'collapse', 'sort_order_values'))){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }, ARRAY_FILTER_USE_BOTH);
+
+            if(isset($setting['status']) && $status_setup){
+                $module_setting['status'] = 1;
+            }
+
+            $results[$type] = $setting;
+        }
+        uasort($results, function ($a, $b) {
+            if ($a['sort_order'] == $b['sort_order']) {
+                return 0;
+            }
+            return ($a['sort_order'] < $b['sort_order']) ? -1 : 1;
+        });
+        return $results;
     }
 
     public function getBaseAttribs()
