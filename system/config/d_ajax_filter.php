@@ -22,8 +22,8 @@ $_['d_ajax_filter_setting'] = array(
         'options' => array(),
         'attributes' => array(),
         'filters' => array(),
-        'theme' => 'default',
-        'custom_style' => ''
+        'custom_style' => '',
+        'theme' => 'default'
         ),
     'attributes' => array(
         'attributes' => array(),
