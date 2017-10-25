@@ -111,7 +111,7 @@ class ModelExtensionDAjaxFilterlayout extends Model
             }, ARRAY_FILTER_USE_BOTH);
 
             if(isset($setting['status']) && $status_setup){
-                $module_setting['status'] = 1;
+                $setting['status'] = 1;
             }
 
             $results[$type] = $setting;
