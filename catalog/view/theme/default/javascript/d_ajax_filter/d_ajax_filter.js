@@ -277,7 +277,7 @@ var af = (function() {
             var send_data = {
                 'status':this.status_groups
             }
-            send_data = Object.assign(send_data, this.state.selected);
+            send_data = $.extend(true, {}, send_data, this.state.selected);
 
             $.ajax({
                 context: this,
@@ -356,7 +356,7 @@ var af = (function() {
             'status':this.status_groups,
             'quantity_status': typeof this.quantity_status != 'undefined'?1:0
         }
-        send_data = Object.assign(send_data, this.state.selected);
+        send_data = $.extend(true, {}, send_data, this.state.selected);
 
         if(this.beforeRequest != null){
             this.beforeRequest();
