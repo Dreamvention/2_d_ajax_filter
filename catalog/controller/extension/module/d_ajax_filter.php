@@ -75,6 +75,7 @@ class ControllerExtensionModuleDAjaxFilter extends Controller
             $this->document->addStyle('catalog/view/theme/default/stylesheet/d_ajax_filter/d_ajax_filter.css');
         }
         
+        $this->document->addScript('catalog/view/javascript/d_ajax_filter/library/underscore-min.js');
         $this->document->addScript('catalog/view/javascript/d_riot/riot%2Bcompiler.min.js');
         
         if (file_exists(DIR_TEMPLATE . $this->theme . '/javascript/d_ajax_filter/d_ajax_filter.js')) {

@@ -12,7 +12,7 @@ var af = (function() {
             this.state = state;
         }
         else{
-            this.state = $.extend({}, this.state, state);
+            this.state = _.extend({}, this.state, state);
         }
         //allows the af.init(store) to be passed into the mixins model value.
         return this;
@@ -51,14 +51,14 @@ var af = (function() {
             this.status_groups = Object.keys(groups);
         }
         else{
-            this.status_groups = [...new Set([...this.status_groups ,...Object.keys(groups)])];
+            this.status_groups = _.union(this.status_groups, Object.keys(groups));
         }
 
         if(typeof this.state.groups == 'undefined'){
             this.state.groups = groups;
         }
         else{
-            this.state.groups = $.extend({}, this.state.groups, groups);
+            this.state.groups = _.extend({}, this.state.groups, groups);
         }
 
         this.groups[id] = groups;
@@ -277,7 +277,7 @@ var af = (function() {
             var send_data = {
                 'status':this.status_groups
             }
-            send_data = $.extend(true, {}, send_data, this.state.selected);
+            send_data = _.extend(true, {}, send_data, this.state.selected);
 
             $.ajax({
                 context: this,
@@ -356,7 +356,7 @@ var af = (function() {
             'status':this.status_groups,
             'quantity_status': typeof this.quantity_status != 'undefined'?1:0
         }
-        send_data = $.extend(true, {}, send_data, this.state.selected);
+        send_data = _.extend(true, {}, send_data, this.state.selected);
 
         if(this.beforeRequest != null){
             this.beforeRequest();
