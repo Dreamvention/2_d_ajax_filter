@@ -12,7 +12,7 @@ class ModelExtensionDAjaxFilterFilter extends Model {
         $sql = "SELECT f.filter_id, fd.name as filter_name, aff.image, f.filter_group_id, fgd.name as filter_group_name
         FROM `".DB_PREFIX."filter` f
         LEFT JOIN `".DB_PREFIX."af_filter` aff ON aff.filter_id = f.filter_id AND aff.language_id = '".(int)$this->config->get('config_language_id')."'
-        INNER JOIN `".DB_PREFIX."filter_description` fd ON fd.filter_id = f.filter_id
+        INNER JOIN `".DB_PREFIX."filter_description` fd ON fd.filter_id = f.filter_id AND fd.language_id = '".(int)$this->config->get('config_language_id')."'
         INNER JOIN `".DB_PREFIX."filter_group` fg ON fg.filter_group_id = f.filter_group_id
         INNER JOIN `".DB_PREFIX."filter_group_description` fgd ON fgd.filter_group_id = f.filter_group_id AND fgd.language_id = '".(int)$this->config->get('config_language_id')."'
         WHERE f.filter_id IN(
@@ -25,7 +25,7 @@ class ModelExtensionDAjaxFilterFilter extends Model {
         $hash = md5(json_encode(array($filter_data, (int)$this->config->get('config_language_id'))));
 
         $result = $this->cache->get('af-filter.' . $hash);
-        
+
         if(!$result){
             $query = $this->db->query($sql);
             $result = $query->rows;
