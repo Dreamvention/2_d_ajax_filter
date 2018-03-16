@@ -1,6 +1,6 @@
 {
     "codename": "d_ajax_filter",
-    "version": "2.1.3",
+    "version": "2.1.4",
     "name": "Ajax Filter",
     "description": "Ajax Filter",
     "index": "extension/module/d_ajax_filter",
@@ -31,8 +31,7 @@
         "url": "https://shopunity.net/licenses/commercial"
     },
     "install": {
-        "url": "extension/module/install&extension=d_ajax_filter",
-        "xml": "system/library/d_shopunity/install/d_ajax_filter.xml"
+        "url": "extension/module/install&extension=d_ajax_filter"
     },
     "support": {
         "email": "support@dreamvention.com",
@@ -127,6 +126,10 @@
         "catalog/view/theme/default/template/extension/d_ajax_filter"
     ],
     "changelog": [
+        {
+            "version": "2.1.4",
+            "change": "Removed install.xml because of conflict"
+        },
         {
             "version": "2.1.3",
             "change": "1.Fix for IE 11"
