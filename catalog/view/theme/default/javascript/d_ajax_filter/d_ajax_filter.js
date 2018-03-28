@@ -1,13 +1,13 @@
-var af = (function() {
+function af() {
 
     //allows for the af object to trigger and listen to custom events.
     riot.observable(this);
 
     /**
-    *   createStore. Initialize your app. This will add the default value to the
+    *   initState. Initialize your app. This will add the default value to the
     * state. Refer to Redux http://redux.js.org/docs/api/Store.html
     */
-    this.createStore = function(state){
+    this.initState = function(state){
         if(typeof this.state == 'undefined'){
             this.state = state;
         }
@@ -121,11 +121,11 @@ var af = (function() {
 
     this.getGroupCaption = function(name, group_id){
         var result = name+'_'+group_id;
-        if(typeof getState().groups != 'undefined' &&
-            typeof getState().groups[name] != 'undefined' &&
-            typeof getState().groups[name][group_id] != 'undefined')
+        if(typeof this.getState().groups != 'undefined' &&
+            typeof this.getState().groups[name] != 'undefined' &&
+            typeof this.getState().groups[name][group_id] != 'undefined')
         {
-            result = getState().groups[name][group_id].caption;
+            result = this.getState().groups[name][group_id].caption;
         }
         return result;
     }
@@ -133,12 +133,12 @@ var af = (function() {
     this.getElementCaption = function(name, group_id, value){
         var result = value;
 
-        if(typeof getState().groups != 'undefined' &&
-            typeof getState().groups[name] != 'undefined' &&
-            typeof getState().groups[name]['_'+group_id] != 'undefined'&&
-            typeof getState().groups[name]['_'+group_id].values['_'+value] != 'undefined')
+        if(typeof this.getState().groups != 'undefined' &&
+            typeof this.getState().groups[name] != 'undefined' &&
+            typeof this.getState().groups[name]['_'+group_id] != 'undefined'&&
+            typeof this.getState().groups[name]['_'+group_id].values['_'+value] != 'undefined')
         {
-            result = getState().groups[name]['_'+group_id].values['_'+value].name;
+            result = this.getState().groups[name]['_'+group_id].values['_'+value].name;
         }
         return result;
     }
@@ -146,6 +146,9 @@ var af = (function() {
     this.updateSelected = function(name, group_id, value, checked, filter_id, target){
         filter_id = typeof filter_id !== 'undefined' ? filter_id : null;
         target = typeof target !== 'undefined' ? target : null;
+        if (filter_id == 'af-selected-wrapper') {
+            filter_id = _.keys(this.groups)[0]
+        }
         if(checked){
             if(typeof this.state.selected[name] == "undefined"){
                 this.state.selected[name] = {};
@@ -168,7 +171,7 @@ var af = (function() {
         }
         riot.update();
         if(filter_id){
-            if(getSetting(filter_id).submission == '0'){
+            if(this.getSetting(filter_id).submission == '0'){
                 this.updateContent();
             }
         }
@@ -193,7 +196,7 @@ var af = (function() {
         this.state.selected[name][group_id] = values;
         riot.update();
         if(filter_id){
-            if(getSetting(filter_id).submission == '0'){
+            if(this.getSetting(filter_id).submission == '0'){
                 this.updateContent();
             }
         }
@@ -209,7 +212,7 @@ var af = (function() {
 
         if(filter_id){
             riot.update();
-            if(getSetting(filter_id).submission == '0'){
+            if(this.getSetting(filter_id).submission == '0'){
                 this.updateContent();
             }
             if(target){
@@ -223,12 +226,16 @@ var af = (function() {
     this.clearSelectedAll = function(filter_id, target){
         filter_id = typeof filter_id !== 'undefined' ? filter_id : null;
         target = typeof target !== 'undefined' ? target : null;
+
+        if (filter_id == 'af-selected-wrapper') {
+            filter_id = _.keys(this.groups)[0]
+        }
         
         this.state.selected = {};
 
         if(filter_id){
             riot.update();
-            if(getSetting(filter_id).submission == '0'){
+            if(this.getSetting(filter_id).submission == '0'){
                 this.updateContent();
             }
             if(target){
@@ -248,11 +255,11 @@ var af = (function() {
 
     this.getSelected = function(name, group_id){
         var result = [];
-        if(typeof getState().selected != 'undefined' &&
-            typeof getState().selected[name] != 'undefined' &&
-            typeof getState().selected[name][group_id] != 'undefined')
+        if(typeof this.getState().selected != 'undefined' &&
+            typeof this.getState().selected[name] != 'undefined' &&
+            typeof this.getState().selected[name][group_id] != 'undefined')
         {
-            result = getState().selected[name][group_id];
+            result = this.getState().selected[name][group_id];
         }
         return result;
     }
@@ -260,10 +267,10 @@ var af = (function() {
     this.checkSelected = function(name, group_id, value){
         var selected = false;
 
-        if(typeof getState().selected != 'undefined' &&
-            typeof getState().selected[name] != 'undefined' &&
-            typeof getState().selected[name][group_id] != 'undefined'&&
-            this.getValuesFromObject(getState().selected[name][group_id]).indexOf(value.toString()) != -1)
+        if(typeof this.getState().selected != 'undefined' &&
+            typeof this.getState().selected[name] != 'undefined' &&
+            typeof this.getState().selected[name][group_id] != 'undefined'&&
+            this.getValuesFromObject(this.getState().selected[name][group_id]).indexOf(value.toString()) != -1)
         {
             selected = true;
         }
@@ -301,12 +308,12 @@ var af = (function() {
 
     this.getQuantity = function(name, group_id, value){
         var result = 0;
-        if(typeof getState().quantity != 'undefined' &&
-            typeof getState().quantity[name] != 'undefined' &&
-            typeof getState().quantity[name][group_id] != 'undefined' && 
-            typeof getState().quantity[name][group_id][value] != 'undefined')
+        if(typeof this.getState().quantity != 'undefined' &&
+            typeof this.getState().quantity[name] != 'undefined' &&
+            typeof this.getState().quantity[name][group_id] != 'undefined' && 
+            typeof this.getState().quantity[name][group_id][value] != 'undefined')
         {
-            result = getState().quantity[name][group_id][value];
+            result = this.getState().quantity[name][group_id][value];
         }
         return result;
     }
@@ -316,11 +323,11 @@ var af = (function() {
         if(this.setting[filter_id].display_quantity == "0"){
             return false;
         }
-        return getQuantity(name, group_id, value) == 0;
+        return this.getQuantity(name, group_id, value) == 0;
     }
 
     this.displayQuantity = function(name, group_id, value, filter_id){
-        selected = checkSelected(name, group_id, value);
+        selected = this.checkSelected(name, group_id, value);
         if(selected){
             return false;
         }
@@ -328,17 +335,17 @@ var af = (function() {
             return false;
         }
         else{
-            return !checkDisabled(name, group_id, value, filter_id);
+            return !this.checkDisabled(name, group_id, value, filter_id);
         }
     }
 
     this.checkRange = function(name, group_id){
         var result = false;
 
-        if(typeof getState().groups != 'undefined' &&
-            typeof getState().groups[name] != 'undefined' &&
-            typeof getState().groups[name]['_'+group_id] != 'undefined'&&
-            getState().groups[name]['_'+group_id].mode == 'range')
+        if(typeof this.getState().groups != 'undefined' &&
+            typeof this.getState().groups[name] != 'undefined' &&
+            typeof this.getState().groups[name]['_'+group_id] != 'undefined'&&
+            this.getState().groups[name]['_'+group_id].mode == 'range')
         {
             result = true;
         }
@@ -369,12 +376,12 @@ var af = (function() {
             type: 'post',
             data: send_data,
             beforeSend: function() {
-                if(getState().common_setting.display_loader == '1'){
+                if(this.getState().common_setting.display_loader == '1'){
 
-                    if (getState().common_setting.content_path != '') {
-                        if($(getState().common_setting.content_path).size() > 0){
-                            var top = $(getState().common_setting.content_path).offset().top+150;
-                            $(getState().common_setting.content_path).append('<af_loader style="top:'+top+'px;"></af_loader>');
+                    if (this.getState().common_setting.content_path != '') {
+                        if($(this.getState().common_setting.content_path).size() > 0){
+                            var top = $(this.getState().common_setting.content_path).offset().top+150;
+                            $(this.getState().common_setting.content_path).append('<af_loader style="top:'+top+'px;"></af_loader>');
                         }
                         else{
                             console.log('Ajax Filter: content path not found');
@@ -383,9 +390,9 @@ var af = (function() {
 
                     riot.mount('af_loader');
                 }
-                if(getState().common_setting.fade_out_product == '1'){
-                    if (getState().common_setting.content_path != '') {
-                        $(getState().common_setting.content_path + " > :not(af_loader)").fadeTo('slow', 0.5);
+                if(this.getState().common_setting.fade_out_product == '1'){
+                    if (this.getState().common_setting.content_path != '') {
+                        $(this.getState().common_setting.content_path + " > :not(af_loader)").fadeTo('slow', 0.5);
                     }
                     
                 }
@@ -408,12 +415,12 @@ var af = (function() {
         var url = decodeURIComponent(json['url']);
 
         url = url.replace(/(http|https):/, protocol);
-        if (getState().common_setting.ajax == 1) {
+        if (this.getState().common_setting.ajax == 1) {
 
             window.history.pushState("object or string", "Title", url);
 
-            if (getState().common_setting.content_path != '') {
-                $(getState().common_setting.content_path).html($(json['products']).find(getState().common_setting.content_path).html());
+            if (this.getState().common_setting.content_path != '') {
+                $(this.getState().common_setting.content_path).html($(json['products']).find(this.getState().common_setting.content_path).html());
             }
 
             if (json['quantity']) {
@@ -442,6 +449,12 @@ var af = (function() {
 
                 localStorage.setItem('display', 'grid');
             });
+            if (this.getState().common_setting.display_selected_top == '1') {
+                if($('d_ajax_filter_selected').size() == 0) {
+                    $(this.getState().common_setting.selected_path).before('<d_ajax_filter_selected id="af-selected-wrapper"></d_ajax_filter_selected>')
+                    riot.mount(document.getElementById('af-selected-wrapper'))
+                }
+            }
 
             if (localStorage.getItem('display') == 'list') {
                 $('#list-view').trigger('click');
@@ -456,13 +469,9 @@ var af = (function() {
             this.afterRender(json);
         }
     }
-
-
-    // this returns the object that can therefore be extended
-    return this;
-})();
+}
 
 /**
  *  Alias for d_ajax_filter
  */
- var d_ajax_filter = af;
+ var d_ajax_filter = new af();

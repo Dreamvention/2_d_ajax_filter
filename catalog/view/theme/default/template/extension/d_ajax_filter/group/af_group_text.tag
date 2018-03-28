@@ -1,13 +1,14 @@
 <af_group_text>
 <div class="af-element input-field">
-    <input type="text" name="{opts.filter.name}[{opts.filter.group_id}][]" onchange={change} placeholder="{getState().translate.text_search}">
+    <input type="text" name="{opts.filter.name}[{opts.filter.group_id}][]" onchange={change} placeholder="{store.getState().translate.text_search}">
 </div>
 <script>
+    this.mixin({store: d_ajax_filter})
     this.on('update', function(){
-        var values = getSelected(opts.filter.name, opts.filter.group_id);
+        var values = this.store.getSelected(opts.filter.name, opts.filter.group_id);
 
         if(typeof values == "object"){
-            var length = getValuesFromObject(values).length;
+            var length = this.store.getValuesFromObject(values).length;
         }
         else{
             var length = values.length;

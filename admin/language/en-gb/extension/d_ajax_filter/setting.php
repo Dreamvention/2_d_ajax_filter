@@ -29,5 +29,7 @@ $_['entry_multiple_attributes_value'] = 'Enable multiple attribute values';
 $_['entry_separator']                 = 'Separator';
 $_['entry_fade_out_product']          = 'Fade out the product panel during requests';
 $_['entry_display_loader']            = 'Display loader during requests';
+$_['entry_display_selected_top']      = 'Display selected filters in custom selector';
+$_['entry_selected_path']             = 'Path for selected fitlers';
 
 $_['button_recreate_cache']           = 'Re-create';

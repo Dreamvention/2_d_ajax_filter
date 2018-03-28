@@ -1,5 +1,65 @@
 @import url(la-ball-scale-ripple-multiple.css);
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300&subset=cyrillic");
+d_ajax_filter_selected {
+  display: block;
+  border: 1px solid #d5d5d5;
+  margin-bottom: 20px;
+  padding-top: 10px; }
+  d_ajax_filter_selected .button-reset {
+    line-height: 13px;
+    padding: 4px 10px 5px !important;
+    margin-bottom: 10px;
+    cursor: pointer;
+    float: right; }
+    d_ajax_filter_selected .button-reset > span {
+      display: block;
+      float: left;
+      width: 13px;
+      height: 13px;
+      margin-right: 5px;
+      background: url("../../image/d_ajax_filter/cross_close.svg"); }
+    d_ajax_filter_selected .button-reset > p {
+      font-family: 'Open Sans';
+      font-size: 13px;
+      float: left;
+      color: #555555; }
+  d_ajax_filter_selected .selected-list {
+    padding: 0px 10px; }
+    d_ajax_filter_selected .selected-list .af-selected {
+      font-family: 'Open Sans';
+      font-size: 14px;
+      line-height: 12px;
+      position: relative;
+      float: left;
+      overflow: hidden;
+      width: auto;
+      height: 34px;
+      margin-right: 11px;
+      margin-bottom: 10px;
+      padding: 10px 33px 10px 13px;
+      cursor: pointer;
+      text-align: center;
+      color: #555555;
+      border-width: 1px;
+      border-style: solid;
+      border-color: #bfc7d0;
+      border-radius: 2px;
+      background-color: #f2f5f7; }
+      d_ajax_filter_selected .selected-list .af-selected > p {
+        height: 12px; }
+      d_ajax_filter_selected .selected-list .af-selected:after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        display: block;
+        width: 25px;
+        content: '';
+        background-image: url(../../image/d_ajax_filter/cross.svg);
+        background-repeat: no-repeat;
+        background-position: left center;
+        background-size: auto; }
+
 .d_ajax_filter_popup_button {
   position: fixed;
   z-index: 1051;

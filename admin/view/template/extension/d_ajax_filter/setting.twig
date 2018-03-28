@@ -76,6 +76,19 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="input_display_selected_top">{{entry_display_selected_top}}</label>
+                                        <div class="col-sm-10">
+                                            <input type="hidden" name="{{codename}}_setting[display_selected_top]" value="0" />
+                                            <input type="checkbox" class="form-control switcher" data-label-text="{{text_enabled}}"  name="{{codename}}_setting[display_selected_top]" {{setting.display_selected_top?'checked="checked"'}} value="1" id="input_display_selected_top"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="input_selected_path">{{entry_selected_path}}</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="{{codename}}_setting[selected_path]" value="{{setting.selected_path}}" id="input_selected_path"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-sm-2 control-label" for="input_display_out_of_stock">{{entry_display_out_of_stock}}</label>
                                         <div class="col-sm-10">
                                             <input type="hidden" name="{{codename}}_setting[display_out_of_stock]" value="0" />

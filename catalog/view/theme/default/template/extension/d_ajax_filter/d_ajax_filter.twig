@@ -103,16 +103,25 @@
         $('#{{id}}').detach().appendTo('body');
         $('a[data-target="#{{id}}"]').detach().appendTo('body');
     {% endif %}
-
-    riot.mixin({ store : d_ajax_filter.createStore({{ json|json_encode(constant('JSON_FORCE_OBJECT')) }}) })
+    d_ajax_filter.initState({{ json|json_encode(constant('JSON_FORCE_OBJECT')) }}) 
     d_ajax_filter.setGroups('{{id}}',{{ groups }});
     d_ajax_filter.setSetting('{{id}}',{{ setting|json_encode(constant('JSON_FORCE_OBJECT'))}});
-    riot.mount('.{{id}}');
+    riot.mount(document.getElementById('{{id}}'));
     d_ajax_filter.loadQuantity('{{id}}');
     
     {% if setting.submission == '2' %}
-    setInterval(d_ajax_filter.updateContent, {{setting.time}});
+        setInterval(d_ajax_filter.updateContent, {{setting.time}});
     {% endif %}
+
+    $(document).ready(function(){
+        if (d_ajax_filter.getState().common_setting.display_selected_top == '1') {
+            if($('d_ajax_filter_selected').size() == 0) {
+                $(d_ajax_filter.getState().common_setting.selected_path).before('<d_ajax_filter_selected id="af-selected-wrapper"></d_ajax_filter_selected>')
+                riot.mount(document.getElementById('af-selected-wrapper'))
+            }
+        }
+    })
+
 
     {{custom_script}}
     $('{{json.common_setting.content_path}}').touchwipe({

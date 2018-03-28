@@ -2,17 +2,17 @@
 <div class="af-element">
     <div class="af-select-box">
         <div  class="af-select-element empty" onclick={handler} data-value="*">
-            <p>{getState().translate.text_none}</p>
+            <p>{store.getState().translate.text_none}</p>
         </div>
         <virtual each={element in opts.filter.values}>
-            <div class="af-select-element {checkSelected(parent.opts.filter.name, parent.opts.filter.group_id, element.value)? 'active':''} {checkDisabled(parent.opts.filter.name, parent.opts.filter.group_id, element.value, parent.opts.filter_id) ?'disabled':''}" onclick={handler} data-value="{element.value}">
-                <p>{element.name}<af_quantity if={displayQuantity(parent.opts.filter.name, parent.opts.filter.group_id, element.value, parent.opts.filter_id)}  quantity={getQuantity(parent.opts.filter.name, parent.opts.filter.group_id, element.value)}></af_quantity></p>
+            <div class="af-select-element {store.checkSelected(parent.opts.filter.name, parent.opts.filter.group_id, element.value)? 'active':''} {store.checkDisabled(parent.opts.filter.name, parent.opts.filter.group_id, element.value, parent.opts.filter_id) ?'disabled':''}" onclick={handler} data-value="{element.value}">
+                <p>{element.name}<af_quantity if={store.displayQuantity(parent.opts.filter.name, parent.opts.filter.group_id, element.value, parent.opts.filter_id)}  quantity={store.getQuantity(parent.opts.filter.name, parent.opts.filter.group_id, element.value)}></af_quantity></p>
             </div>
         </virtual>
     </div>
 </div>
 <script>
-    console.log(this)
+    this.mixin({store: d_ajax_filter})
     this.on('mount', function(){
         $('.af-select-box:not(.in) > .af-select-element.active', this.root).prevAll('.empty').hide();
     })

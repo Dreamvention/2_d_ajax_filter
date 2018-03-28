@@ -109,6 +109,8 @@ class ControllerExtensionDAjaxFilterSetting extends Controller
         $data['entry_fade_out_product'] = $this->language->get('entry_fade_out_product');
         $data['entry_display_out_of_stock'] = $this->language->get('entry_display_out_of_stock');
         $data['entry_display_loader'] = $this->language->get('entry_display_loader');
+        $data['entry_display_selected_top'] = $this->language->get('entry_display_selected_top');
+        $data['entry_selected_path'] = $this->language->get('entry_selected_path');
 
         $data['button_save'] = $this->language->get('button_save');
         $data['button_cancel'] = $this->language->get('button_cancel');
