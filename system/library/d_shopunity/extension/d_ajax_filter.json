@@ -1,6 +1,6 @@
 {
     "codename": "d_ajax_filter",
-    "version": "2.1.4",
+    "version": "2.1.5",
     "name": "Ajax Filter",
     "description": "Ajax Filter",
     "index": "extension/module/d_ajax_filter",
@@ -126,6 +126,10 @@
         "catalog/view/theme/default/template/extension/d_ajax_filter"
     ],
     "changelog": [
+        {
+            "version": "2.1.5",
+            "change": "Fix bugs"
+        },
         {
             "version": "2.1.4",
             "change": "Removed install.xml because of conflict"
