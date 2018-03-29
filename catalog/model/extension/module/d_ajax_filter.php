@@ -93,9 +93,6 @@ class ModelExtensionModuleDAjaxFilter extends Model
                 } else {
                     $sql .= " AND p2c.category_id = '" . (int)$data['filter_category_id'] . "' ";
                 }
-                if (!empty($data['filter_name']) || !empty($data['filter_tag'])) {
-                    $sql .= ' AND ';
-                }
             }
 
             if(!empty($data['filter_special'])){
@@ -173,13 +170,12 @@ class ModelExtensionModuleDAjaxFilter extends Model
                 $sql .= ")";
             }
             $sql .= " GROUP BY p.product_id";
-            
+
             $this->db->query($sql);
 
             $this->db->query("DROP TEMPORARY TABLE IF EXISTS `".DB_PREFIX."af_tax_fixed`");
             $this->db->query("DROP TEMPORARY TABLE IF EXISTS `".DB_PREFIX."af_tax_percent`");
             $this->tmp_table_status = 1;
-
         }
 
     }
