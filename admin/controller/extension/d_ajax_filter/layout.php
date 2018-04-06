@@ -463,16 +463,16 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
         }
 
         $data['base_attribs'] = $this->{'model_extension_'.$this->codename.'_layout'}->getBaseAttribs();
-
-        array_walk($data['base_attribs'], function (&$value, $index) use ($data) {
-            $base_attrib_setting = $this->{'model_extension_'.$this->codename.'_layout'}->getModuleSetting($index);
+        $that = $this;
+        array_walk($data['base_attribs'], function (&$value, $index) use ($data, $that) {
+            $base_attrib_setting = $that->{'model_extension_'.$that->codename.'_layout'}->getModuleSetting($index);
 
             if (isset($data['setting']['base_attribs'][$index])) {
                 $value=$data['setting']['base_attribs'][$index];
             }
             
             $value['allowed_types'] = $base_attrib_setting['allowed_types'];
-            $value['name'] = $this->language->get('text_base_attrib_'.$index);
+            $value['name'] = $that->language->get('text_base_attrib_'.$index);
         });
 
         $data['themes'] = $this->{'model_extension_'.$this->codename.'_layout'}->getThemes();
