@@ -37,7 +37,7 @@
 
         var slider = $(".slider-range", this.root).data("ionRangeSlider");
 
-        if(typeof quantity_status != 'undefined'){
+        if(typeof this.store.quantity_status != 'undefined'){
 
             var min = this.store.getQuantity(opts.filter.name, opts.filter.group_id, 0);
             var max = this.store.getQuantity(opts.filter.name, opts.filter.group_id, 1);

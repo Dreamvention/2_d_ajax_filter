@@ -278,7 +278,7 @@ function af() {
     }
 
     this.loadQuantity = function(id){
-        if(this.setting[id].display_quantity == "1" && typeof quantity_status == 'undefined'){
+        if(this.setting[id].display_quantity == "1" && typeof this.quantity_status == 'undefined'){
             this.quantity_status = true;
 
             var send_data = {
