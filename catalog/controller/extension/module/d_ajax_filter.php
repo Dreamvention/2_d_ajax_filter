@@ -112,7 +112,11 @@ class ControllerExtensionModuleDAjaxFilter extends Controller
         $json['common_setting']['selected_path'] = html_entity_decode($this->common_setting['selected_path'], ENT_QUOTES, 'UTF-8');
         $json['selected'] = $this->{'model_extension_module_'.$this->codename}->getParamsToArray();
         
-        $data['setting']['heading_title'] = $setting['title'][$this->config->get('config_language_id')];
+        if(!empty($setting['title'][$this->config->get('config_language_id')])){
+            $data['setting']['heading_title'] = $setting['title'][$this->config->get('config_language_id')];
+        } else {
+            $data['setting']['heading_title'] = $this->language->get('heading_title');
+        }
         $json['translate']['text_none'] = $this->language->get('text_none');
         $json['translate']['text_search'] = $this->language->get('text_search_placeholder');
         
