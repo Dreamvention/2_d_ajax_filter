@@ -100,7 +100,6 @@
 <script  type="text/javascript">
 
     {% if mobile %}
-        $('#{{id}}').detach().appendTo('body');
         $('a[data-target="#{{id}}"]').detach().appendTo('body');
     {% endif %}
     d_ajax_filter.initState({{ json|json_encode(constant('JSON_FORCE_OBJECT')) }}) 
