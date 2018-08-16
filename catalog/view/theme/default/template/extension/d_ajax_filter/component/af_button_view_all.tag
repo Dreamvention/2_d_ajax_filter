@@ -1,5 +1,5 @@
 <af_button_view_all>
-<div class="af-show-all" if={count_hide_elements > store.getSetting(opts.filter_id).min_elemnts} onclick={click}>
+<div class="af-show-all" if={count_hide_elements >= store.getSetting(opts.filter_id).min_elemnts} onclick={click}>
     {store.getViewStatus(opts.filter.name, this.parent.opts.group_id, opts.filter_id)?store.getState().translate.text_shrink:store.getState().translate.text_show_more}
 </div>
 <script>

@@ -26,10 +26,14 @@ class ControllerExtensionModuleDAjaxFilter extends Controller
         $this->load->model($this->route);
         $this->load->language($this->route);
         
-        if(VERSION>='2.2.0.0') {
+        
+        if ($this->config->get('config_theme') == 'default') {
+            $this->theme = $this->config->get('theme_default_directory');
+        } else {
             $this->theme = $this->config->get('config_theme');
         }
-        else {
+
+        if(!$this->theme){
             $this->theme = $this->config->get('config_template');
         }
         $this->load->model('setting/setting');
