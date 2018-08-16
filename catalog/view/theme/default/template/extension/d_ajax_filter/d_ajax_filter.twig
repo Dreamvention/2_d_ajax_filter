@@ -78,8 +78,8 @@
         border-radius:{{setting.design.button.border_radius_image}}!important;
     }
     {% endif %}
-
-    .ajax-filter.{{id}} .af-container > div
+    
+    .ajax-filter.{{id}} .af-container > div:not([id^=price])
     {
         overflow-x: hidden;
         {% if setting.limit_height %}
@@ -88,6 +88,7 @@
         overflow-y: hidden
         {% endif %}
     }
+
 
     
 
