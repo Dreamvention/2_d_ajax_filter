@@ -1,6 +1,6 @@
 {
     "codename": "d_ajax_filter",
-    "version": "2.1.5",
+    "version": "2.1.6",
     "name": "Ajax Filter",
     "description": "Ajax Filter",
     "index": "extension/module/d_ajax_filter",
@@ -126,6 +126,10 @@
         "catalog/view/theme/default/template/extension/d_ajax_filter"
     ],
     "changelog": [
+        {
+            "version": "2.1.6",
+            "change": "1.Added custom Scrollbar."
+        },
         {
             "version": "2.1.5",
             "change": "Fix bugs"

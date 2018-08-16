@@ -9,4 +9,13 @@
         </div>
     </div>
 </div>
+<script>
+    this.mixin({store: d_ajax_filter})
+    this.on('mount', function(){
+        $(".af-elements", this.root).mCustomScrollbar({
+            axis:"y",
+            theme: "dark"
+        });
+    })
+</script>
 </af_group>

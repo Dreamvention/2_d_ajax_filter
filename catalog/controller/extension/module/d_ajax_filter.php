@@ -87,6 +87,9 @@ class ControllerExtensionModuleDAjaxFilter extends Controller
         $this->document->addStyle('catalog/view/javascript/d_ajax_filter/library/Ion.RangeSlider/ion.rangeSlider.css');
         $this->document->addStyle('catalog/view/javascript/d_ajax_filter/library/Ion.RangeSlider/ion.rangeSlider.skinAjaxFilter.css');
         $this->document->addScript('catalog/view/javascript/d_ajax_filter/library/Ion.RangeSlider/ion.rangeSlider.min.js');
+
+        $this->document->addScript('catalog/view/javascript/d_ajax_filter/library/mCustomScrollbar/jquery.mCustomScrollbar.min.js');
+        $this->document->addStyle('catalog/view/javascript/d_ajax_filter/library/mCustomScrollbar/jquery.mCustomScrollbar.min.css');
         
         $this->document->addScript('catalog/view/javascript/d_ajax_filter/library/wNumb.js');
         $this->document->addScript('catalog/view/javascript/d_ajax_filter/library/jquery.touchwipe.min.js');
