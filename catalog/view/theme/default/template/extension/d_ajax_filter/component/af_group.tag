@@ -12,9 +12,11 @@
 <script>
     this.mixin({store: d_ajax_filter})
     this.on('mount', function(){
+        var setting = this.store.getSetting(opts.filter_id)
+        console.log(setting)
         $(".af-elements", this.root).mCustomScrollbar({
             axis:"y",
-            theme: "dark"
+            theme: setting.theme_scrollbar
         });
     })
 </script>

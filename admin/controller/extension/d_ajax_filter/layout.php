@@ -303,6 +303,7 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
         $data['entry_text'] = $this->language->get('entry_text');
         $data['entry_title'] = $this->language->get('entry_title');
         $data['entry_theme'] = $this->language->get('entry_theme');
+        $data['entry_theme_scrollbar'] = $this->language->get('entry_theme_scrollbar');
         $data['entry_active_area_background'] = $this->language->get('entry_active_area_background');
         $data['entry_handle_background'] = $this->language->get('entry_handle_background');
         $data['entry_handle_border'] = $this->language->get('entry_handle_border');
@@ -474,6 +475,35 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
             $value['allowed_types'] = $base_attrib_setting['allowed_types'];
             $value['name'] = $that->language->get('text_base_attrib_'.$index);
         });
+
+        $data['themes_scrollbar'] = array(
+            'light' => $this->language->get('text_scroolbar_theme_light'),
+            'dark' => $this->language->get('text_scroolbar_theme_dark'),
+            'minimal' => $this->language->get('text_scroolbar_theme_minimal'),
+            'minimal-dark' => $this->language->get('text_scroolbar_theme_minimal_dark'),
+            'light-2' => $this->language->get('text_scroolbar_theme_light_2'),
+            'dark-2' => $this->language->get('text_scroolbar_theme_dark_2'),
+            'light-3' => $this->language->get('text_scroolbar_theme_light_3'),
+            'dark-3' => $this->language->get('text_scroolbar_theme_dark_3'),
+            'light-thick' => $this->language->get('text_scroolbar_theme_light_thick'),
+            'dark-thick' => $this->language->get('text_scroolbar_theme_dark_thick'),
+            'light-thin' => $this->language->get('text_scroolbar_theme_light_thin'),
+            'dark-thin' => $this->language->get('text_scroolbar_theme_dark_thin'),
+            'inset' => $this->language->get('text_scroolbar_theme_inset'),
+            'inset-dark' => $this->language->get('text_scroolbar_theme_inset_dark'),
+            'inset-2' => $this->language->get('text_scroolbar_theme_inset_2'),
+            'inset-2-dark' => $this->language->get('text_scroolbar_theme_inset_2_dark'),
+            'inset-3' => $this->language->get('text_scroolbar_theme_inset_3'),
+            'inset-3-dark' => $this->language->get('text_scroolbar_theme_inset_3_dark'),
+            'rounded' => $this->language->get('text_scroolbar_theme_rounded'),
+            'rounded-dark' => $this->language->get('text_scroolbar_theme_rounded_dark'),
+            'rounded-dots' => $this->language->get('text_scroolbar_theme_rounded_dots'),
+            'rounded-dots-dark' => $this->language->get('text_scroolbar_theme_rounded_dots_dark'),
+            '3d' => $this->language->get('text_scroolbar_theme_3d'),
+            '3d-dark' => $this->language->get('text_scroolbar_theme_3d_dark'),
+            '3d-thick' => $this->language->get('text_scroolbar_theme_3d_thick'),
+            '3d-thick-dark' => $this->language->get('text_scroolbar_theme_3d_thick_dark'),
+        );
 
         $data['themes'] = $this->{'model_extension_'.$this->codename.'_layout'}->getThemes();
 
