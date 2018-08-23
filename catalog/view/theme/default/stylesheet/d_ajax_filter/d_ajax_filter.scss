@@ -1,6 +1,6 @@
 @import 'la-ball-scale-ripple-multiple.css';
 
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300&subset=cyrillic');
+@import url('//fonts.googleapis.com/css?family=Open+Sans:300&subset=cyrillic');
 
 d_ajax_filter_selected{
     display: block;
@@ -949,7 +949,7 @@ d_ajax_filter_selected{
             }
         }
     }
-    &.af-horizontal
+    &.af-horizontal:not(.modal)
     {
         > .af-body
         {

@@ -89,9 +89,6 @@
         {% endif %}
     }
 
-
-    
-
     {{custom_style}}
 </style>
 
@@ -102,6 +99,7 @@
 
     {% if mobile %}
         $('a[data-target="#{{id}}"]').detach().appendTo('body');
+        $('#{{id}}').detach().appendTo('body');
     {% endif %}
     d_ajax_filter.initState({{ json|json_encode(constant('JSON_FORCE_OBJECT')) }}) 
     d_ajax_filter.setGroups('{{id}}',{{ groups }});
