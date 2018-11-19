@@ -51,6 +51,7 @@ class ControllerExtensionEventDAjaxFilter extends Controller {
                 }
             }
             $data['pagination']=(string)$html_dom;
+
         }
 
         if(!empty($data['sorts'])){
