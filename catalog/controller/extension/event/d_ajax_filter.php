@@ -35,12 +35,21 @@ class ControllerExtensionEventDAjaxFilter extends Controller {
         $data['content_top'] .= '<div id="ajax-filter-container">';
         $data['content_bottom'] = '</div>' . $data['content_bottom'];
 
-        $url = '&'.$this->{'model_extension_module_'.$this->codename}->getUrlParams();
+        $url = $this->{'model_extension_module_'.$this->codename}->getUrlParams();
         
         if(!empty($data['pagination'])){
-            $data['pagination'] = preg_replace('/&amp;page=/i', $url.'&amp;page=', $data['pagination']);
-            $data['pagination'] = preg_replace('/&page=/i', $url.'&page=', $data['pagination']);
-            $data['pagination'] = preg_replace('/\?page=/i', '?'.$url.'&page=', $data['pagination']);
+            $html_dom = new d_simple_html_dom();
+            $html_dom->load($data['pagination'], $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
+            foreach ($html_dom->find('a') as $link){
+                //check on existing
+                $re = '/\&|\?/m';
+                preg_match_all($re, $link->href, $matches, PREG_SET_ORDER, 0);
+                if (count($matches)){
+                    $link->href.="&".$url;
+                }else{
+                    $link->href.="?".$url;
+                }
+            }
         }
 
         if(!empty($data['sorts'])){
