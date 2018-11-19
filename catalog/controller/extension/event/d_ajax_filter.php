@@ -50,6 +50,7 @@ class ControllerExtensionEventDAjaxFilter extends Controller {
                     $link->href.="?".$url;
                 }
             }
+            $data['pagination']=(string)$html_dom;
         }
 
         if(!empty($data['sorts'])){
