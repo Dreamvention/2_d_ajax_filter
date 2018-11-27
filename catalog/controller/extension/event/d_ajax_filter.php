@@ -56,13 +56,13 @@ class ControllerExtensionEventDAjaxFilter extends Controller {
 
         if(!empty($data['sorts'])){
             foreach ($data['sorts'] as $key => $sort) {
-                $data['sorts'][$key]['href'] .= $url;
+                $data['sorts'][$key]['href'] .= '&'.$url;
             }
         }
 
         if(!empty($data['limits'])){
             foreach ($data['limits'] as $key => $limit) {
-                $data['limits'][$key]['href'] .= $url;
+                $data['limits'][$key]['href'] .= '&'.$url;
             }
         }
     }
