@@ -24,7 +24,7 @@
         <af_group each={filter in groups} filter_id="{parent.parent.opts.id}"></af_group>
     </virtual>
     <div if={store.getSetting(opts.id).submission == '1'} class="af-button-filter {store.getSetting(opts.id).button_filter_position == 1?'af-popup':''}">
-        <a id="fitlers" onclick={filter_click}>{getState().translate.button_filter}</a>
+        <a id="fitlers" onclick={filter_click}>{store.getState().translate.button_filter}</a>
         <div if={store.getSetting(opts.id).button_filter_position == 1} class="close">
             <i class="fa fa-times-circle-o" onclick="$(this).closest('.af-button-filter').css('display','none')" aria-hidden="true"></i>
         </div>

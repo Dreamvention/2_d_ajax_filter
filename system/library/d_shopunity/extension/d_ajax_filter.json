@@ -1,6 +1,6 @@
 {
     "codename": "d_ajax_filter",
-    "version": "2.1.9",
+    "version": "2.1.10",
     "name": "Ajax Filter",
     "description": "Ajax Filter",
     "index": "extension/module/d_ajax_filter",
@@ -126,6 +126,10 @@
         "catalog/view/theme/default/template/extension/d_ajax_filter"
     ],
     "changelog": [
+        {
+            "version": "2.1.10",
+            "change": "1.Fix bug with button filter."
+        },
         {
             "version": "2.1.9",
             "change": "1.Fix bug with sorts links."
