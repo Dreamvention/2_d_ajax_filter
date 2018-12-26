@@ -7,6 +7,9 @@ d_ajax_filter_selected{
     border: 1px solid #d5d5d5;
     margin-bottom: 20px;
     padding-top: 10px;
+    &.empty-wrapper {
+        display: none;
+    }
     .button-reset
     {
         line-height: 13px;

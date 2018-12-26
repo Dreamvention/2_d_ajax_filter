@@ -147,10 +147,17 @@ $_['text_scroolbar_theme_3d_dark']           = '3D dark';
 $_['text_scroolbar_theme_3d_thick']          = '3D thick';
 $_['text_scroolbar_theme_3d_thick_dark']     = '3D thick dark';
 
+$_['text_welcome_title']                     = 'Ajax Filter';
+$_['text_welcome_description']               = '84% of all online shops have poor filtering experiences or none. If you are one of them, you are losing customers every hour. We have created a filter that learned from the PROs so you could offer the best filtering experience with a click of a button.';
+$_['text_welcome_easy_setup']                = 'Easy setup';
+$_['text_welcome_filter_by']                 = 'Filter by attributes, options and more';
+$_['text_welcome_vertical_and_horizontal']   = 'Vertical or horizontal';
+$_['text_welcome_fast']                      = 'Extremely fast with 100 000 products';
 //Button
 $_['button_edit']                            = 'Edit setting';
 $_['button_support_email']                   = 'Support';
 $_['button_quick_setup']                     = 'Quick Setup';
+$_['button_setup']                           = 'Setup';
 
 //positions
 $_['text_position_column_left']              = 'Column Left';

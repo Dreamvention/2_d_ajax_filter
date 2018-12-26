@@ -1,6 +1,6 @@
 {
     "codename": "d_ajax_filter",
-    "version": "2.1.10",
+    "version": "2.1.11",
     "name": "Ajax Filter",
     "description": "Ajax Filter",
     "index": "extension/module/d_ajax_filter",
@@ -47,9 +47,11 @@
         "d_bootstrap_switch": ">= 3.3.5",
         "d_bootstrap_extra": ">= 1.0.1",
         "d_rubaxa_sortable": ">= 1.4.1",
-        "d_tinysort": ">= 2.3.7"
+        "d_tinysort": ">= 2.3.7",
+        "d_admin_style": ">= 1.0.0"
     },
     "files": [
+        "admin/view/template/extension/d_ajax_filter/welcome.twig",
         "system/library/d_shopunity/extension/d_ajax_filter.json",
         "system/library/d_shopunity/install/d_ajax_filter.xml",
         "system/config/d_ajax_filter.php",
@@ -118,6 +120,7 @@
 
     ],
     "dirs": [
+        "admin/view/image/d_ajax_filter",
         "admin/view/javascript/d_ajax_filter/library",
         "catalog/view/javascript/d_ajax_filter",
         "catalog/view/theme/default/stylesheet/d_ajax_filter",
@@ -126,6 +129,10 @@
         "catalog/view/theme/default/template/extension/d_ajax_filter"
     ],
     "changelog": [
+        {
+            "version": "2.1.11",
+            "change": "1. Added Admin Style. 2. Added the Welcome page."
+        },
         {
             "version": "2.1.10",
             "change": "1.Fix bug with button filter."

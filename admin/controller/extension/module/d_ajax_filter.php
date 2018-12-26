@@ -109,12 +109,5 @@ class ControllerExtensionModuleDAjaxFilter extends Controller
         $this->model_user_user_group->addPermission($this->{'model_extension_module_'.$this->codename}->getGroupId(), 'modify', 'extension/'.$this->codename.'/layout');
         $this->model_user_user_group->addPermission($this->{'model_extension_module_'.$this->codename}->getGroupId(), 'modify', 'extension/'.$this->codename.'/option');
         $this->model_user_user_group->addPermission($this->{'model_extension_module_'.$this->codename}->getGroupId(), 'modify', 'extension/'.$this->codename.'/setting');
-
-        $this->{'model_extension_module_'.$this->codename}->CreateDatabase();
-    }
-    
-    public function uninstall()
-    {
-        $this->{'model_extension_module_'.$this->codename}->DropDatabase();
     }
 }

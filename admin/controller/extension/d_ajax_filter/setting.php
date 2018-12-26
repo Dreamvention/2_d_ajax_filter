@@ -22,6 +22,7 @@ class ControllerExtensionDAjaxFilterSetting extends Controller
         //extension.json
         $this->extension = json_decode(file_get_contents(DIR_SYSTEM.'library/d_shopunity/extension/'.$this->codename.'.json'), true);
         $this->d_shopunity = (file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_shopunity.json'));
+        $this->d_admin_style = (file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_admin_style.json'));
         
         //Store_id (for multistore)
         if (isset($this->request->get['store_id'])) {
@@ -44,6 +45,12 @@ class ControllerExtensionDAjaxFilterSetting extends Controller
 
         $this->document->addStyle('view/stylesheet/d_ajax_filter/setting.css');
         $this->document->addScript('view/javascript/d_ajax_filter/library/jquery.serializejson.js');
+
+        if($this->d_admin_style){
+            $this->load->model('extension/d_admin_style/style');
+
+            $this->model_extension_d_admin_style_style->getAdminStyle('light');
+        }
 
         
         // Add more styles, links or scripts to the project is necessary

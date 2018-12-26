@@ -26,6 +26,7 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
         $this->extension = json_decode(file_get_contents(DIR_SYSTEM.'library/d_shopunity/extension/'.$this->codename.'.json'), true);
         $this->d_shopunity = (file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_shopunity.json'));
         $this->event_manager = (file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_event_manager.json'));
+        $this->d_admin_style = (file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_admin_style.json'));
         
         //Store_id (for multistore)
         if (isset($this->request->get['store_id'])) {
@@ -199,6 +200,12 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
             $this->document->addScript('view/javascript/d_shopunity/d_shopunity_widget.js');
         }
 
+        if ($this->d_admin_style) {
+            $this->load->model('extension/d_admin_style/style');
+
+            $this->model_extension_d_admin_style_style->getAdminStyle('light');
+        }
+
         $this->load->language($this->route);
         // Add more styles, links or scripts to the project is necessary
         $url_params = array();
@@ -362,6 +369,10 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
         $data['delete_module'] = str_replace('&amp;', '&', $this->model_extension_d_opencart_patch_url->link('extension/'.$this->codename.'/layout/delete'));
 
         $modules = $this->model_extension_d_opencart_patch_module->getModulesByCode($this->codename);
+        
+        if (empty($modules)) {
+            $this->response->redirect($this->model_extension_d_opencart_patch_url->link($this->route.'/welcome'));
+        }
 
         $data['modules'] = array();
 
@@ -565,15 +576,13 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
         $this->load->model('extension/d_opencart_patch/module');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateQuickInstall()) {
-
             $this->model_extension_d_opencart_patch_modification->setModification($this->codename.'.xml', 0);
             $this->model_extension_d_opencart_patch_modification->refreshCache();
             $this->uninstallEvents();
 
-            if(isset($this->request->get['status_setup'])){
+            if (isset($this->request->get['status_setup'])) {
                 $status_setup = $this->request->get['status_setup'];
-            }
-            else{
+            } else {
                 $status_setup = false;
             }
 
@@ -593,7 +602,7 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
             if (!empty($modules)) {
                 foreach ($modules as $value) {
                     $setting = $this->model_extension_d_opencart_patch_module->getModule($value['module_id']);
-                    if($setting['status']){
+                    if ($setting['status']) {
                         $global_status = true;
                     }
                 }
@@ -691,5 +700,79 @@ class ControllerExtensionDAjaxFilterLayout extends Controller
         }
 
         return true;
+    }
+
+    public function welcome()
+    {
+        $this->load->model('extension/d_opencart_patch/load');
+        $this->load->model('extension/d_opencart_patch/url');
+
+        if ($this->d_admin_style) {
+            $this->load->model('extension/d_admin_style/style');
+
+            $this->model_extension_d_admin_style_style->getAdminStyle('light');
+        }
+        
+        $url_params = array();
+        
+        if (isset($this->response->get['store_id'])) {
+            $url_params['store_id'] = $this->store_id;
+        }
+        
+        $url = ((!empty($url_params)) ? '&' : '') . http_build_query($url_params);
+        
+        // Breadcrumbs
+        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'][] = array(
+            'text' => $this->language->get('text_home'),
+            'href' => $this->model_extension_d_opencart_patch_url->link('common/home')
+            );
+
+        $data['breadcrumbs'][] = array(
+            'text'      => $this->language->get('text_module'),
+            'href'      => $this->model_extension_d_opencart_patch_url->link('marketplace/extension', 'type=module')
+        );
+
+        $data['breadcrumbs'][] = array(
+            'text' => $this->language->get('heading_title_main'),
+            'href' => $this->model_extension_d_opencart_patch_url->link('marketplace/extension', $url)
+        );
+        
+        // Notification
+        foreach ($this->error as $key => $error) {
+            $data['error'][$key] = $error;
+        }
+        
+        // Heading
+        $this->document->setTitle($this->language->get('heading_title_main'));
+        $data['heading_title'] = $this->language->get('heading_title_main');
+        $data['text_edit'] = $this->language->get('text_form');
+        $data['cancel'] =$this->model_extension_d_opencart_patch_url->getExtensionLink('module');
+
+        $data['version'] = $this->extension['version'];
+        
+        $data['text_welcome_title'] = $this->language->get('text_welcome_title');
+        $data['text_welcome_description'] = $this->language->get('text_welcome_description');
+
+        $data['text_welcome_easy_setup'] = $this->language->get('text_welcome_easy_setup');
+        $data['text_welcome_filter_by'] = $this->language->get('text_welcome_filter_by');
+        $data['text_welcome_vertical_and_horizontal'] = $this->language->get('text_welcome_vertical_and_horizontal');
+        $data['text_welcome_fast'] = $this->language->get('text_welcome_fast');
+
+        $data['button_setup'] = $this->language->get('button_setup');
+
+        $data['quick_setup'] = $this->model_extension_d_opencart_patch_url->ajax($this->route.'/quickSetup', '&layout_setting=1&status_setup=1');
+        
+        $data['header'] = $this->load->controller('common/header');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['footer'] = $this->load->controller('common/footer');
+
+        $this->response->setOutput($this->model_extension_d_opencart_patch_load->view('extension/'.$this->codename.'/welcome', $data));
+    }
+
+    public function quickSetup()
+    {
+        $this->{'model_extension_module_'.$this->codename}->CreateDatabase();
+        $this->quickInstall();
     }
 }

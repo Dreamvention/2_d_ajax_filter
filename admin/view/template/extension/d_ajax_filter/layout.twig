@@ -30,14 +30,14 @@
                     {{tabs}}
                     <div class="row">
                         <div class="col-sm-2">
-                            <ul class="nav nav-pills s-nav-stacked" id="vertical-tabs">
+                            <ul class="nav nav-pills nav-stacked" id="vertical-tabs">
                                 {% for tab in layout_tabs %}
                                     <li><a href="#{{tab.href}}" data-toggle="tab"><i class="{{tab.icon}}" aria-hidden="true"></i> {{tab.title}}</a></li>
                                 {% endfor %}
                             </ul>
                         </div>
                         <div class="col-sm-{{notify and shopunity_support?'7':'10'}}">
-                            <div class="tab-content">
+                            <div class="tab-content main-content">
                                 <div id="home" class="tab-pane">
                                     <div class="row">
                                         {% if modules %}

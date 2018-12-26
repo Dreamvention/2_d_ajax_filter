@@ -8,6 +8,9 @@ $selected-footer-color: #8fbb6c;
     display: flex;
     align-items: center;
 }
+.main-content{
+    padding-top: 20px;
+}
 .tile{
     &.selected{
         background: $selected-body-color;
@@ -36,18 +39,20 @@ $selected-footer-color: #8fbb6c;
             }
         }
     }
-    .tile-heading{
+    .tile-heading.tile-heading.tile-heading{
         white-space: nowrap;
         a{
             cursor:pointer;
+            color: #fff;
         }
     }
-    .tile-body{
+    .tile-body.tile-body.tile-body{
         position:relative;
         i{
             opacity: 1;
         }
         a{
+            color: #fff;
             display: inline-block;
         }
         .layout-list{
