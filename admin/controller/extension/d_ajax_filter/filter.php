@@ -30,6 +30,8 @@ class ControllerExtensionDAjaxFilterFilter extends Controller
             $this->store_id = $this->request->get['store_id'];
         }
     }
+
+    
     public function index()
     {
         $this->load->model('extension/d_opencart_patch/url');
