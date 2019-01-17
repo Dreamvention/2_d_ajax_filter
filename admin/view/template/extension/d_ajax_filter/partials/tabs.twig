@@ -1,8 +1,8 @@
 {% if not status_cache %}
     <div class="alert alert-danger" style="overflow: inherit;">
         <div class="row">
-            <div class="col-md-9">{{help_cache_support}} </div>
-            <div class="col-md-3"><a href="{{install_cache}}" class="btn btn-danger pull-right">{{text_install_cache}}</a></div>
+            <div class="col-md-9">{{ help_cache_support }} </div>
+            <div class="col-md-3"><a href="{{ install_cache }}" class="btn btn-danger pull-right">{{ text_install_cache }}</a></div>
         </div>
     </div>
 {% endif %}
@@ -18,13 +18,13 @@
             text-align: center;
         }
     </style>
-    <div class="notify alert alert-warning">{{text_complete_version}}</div>
+    <div class="notify alert alert-warning">{{ text_complete_version }}</div>
 {% endif %}
 <ul class="nav nav-tabs">
     {% for tab in tabs %}
-        <li class="{{tab.active?'active'}}">
-            <a {{not tab.active ? 'href="'~tab.href~'"'}}>
-                <span  class="{{tab.icon}}"></span> {{tab.title}}
+        <li class="{{ tab.active ? 'active' }}">
+            <a {{ not tab.active ? 'href="'~tab.href~'"' }}>
+                <span  class="{{ tab.icon }}"></span> {{ tab.title }}
             </a>
         </li>
     {% endfor %}
