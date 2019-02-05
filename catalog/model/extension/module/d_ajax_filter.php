@@ -486,7 +486,7 @@ class ModelExtensionModuleDAjaxFilter extends Model
             $implode[] = 'manufacturer_id='.$this->request->get['manufacturer_id'];
         }
         if(isset($this->request->get['description'])){
-            $query[] = 'description='.$this->request->get['description'];
+            $implode[] = 'description='.$this->request->get['description'];
         }
         if(isset($this->request->get['sub_category'])){
             $implode[] = 'sub_category='.$this->request->get['sub_category'];
