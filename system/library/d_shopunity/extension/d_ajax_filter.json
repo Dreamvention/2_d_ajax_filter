@@ -132,7 +132,7 @@
     "changelog": [
         {
             "version": "2.1.11",
-            "change": "1. Added Admin Style. 2. Added the Welcome page. 3. Added support OC 3.0.3.1"
+            "change": "1. Added Admin Style. 2. Added the Welcome page. 3. Added support OC 3.0.3.1. 4.Fix bug on layout"
         },
         {
             "version": "2.1.10",

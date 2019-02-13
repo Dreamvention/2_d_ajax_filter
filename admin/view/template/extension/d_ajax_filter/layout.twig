@@ -857,7 +857,7 @@
         <td class="text-center">
             <select class="form-control" name="module_setting[<%= key %>][<%= id %>][sort_order_values]">
                 {% for sort_order_type_key, sort_order_type_title in sort_order_types %}
-                    <optionselected="selected"<% value="{{ sort_order_type_key }}" <% if (setting.sort_order_values == '{{ sort_order_type_key }}') { %> }%>>{{ sort_order_type_title }}</option>
+                    <option selected="selected" value="{{ sort_order_type_key }}" <% if (setting.sort_order_values == '{{ sort_order_type_key }}') { %> <% }%>>{{ sort_order_type_title }}</option>
                 {% endfor %}
             </select>
         </td>
