@@ -1,6 +1,6 @@
 {
     "codename": "d_ajax_filter",
-    "version": "2.1.11",
+    "version": "2.1.12",
     "name": "Ajax Filter",
     "description": "Ajax Filter",
     "index": "extension/module/d_ajax_filter",
@@ -49,7 +49,8 @@
         "d_bootstrap_extra": ">= 1.0.1",
         "d_rubaxa_sortable": ">= 1.4.1",
         "d_tinysort": ">= 2.3.7",
-        "d_admin_style": ">= 1.0.0"
+        "d_admin_style": ">= 1.0.0",
+        "d_simple_html_dom": ">=1.0.0"
     },
     "files": [
         "admin/view/template/extension/d_ajax_filter/welcome.twig",
@@ -130,6 +131,10 @@
         "catalog/view/theme/default/template/extension/d_ajax_filter"
     ],
     "changelog": [
+        {
+            "version": "2.1.12",
+            "change": "1.Fix bugs"
+        },
         {
             "version": "2.1.11",
             "change": "1. Added Admin Style. 2. Added the Welcome page. 3. Added support OC 3.0.3.1. 4.Fix bug on layout"
