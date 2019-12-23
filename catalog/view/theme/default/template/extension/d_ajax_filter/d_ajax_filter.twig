@@ -1,5 +1,5 @@
 {% if mobile %}
-<a href="#" data-toggle="modal" class="d_ajax_filter_popup_button clickable" data-target="#{{ id }}">
+<a href="#" class="d_ajax_filter_popup_button clickable">
     <i class="fa fa-filter" aria-hidden="true"></i>
 </a>
 {% endif %}
@@ -98,8 +98,14 @@
 <script  type="text/javascript">
 
     {% if mobile %}
-        $('a[data-target="#{{id}}"]').detach().appendTo('body');
-        $('#{{id}}').detach().appendTo('body');
+    $('a[data-target="#{{id}}"]').detach().appendTo('body');
+    $('#{{id}}').detach().appendTo('body');
+		
+	$(document).on('click', '.d_ajax_filter_popup_button', function(event) {
+	    event.preventDefault();
+			 
+		$('#{{id}}').modal('toggle');
+	});
     {% endif %}
     d_ajax_filter.initState({{ json|json_encode(constant('JSON_FORCE_OBJECT')) }}) 
     d_ajax_filter.setGroups('{{id}}',{{ groups }});
