@@ -1,5 +1,5 @@
 {% if mobile %}
-<a href="#" class="d_ajax_filter_popup_button clickable">
+<a id="d_ajax_filter_popup_button_{{ id }}" class="d_ajax_filter_popup_button clickable">
     <i class="fa fa-filter" aria-hidden="true"></i>
 </a>
 {% endif %}
@@ -98,12 +98,12 @@
 <script  type="text/javascript">
 
     {% if mobile %}
-    $('a[data-target="#{{id}}"]').detach().appendTo('body');
+    $('#d_ajax_filter_popup_button_{{id}}').detach().appendTo('body');
     $('#{{id}}').detach().appendTo('body');
 		
-	$(document).on('click', '.d_ajax_filter_popup_button', function(event) {
-	    event.preventDefault();
-			 
+	$(document).on('click', '#d_ajax_filter_popup_button_{{id}}', function(event) {	
+		event.preventDefault();
+		
 		$('#{{id}}').modal('toggle');
 	});
     {% endif %}
