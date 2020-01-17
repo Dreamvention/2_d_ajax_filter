@@ -1,6 +1,6 @@
 {
   "codename": "d_ajax_filter",
-  "version": "2.1.15",
+  "version": "2.1.16",
   "name": "Ajax Filter",
   "description": "Ajax Filter",
   "index": "extension/module/d_ajax_filter",
@@ -103,6 +103,10 @@
     "catalog/view/theme/default/template/extension/d_ajax_filter"
   ],
   "changelog": [
+    {
+      "version": "2.1.16",
+      "change": "Fix custom styles on front page"
+    },
     {
       "version": "2.1.15",
       "change": "Fix button filter"
