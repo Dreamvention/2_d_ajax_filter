@@ -1,15 +1,15 @@
-<d_ajax_filter_selected class={empty && 'empty-wrapper'} if={empty}>
-<div class="selected-list clearfix">
-    <div each={groups, name in store.getState().selected}>
-        <div each={group, group_id in groups}>
-            <af_selected each={value in group} if={!store.checkRange(parent.name, group_id)}></af_selected>
-            <af_selected_range group={group} name={parent.name} group_id={group_id} if={store.checkRange(parent.name, group_id)}></af_selected>
+<d_ajax_filter_selected class={empty ? 'empty-wrapper' : ''}>
+    <div class="selected-list clearfix" >
+        <div each={groups, name in store.getState().selected}>
+            <div each={group, group_id in groups}>
+                <af_selected each={value in group} if={!store.checkRange(parent.name, group_id)}></af_selected>
+                <af_selected_range group={group} name={parent.name} group_id={group_id} if={store.checkRange(parent.name, group_id)}></af_selected_range>
+            </div>
+        </div>
+        <div class="button-reset" id="resetFilter" onclick={click}>
+            <span></span><p>{store.getState().translate.button_reset}</p>
         </div>
     </div>
-    <div class="button-reset" id="resetFilter" onclick={click}>
-        <span></span><p>{store.getState().translate.button_reset}</p>
-    </div>
-</div>
 <script>
     this.mixin({store: d_ajax_filter})
 
@@ -18,8 +18,16 @@
     } else {
         var result = true
         _.each(this.store.getState().selected, function (value) {
-            if(!_.isEmpty(value[0])){
+            if(!_.isEmpty(value)){
+              if (typeof value === 'object') {
+                for (const key in value) {
+                  if (!_.isEmpty(value[key])) {
+                    result = false
+                  }
+                }
+              } else {
                 result = false
+              }
             }
         }.bind(this))
 
@@ -36,8 +44,16 @@
         } else {
             var result = true
             _.each(this.store.getState().selected, function (value) {
-                if(!_.isEmpty(value[0])){
+                if(!_.isEmpty(value)){
+                  if (typeof value === 'object') {
+                    for (const key in value) {
+                      if (!_.isEmpty(value[key])) {
+                        result = false
+                      }
+                    }
+                  } else {
                     result = false
+                  }
                 }
             }.bind(this))
 

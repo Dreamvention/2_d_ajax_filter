@@ -212,7 +212,7 @@ function af() {
 
         if(filter_id){
             riot.update();
-            if(this.getSetting(filter_id).submission == '0'){
+            if(this.getSetting(filter_id) && this.getSetting(filter_id).submission == '0'){
                 this.updateContent();
             }
             if(target){
@@ -451,7 +451,7 @@ function af() {
             });
             if (this.getState().common_setting.display_selected_top == '1') {
                 if($('d_ajax_filter_selected').size() == 0) {
-                    $(this.getState().common_setting.selected_path).before('<d_ajax_filter_selected id="af-selected-wrapper" class="empty-wrapper"></d_ajax_filter_selected>')
+                    $(this.getState().common_setting.selected_path).before('<d_ajax_filter_selected id="af-selected-wrapper"></d_ajax_filter_selected>')
                     riot.mount(document.getElementById('af-selected-wrapper'))
                 }
             }

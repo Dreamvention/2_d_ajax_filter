@@ -120,7 +120,7 @@
     $(document).ready(function(){
         if (d_ajax_filter.getState().common_setting.display_selected_top == '1') {
             if($('d_ajax_filter_selected').size() == 0) {
-                $(d_ajax_filter.getState().common_setting.selected_path).before('<d_ajax_filter_selected id="af-selected-wrapper" class="empty-wrapper"></d_ajax_filter_selected>')
+                $(d_ajax_filter.getState().common_setting.selected_path).before('<d_ajax_filter_selected id="af-selected-wrapper"></d_ajax_filter_selected>')
                 riot.mount(document.getElementById('af-selected-wrapper'))
             }
         }
