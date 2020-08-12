@@ -112,7 +112,7 @@ function af() {
         if(typeof this.views != 'undefined' &&
             typeof this.views[filter_id] != 'undefined' &&
             typeof this.views[filter_id][name] != 'undefined' &&
-            this.views[filter_id][name].indexOf(group_id) != -1) 
+            this.views[filter_id][name].indexOf(group_id) != -1)
         {
             result = true;
         }
@@ -173,6 +173,8 @@ function af() {
         if(filter_id){
             if(this.getSetting(filter_id).submission == '0'){
                 this.updateContent();
+            } else if (this.getState().common_setting.mobile) {
+                this.updateContent();
             }
         }
         if(target){
@@ -230,7 +232,7 @@ function af() {
         if (filter_id == 'af-selected-wrapper') {
             filter_id = _.keys(this.groups)[0]
         }
-        
+
         this.state.selected = {};
 
         if(filter_id){
@@ -310,7 +312,7 @@ function af() {
         var result = 0;
         if(typeof this.getState().quantity != 'undefined' &&
             typeof this.getState().quantity[name] != 'undefined' &&
-            typeof this.getState().quantity[name][group_id] != 'undefined' && 
+            typeof this.getState().quantity[name][group_id] != 'undefined' &&
             typeof this.getState().quantity[name][group_id][value] != 'undefined')
         {
             result = this.getState().quantity[name][group_id][value];
@@ -394,7 +396,7 @@ function af() {
                     if (this.getState().common_setting.content_path != '') {
                         $(this.getState().common_setting.content_path + " > :not(af_loader)").fadeTo('slow', 0.5);
                     }
-                    
+
                 }
             },
             success: function(json) {
