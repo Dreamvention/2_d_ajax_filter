@@ -1,6 +1,6 @@
 {
   "codename": "d_ajax_filter",
-  "version": "2.1.18",
+  "version": "2.1.19",
   "name": "Ajax Filter",
   "description": "Ajax Filter",
   "index": "extension/module/d_ajax_filter",
@@ -103,6 +103,10 @@
     "catalog/view/theme/default/template/extension/d_ajax_filter"
   ],
   "changelog": [
+    {
+      "version": "2.1.19",
+      "change": "Fix bug"
+    },
     {
       "version": "2.1.18",
       "change": "Added update content on mobile for button click mode"
