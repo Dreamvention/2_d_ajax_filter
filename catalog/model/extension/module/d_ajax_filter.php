@@ -770,15 +770,33 @@ class ModelExtensionModuleDAjaxFilter extends Model
     }
 
     public function getRiotTags(){
+        if (in_array($this->config->get('config_theme'), array('theme_default', 'default'))) {
+            $this->theme = $this->config->get('theme_default_directory');
+        } else {
+            $this->theme = $this->config->get('config_theme');
+        }
+
+        if (!$this->theme) {
+            $this->theme = $this->config->get('config_template');
+        }
+
         $result = array();
         $files = glob(DIR_APPLICATION . 'view/theme/default/template/extension/d_ajax_filter/component/*.tag', GLOB_BRACE);
         foreach($files as $file){
-            $result[] = 'catalog/view/theme/default/template/extension/d_ajax_filter/component/'.basename($file).'?'.rand();
+            if (file_exists(DIR_TEMPLATE . $this->theme . '/template/extension/d_ajax_filter/component/'.basename($file))) {
+                $result[] = 'catalog/view/theme/' . $this->theme . '/template/extension/d_ajax_filter/component/'.basename($file) . '?'. rand();
+            } else {
+                $result[] = 'catalog/view/theme/default/template/extension/d_ajax_filter/component/'.basename($file). '?'. rand();
+            }
         }
         
         $files = glob(DIR_APPLICATION . 'view/theme/default/template/extension/d_ajax_filter/group/*.tag', GLOB_BRACE);
         foreach($files as $file){
-            $result[] = 'catalog/view/theme/default/template/extension/d_ajax_filter/group/'.basename($file).'?'.rand();
+            if (file_exists(DIR_TEMPLATE . $this->theme . '/template/extension/d_ajax_filter/group/'.basename($file))) {
+                $result[] = 'catalog/view/theme/' . $this->theme . '/template/extension/d_ajax_filter/group/'.basename($file) . '?'. rand();
+            } else {
+                $result[] = 'catalog/view/theme/default/template/extension/d_ajax_filter/group/'.basename($file). '?'. rand();
+            }
         }
         return $result;
     }

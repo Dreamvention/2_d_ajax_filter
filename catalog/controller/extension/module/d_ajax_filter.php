@@ -185,6 +185,10 @@ class ControllerExtensionModuleDAjaxFilter extends Controller
             }
         }
 
+        if (empty($data['groups'])) {
+            return;
+        }
+
         $data['custom_style'] = html_entity_decode($setting['custom_style'], ENT_QUOTES, 'UTF-8');
         $data['custom_script'] = html_entity_decode($this->common_setting['custom_script'], ENT_QUOTES, 'UTF-8');
 

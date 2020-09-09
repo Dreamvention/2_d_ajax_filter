@@ -2,7 +2,7 @@
 
 <div class="title">
     <div class="title">
-        <div class="button-reset" if={store.getSetting(opts.id).button_reset == '1'} id="resetFilter" onclick={click}>
+        <div class="button-reset" if={store.getSetting(opts.id).button_reset == '1' && !_.isEmpty(store.getState().selected)} id="resetFilter" onclick={click}>
             <span></span><p>{store.getState().translate.button_reset}</p>
         </div>
         {store.getSetting(opts.id).heading_title}
