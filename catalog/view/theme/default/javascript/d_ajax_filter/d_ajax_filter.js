@@ -167,6 +167,13 @@ function af() {
 
                 var index = this.state.selected[name][group_id].indexOf(value);
                 this.state.selected[name][group_id].splice(index, 1);
+                if(_.isEmpty(this.state.selected[name][group_id])) {
+                    delete this.state.selected[name][group_id]
+                }
+                if(_.isEmpty(this.state.selected[name])) {
+                    delete this.state.selected[name]
+                }
+
             }
         }
         riot.update();
@@ -210,6 +217,9 @@ function af() {
 
         if(typeof this.state.selected[name] != "undefined" && typeof this.state.selected[name][group_id] != "undefined"){
             delete this.state.selected[name][group_id];
+            if(_.isEmpty(this.state.selected[name])) {
+                delete this.state.selected[name]
+            }
         }
 
         if(filter_id){

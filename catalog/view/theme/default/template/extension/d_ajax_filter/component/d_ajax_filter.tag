@@ -1,6 +1,7 @@
 <d_ajax_filter>
 
 <div class="title">
+    {JSON.stringify(store.getState().selected)}
     <div class="title">
         <div class="button-reset" if={store.getSetting(opts.id).button_reset == '1' && !_.isEmpty(store.getState().selected)} id="resetFilter" onclick={click}>
             <span></span><p>{store.getState().translate.button_reset}</p>
