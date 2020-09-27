@@ -1,6 +1,6 @@
 {
   "codename": "d_ajax_filter",
-  "version": "2.1.20",
+  "version": "2.1.21",
   "name": "Ajax Filter",
   "description": "Ajax Filter",
   "index": "extension/module/d_ajax_filter",
@@ -103,6 +103,10 @@
     "catalog/view/theme/default/template/extension/d_ajax_filter"
   ],
   "changelog": [
+    {
+      "version": "2.1.21",
+      "change": "Fix bug with collapse animate"
+    },
     {
       "version": "2.1.20",
       "change": "Fix bug"
