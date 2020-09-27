@@ -13,7 +13,7 @@
     this.mixin({store: d_ajax_filter})
     this.on('mount', function(){
         var setting = this.store.getSetting(opts.filter_id)
-        $(".af-elements", this.root).mCustomScrollbar({
+       $(".af-wrapper", this.root).mCustomScrollbar({
             axis:"y",
             theme: setting.theme_scrollbar
         });
