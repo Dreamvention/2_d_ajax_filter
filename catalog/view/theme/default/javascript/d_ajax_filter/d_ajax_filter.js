@@ -146,6 +146,7 @@ function af() {
     this.updateSelected = function(name, group_id, value, checked, filter_id, target){
         filter_id = typeof filter_id !== 'undefined' ? filter_id : null;
         target = typeof target !== 'undefined' ? target : null;
+
         if (filter_id == 'af-selected-wrapper') {
             filter_id = _.keys(this.groups)[0]
         }
@@ -184,8 +185,16 @@ function af() {
                 this.updateContent();
             }
         }
+
         if(target){
-            var position = $(target).closest('.af-element').get(0).offsetTop;
+            var position = $(target).closest('.af-wrapper').get(0).offsetTop;
+            position += $(target).closest('.af-element').get(0).offsetTop;
+            if ($(target).closest('.af-wrapper').hasClass('mCustomScrollbar')) {
+                if ($(target).closest('.af-element').get(0).offsetTop > $(target).closest('.af-wrapper').children().get(0).offsetHeight)  {
+                    position += $(target).closest('.af-element').get(0).offsetParent.offsetTop
+                }
+            }
+            
             position += $(target).closest('.af-element').get(0).offsetHeight/2;
             $(target).closest('.ajax-filter').trigger('change-location', Math.round(position));
         }
@@ -212,8 +221,16 @@ function af() {
     }
 
     this.clearSelected = function(name, group_id, filter_id, target){
+        console.log('clearSelected')
         filter_id = typeof filter_id !== 'undefined' ? filter_id : null;
         target = typeof target !== 'undefined' ? target : null;
+        var position = 0
+        var rootFilter = null
+        if (target) {
+            position = $(target).closest('.af-element').get(0).offsetTop;
+            position += $(target).closest('.af-element').get(0).offsetHeight/2;
+            rootFilter = $(target).closest('.ajax-filter')
+        }
 
         if(typeof this.state.selected[name] != "undefined" && typeof this.state.selected[name][group_id] != "undefined"){
             delete this.state.selected[name][group_id];
@@ -221,16 +238,13 @@ function af() {
                 delete this.state.selected[name]
             }
         }
-
         if(filter_id){
             riot.update();
             if(this.getSetting(filter_id) && this.getSetting(filter_id).submission == '0'){
                 this.updateContent();
             }
-            if(target){
-                var position = $(target).closest('.af-element').get(0).offsetTop;
-                position += $(target).closest('.af-element').get(0).offsetHeight/2;
-                $(target).closest('.ajax-filter').trigger('change-location', Math.round(position));
+            if(rootFilter){
+                rootFilter.trigger('change-location', Math.round(position));
             }
         }
     }
@@ -238,6 +252,19 @@ function af() {
     this.clearSelectedAll = function(filter_id, target){
         filter_id = typeof filter_id !== 'undefined' ? filter_id : null;
         target = typeof target !== 'undefined' ? target : null;
+        var filterRoot
+        if (target){
+            var position = 0;
+            if($(target).closest('.af-element') > 0){
+                position = $(target).closest('.af-element').get(0).offsetTop;
+                position += $(target).closest('.af-element').get(0).offsetHeight/2;
+            }
+            else {
+                position = $(target).closest('.title').get(0).offsetTop;
+                position += $(target).closest('.title').get(0).offsetHeight/2;
+            }
+            filterRoot = $(target).closest('.ajax-filter')
+        }
 
         if (filter_id == 'af-selected-wrapper') {
             filter_id = _.keys(this.groups)[0]
@@ -250,17 +277,8 @@ function af() {
             if(this.getSetting(filter_id).submission == '0'){
                 this.updateContent();
             }
-            if(target){
-                var position = 0;
-                if($(target).closest('.af-element') > 0){
-                    position = $(target).closest('.af-element').get(0).offsetTop;
-                    position += $(target).closest('.af-element').get(0).offsetHeight/2;
-                }
-                else{
-                    position = $(target).closest('.title').get(0).offsetTop;
-                    position += $(target).closest('.title').get(0).offsetHeight/2;
-                }
-                $(target).closest('.ajax-filter').trigger('change-location', Math.round(position));
+            if(filterRoot){
+                filterRoot.trigger('change-location', Math.round(position));
             }
         }
     }
