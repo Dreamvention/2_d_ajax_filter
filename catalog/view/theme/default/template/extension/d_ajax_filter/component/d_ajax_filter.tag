@@ -23,9 +23,9 @@
     <virtual each={groups, name in store.getGroups(opts.id)}>
         <af_group each={filter in groups} filter_id="{parent.parent.opts.id}"></af_group>
     </virtual>
-    <div if={store.getSetting(opts.id).submission == '1'} class="af-button-filter {store.getSetting(opts.id).button_filter_position == 1?'af-popup':''}">
+    <div if={store.getSetting(opts.id).submission == '1'} class="af-button-filter {!store.getSetting(opts.id).mobile && store.getSetting(opts.id).button_filter_position == 1?'af-popup':''}">
         <a id="fitlers" onclick={filter_click}>{store.getState().translate.button_filter}</a>
-        <div if={store.getSetting(opts.id).button_filter_position == 1} class="close">
+        <div if={store.getSetting(opts.id).button_filter_position == 1&& !store.getSetting(opts.id).mobile} class="close">
             <i class="fa fa-times-circle-o" onclick="$(this).closest('.af-button-filter').css('display','none')" aria-hidden="true"></i>
         </div>
     </div>
@@ -40,7 +40,7 @@
         this.store.updateContent();
     }
 
-    if(this.store.getSetting(opts.id).submission == '1' && this.store.getSetting(opts.id).button_filter_position == '1'){
+    if(this.store.getSetting(opts.id).submission == '1' && this.store.getSetting(opts.id).button_filter_position == '1' && !this.store.getSetting(opts.id).mobile){
         $(this.root).on('change-location', function(e, top){
             var position_top = top - Math.round($('.af-button-filter.af-popup', this.root).outerHeight(true) / 2); 
             $('.af-button-filter.af-popup', this.root).css({top:position_top});
