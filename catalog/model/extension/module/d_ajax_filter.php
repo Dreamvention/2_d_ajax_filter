@@ -33,7 +33,6 @@ class ModelExtensionModuleDAjaxFilter extends Model
     }
     
     public function prepareTable($data){
-
         if(!$this->tmp_table_status){
             $this->db->query("CREATE TEMPORARY TABLE IF NOT EXISTS `".DB_PREFIX."af_tax_fixed` (PRIMARY KEY (`tax_class_id`)) AS (".$this->getTax('F').")");
 
@@ -738,13 +737,13 @@ class ModelExtensionModuleDAjaxFilter extends Model
 
     public function prepareAjaxFilterForTotal($data, $sql){
         $filter_data = $this->getFitlerData();
-        
+
         if(isset($filter_data['filter_category_id']) && isset($data['filter_category_id'])){
             if($filter_data['filter_category_id'] != $data['filter_category_id']){
                 return $sql;
             }
         }
-        elseif(isset($data['filter_category_id']) && !isset($this->request->get['path'])){
+        elseif(isset($data['filter_category_id']) && !isset($data['filter_name']) && !isset($this->request->get['path'])){
             return $sql;
         }
         $this->prepareTable($data);
@@ -752,7 +751,6 @@ class ModelExtensionModuleDAjaxFilter extends Model
         $sql = "SELECT count(p.product_id) as total 
         FROM (".$total_query.") aft
         INNER JOIN `".DB_PREFIX."product` p ON aft.product_id = p.product_id";
-
         $params = $this->getParamsToArray();
 
         if (!empty($params)) {
