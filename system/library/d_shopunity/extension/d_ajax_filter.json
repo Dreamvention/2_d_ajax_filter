@@ -104,7 +104,7 @@
   ],
   "changelog": [
     {
-      "version": "2.1.21",
+      "version": "2.1.22",
       "change": "Fix bug with paginate on search page"
     },
     {
