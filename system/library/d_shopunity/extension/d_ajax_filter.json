@@ -104,6 +104,10 @@
   ],
   "changelog": [
     {
+      "version": "2.1.23",
+      "change": "Added support Journal 3"
+    },
+    {
       "version": "2.1.22",
       "change": "Fix bug with paginate on search page"
     },

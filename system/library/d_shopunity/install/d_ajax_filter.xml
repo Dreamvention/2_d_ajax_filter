@@ -3,6 +3,34 @@
     <code>d_ajax_filter</code>
     <version>1.1.6</version>
     <author>Dreamvention.com</author>
+    <file path="catalog/model/journal3/filter.php">
+        <operation>
+            <search><![CDATA[return $this->dbQuery($sql, 'PRODUCTS')->rows;]]></search>
+            <add position="before">
+                <![CDATA[
+                if(in_array(__FUNCTION__, array('getProductIds'))){
+                    //d_ajax_filter
+                    $this->load->model('extension/module/d_ajax_filter');
+                    $sql = $this->model_extension_module_d_ajax_filter->prepareAjaxFilter($filter_data, $sql);
+                    //d_ajax_filter
+                }
+                ]]>
+            </add>
+        </operation>
+         <operation>
+            <search><![CDATA[return $this->dbQuery($sql, 'TOTAL_PRODUCTS')->row['total'];]]></search>
+            <add position="before">
+                <![CDATA[
+                if(in_array(__FUNCTION__, array('getTotalProducts'))){
+                    //d_ajax_filter
+                    $this->load->model('extension/module/d_ajax_filter');
+                    $sql = $this->model_extension_module_d_ajax_filter->prepareAjaxFilterForTotal(static::$filter_data, $sql);
+                    //d_ajax_filter
+                }
+                ]]>
+            </add>
+        </operation>
+    </file>
     <file path="catalog/model/catalog/product.php">
         <operation>
             <search><![CDATA[$query = $this->db->query($sql);]]></search>
