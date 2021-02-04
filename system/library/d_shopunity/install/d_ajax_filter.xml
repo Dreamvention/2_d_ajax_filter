@@ -31,6 +31,14 @@
             </add>
         </operation>
     </file>
+    <file path="catalog/controller/journal3/layout.php">
+        <operation>
+            <search><![CDATA[if (Arr::get($module, 'item.type') !== 'filter') {]]></search>
+            <add position="replace">
+                <![CDATA[if (Arr::get($module, 'item.type') !== 'filter' && strpos(Arr::get($module, 'item.id'), 'd_ajax_filter') === false) {]]>
+            </add>
+        </operation>
+    </file>
     <file path="catalog/model/catalog/product.php">
         <operation>
             <search><![CDATA[$query = $this->db->query($sql);]]></search>

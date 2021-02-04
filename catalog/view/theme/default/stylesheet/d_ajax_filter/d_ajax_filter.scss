@@ -131,6 +131,7 @@ d_ajax_filter_selected{
     // z-index:100;
     &.modal
     {
+        z-index: 1050!important;
         background: #fff;
         > .title
         {
