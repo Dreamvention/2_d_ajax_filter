@@ -3,6 +3,7 @@
 class ControllerExtensionModuleDAjaxFilter extends Controller
 {
     protected $codename = 'd_ajax_filter';
+
     protected $route_url = 'extension/module/d_ajax_filter';
 
     private $route = 'extension/module/d_ajax_filter';
