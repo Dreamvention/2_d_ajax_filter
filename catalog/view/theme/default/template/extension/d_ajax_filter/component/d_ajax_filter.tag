@@ -1,5 +1,5 @@
 <d_ajax_filter>
-
+<button type="button" class="button-close" data-dismiss="modal" aria-hidden="true"><i class="fa fal fa-close"></i></button>
 <div class="title">
     <div class="title">
         <div class="button-reset" if={store.getSetting(opts.id).button_reset == '1' && !_.isEmpty(store.getState().selected)} id="resetFilter" onclick={click}>

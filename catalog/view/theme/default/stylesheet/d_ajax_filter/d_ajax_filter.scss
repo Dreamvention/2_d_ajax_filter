@@ -6,6 +6,7 @@ d_ajax_filter_selected{
     display: block;
     border: 1px solid #d5d5d5;
     margin-bottom: 20px;
+    color: yellow;
     padding-top: 10px;
     &.empty-wrapper {
         display: none;
@@ -131,16 +132,47 @@ d_ajax_filter_selected{
     // z-index:100;
     &.modal
     {
+        .modal-dialog {
+			max-width: 34.7rem;
+			min-height: 100%;
+			padding: 3rem 2rem !important;
+			background: #fff;
+		}
+		.button-close {
+			position: absolute;
+			display: flex;
+            justify-content: center;
+            align-items: center;
+			width: 5rem;
+			height: 5rem;
+			top: 0rem;
+			right: 0rem;
+			font-size: 2.5rem;
+			background: #F3F3F3;
+			color: #222222;
+			z-index: 2;
+            border: none;
+            &:active, &:hover, &:focus {
+                outline: none;
+                border: none;
+            }
+		}
         z-index: 1050!important;
         background: #fff;
-        > .title
-        {
-            display: none;
-        }
+        // > .title
+        // {
+        //     display: none;
+        // }
         .af-body {
             height: 100%;
         }
     }
+    .modal-dialog {
+		pointer-events: auto;
+	}
+	.button-close {
+		display: none;
+	}
     > .title
     {
         position: relative;
