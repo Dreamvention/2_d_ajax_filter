@@ -132,17 +132,29 @@ d_ajax_filter_selected{
     // z-index:100;
     &.modal
     {
-        .modal-dialog {
-			max-width: 34.7rem;
-			min-height: 100%;
-			padding: 3rem 2rem !important;
-			background: #fff;
-		}
+      margin-bottom: 0;
+      .title {
+        @media (max-width: 960px) {
+          margin-bottom: 0;
+        }
+      }
+      .modal-dialog {
+        max-width: 34.7rem;
+        min-height: 100%;
+        padding: 3rem 2rem !important;
+        background: #fff;
+      }
+    .button-reset {
+      @media (max-width: 960px) {
+        position: absolute;
+        right: 50px;
+      }
+    }
 		.button-close {
 			position: absolute;
 			display: flex;
-            justify-content: center;
-            align-items: center;
+      justify-content: center;
+      align-items: center;
 			width: 5rem;
 			height: 5rem;
 			top: 0rem;
@@ -151,11 +163,14 @@ d_ajax_filter_selected{
 			background: #F3F3F3;
 			color: #222222;
 			z-index: 2;
-            border: none;
-            &:active, &:hover, &:focus {
-                outline: none;
-                border: none;
-            }
+      border: none;
+      i {
+        font-size: 14px;
+      }
+      &:active, &:hover, &:focus {
+          outline: none;
+          border: none;
+      }
 		}
         z-index: 1050!important;
         background: #fff;
